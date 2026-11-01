@@ -1,549 +1,354 @@
 
 /* =========================================
    NOKHBA | نخبة
-   Main Application - Version 2.0
+   نظام المنتجات والبحث والمتاجر
    ========================================= */
 
-"use strict";
+const AMAZON_TAG = "ashrafdealseg-21";
 
-/* =========================================
-   1. بيانات المنتجات
-   ========================================= */
-
-const NOKHBA_PRODUCTS = [
-
+const AMAZON_PRODUCTS = [
   {
-    id: 1,
-    name: "ماوس Razer Viper V3 HyperSpeed",
-    description: "ماوس لاسلكي من Razer للاستخدام اليومي والألعاب.",
+    name: "Razer Viper V3 HyperSpeed",
     category: "electronics",
+    description: "ماوس ألعاب لاسلكي",
+    icon: "🖱️",
     store: "amazon",
     url: "https://amzn.to/3UQqfhT"
   },
-
   {
-    id: 2,
     name: "عطر Marina من Kamara",
-    description: "عطر Marina من Kamara لمحبي العطور المميزة.",
     category: "fashion",
+    description: "عطر للاستخدام اليومي",
+    icon: "🌸",
     store: "amazon",
     url: "https://amzn.to/4A2dtLZ"
   },
-
   {
-    id: 3,
-    name: "ساعة Oraimo Watch 6 OSW-807",
-    description: "ساعة ذكية من Oraimo للاستخدام اليومي.",
+    name: "Oraimo Watch 6 OSW-807",
     category: "electronics",
+    description: "ساعة ذكية",
+    icon: "⌚",
     store: "amazon",
     url: "https://amzn.to/4f3YHwf"
   },
-
   {
-    id: 4,
-    name: "سماعة Sony WH-CH520 البيضاء",
-    description: "سماعة رأس لاسلكية من Sony.",
+    name: "Sony WH-CH520",
     category: "electronics",
+    description: "سماعة رأس لاسلكية",
+    icon: "🎧",
     store: "amazon",
     url: "https://amzn.to/4zk6het"
   },
-
   {
-    id: 5,
-    name: "جراب GRABIST لهاتف Samsung Galaxy A16",
-    description: "جراب حماية لهاتف Samsung Galaxy A16.",
+    name: "GRABIST Case Samsung Galaxy A16",
     category: "electronics",
+    description: "جراب حماية للهاتف",
+    icon: "📱",
     store: "amazon",
     url: "https://amzn.to/4igWGyU"
   },
-
   {
-    id: 6,
-    name: "مكبر صوت Redragon GS511 RGB",
-    description: "مكبر صوت بتصميم RGB للاستخدام مع الكمبيوتر.",
+    name: "Redragon GS511 RGB",
     category: "electronics",
+    description: "سماعات كمبيوتر",
+    icon: "🔊",
     store: "amazon",
     url: "https://amzn.to/3UpuUab"
   },
-
   {
-    id: 7,
     name: "قلادة القلب من Julia Store",
-    description: "قلادة بتصميم القلب من Julia Store.",
     category: "fashion",
+    description: "إكسسوار نسائي",
+    icon: "💝",
     store: "amazon",
     url: "https://amzn.to/4yPpP9g"
   },
-
   {
-    id: 8,
-    name: "منظم كبسولات القهوة Simple Trending",
-    description: "منظم لتخزين كبسولات القهوة وترتيبها.",
+    name: "Simple Trending Coffee Organizer",
     category: "home",
+    description: "منظم كبسولات القهوة",
+    icon: "☕",
     store: "amazon",
     url: "https://amzn.to/3U1AdNa"
   },
-
   {
-    id: 9,
-    name: "فساتين Mirokitty الصيفية للنساء",
-    description: "فساتين صيفية من Mirokitty.",
+    name: "Mirokitty Summer Dresses",
     category: "fashion",
+    description: "فساتين صيفية",
+    icon: "👗",
     store: "amazon",
     url: "https://amzn.to/3UxkoOa"
   },
-
   {
-    id: 10,
-    name: "كتاب Assistant to the Villain",
-    description: "كتاب Assistant to the Villain لمحبي القراءة.",
+    name: "Assistant to the Villain",
     category: "featured",
+    description: "كتاب للقراءة",
+    icon: "📚",
     store: "amazon",
     url: "https://amzn.to/3UY9K3g"
   }
-
 ];
 
-
-/* =========================================
-   2. أسماء الأقسام والمتاجر
-   ========================================= */
-
-const CATEGORY_NAMES = {
-  all: "كل الأقسام",
-  electronics: "إلكترونيات",
-  home: "المنزل",
-  fashion: "الأزياء",
-  featured: "اختيارات مميزة"
-};
-
 const STORE_NAMES = {
-  all: "كل المتاجر",
   amazon: "أمازون مصر",
   noon: "نون",
   jumia: "جوميا"
 };
 
-
-/* =========================================
-   3. أدوات مساعدة
-   ========================================= */
+const CATEGORY_NAMES = {
+  electronics: "إلكترونيات",
+  home: "المنزل",
+  fashion: "الأزياء",
+  cars: "السيارات",
+  daily: "مستلزمات يومية",
+  featured: "اختيارات مميزة"
+};
 
 function normalizeArabic(value) {
-
   return String(value || "")
     .toLowerCase()
     .normalize("NFKC")
-    .replace(/[ًٌٍَُِّْـ]/g, "")
+    .replace(/[\u064B-\u065F\u0670]/g, "")
+    .replace(/\u0640/g, "")
     .replace(/[أإآ]/g, "ا")
     .replace(/ى/g, "ي")
     .replace(/ة/g, "ه")
     .trim();
 }
 
-
-function isValidProduct(product) {
-
-  if (!product || typeof product !== "object") {
-    return false;
+/* إنشاء روابط البحث في المتاجر */
+function getStoreUrl(product, store) {
+  if (store === "amazon") {
+    return product.store === "amazon" ? product.url : null;
   }
 
-  if (!product.name || !product.url) {
-    return false;
+  if (!product.search) return null;
+
+  const query = encodeURIComponent(product.search);
+
+  if (store === "noon") {
+    return "https://www.noon.com/egypt-en/search/?q=" + query;
   }
+
+  if (store === "jumia") {
+    return "https://www.jumia.com.eg/catalog/?q=" + query;
+  }
+
+  return null;
+}
+
+/* التحقق من الروابط */
+function isSafeProductUrl(url, store) {
+  if (!url) return false;
 
   try {
+    const parsed = new URL(url);
 
-    const parsedUrl = new URL(product.url);
+    if (parsed.protocol !== "https:") return false;
 
-    return (
-      parsedUrl.protocol === "https:" &&
-      ["amazon"].includes(product.store)
-    );
+    const host = parsed.hostname.toLowerCase();
 
-  } catch (error) {
+    if (store === "amazon") {
+      return host === "amzn.to" ||
+        host === "amazon.eg" ||
+        host.endsWith(".amazon.eg");
+    }
+
+    if (store === "noon") {
+      return host === "noon.com" ||
+        host.endsWith(".noon.com");
+    }
+
+    if (store === "jumia") {
+      return host === "jumia.com.eg" ||
+        host.endsWith(".jumia.com.eg");
+    }
 
     return false;
-
+  } catch {
+    return false;
   }
-
 }
 
-
-function createElement(tag, className, text) {
-
-  const element = document.createElement(tag);
-
-  if (className) {
-    element.className = className;
+function isValidProduct(product) {
+  if (!product || !product.name || !product.category) {
+    return false;
   }
 
-  if (text !== undefined) {
-    element.textContent = text;
+  if (product.store === "amazon") {
+    return isSafeProductUrl(product.url, "amazon");
   }
 
-  return element;
-
+  return Boolean(product.search);
 }
 
+/* دمج المنتجات القديمة والجديدة */
+function getAllProducts() {
+  const extraProducts = Array.isArray(window.NOKHBA_EXTRA_PRODUCTS)
+    ? window.NOKHBA_EXTRA_PRODUCTS
+    : [];
 
-/* =========================================
-   4. عناصر الصفحة
-   ========================================= */
+  const newProducts = extraProducts.map(product => ({
+    ...product,
+    store: "multi"
+  }));
 
-let productsContainer;
-let searchInput;
-let categoryFilter;
-let storeFilter;
-let resultsCounter;
-
-
-/* =========================================
-   5. قائمة الهاتف
-   ========================================= */
-
-function setupMobileMenu() {
-
-  const menuBtn = document.getElementById("menuBtn");
-  const mainNav = document.getElementById("mainNav");
-
-  if (!menuBtn || !mainNav) {
-    return;
-  }
-
-  menuBtn.addEventListener("click", () => {
-
-    const isOpen = mainNav.classList.toggle("open");
-
-    menuBtn.setAttribute(
-      "aria-expanded",
-      String(isOpen)
-    );
-
-  });
-
-  mainNav.querySelectorAll("a").forEach(link => {
-
-    link.addEventListener("click", () => {
-
-      mainNav.classList.remove("open");
-
-      menuBtn.setAttribute("aria-expanded", "false");
-
-    });
-
-  });
-
-  document.addEventListener("keydown", event => {
-
-    if (event.key === "Escape") {
-
-      mainNav.classList.remove("open");
-
-      menuBtn.setAttribute("aria-expanded", "false");
-
-    }
-
-  });
-
+  return [...AMAZON_PRODUCTS, ...newProducts].filter(isValidProduct);
 }
 
+const NOKHBA_PRODUCTS = getAllProducts();
 
-/* =========================================
-   6. عداد النتائج
-   ========================================= */
-
-function setupResultsCounter() {
-
-  if (!productsContainer) {
-    return;
+/* التحقق من وجود المنتج في المتجر */
+function productHasStore(product, store) {
+  if (store === "all") {
+    return true;
   }
 
-  resultsCounter = document.getElementById("resultsCounter");
+  const url = getStoreUrl(product, store);
 
-  if (!resultsCounter) {
-
-    resultsCounter = createElement(
-      "p",
-      "results-counter"
-    );
-
-    resultsCounter.id = "resultsCounter";
-
-    productsContainer.parentNode.insertBefore(
-      resultsCounter,
-      productsContainer
-    );
-
-  }
-
+  return Boolean(url && isSafeProductUrl(url, store));
 }
 
-
-function updateResultsCounter(count) {
-
-  if (!resultsCounter) {
-    return;
-  }
-
-  resultsCounter.textContent =
-    "عدد المنتجات المعروضة: " + count;
-
-}
-
-
-/* =========================================
-   7. ضبط قائمة المتاجر
-   ========================================= */
-
+/* إعداد خيارات المتاجر */
 function setupStoreFilter() {
+  const storeFilter = document.getElementById("storeFilter");
 
-  if (!storeFilter) {
-    return;
-  }
-
-  const availableStores = [
-    ...new Set(
-      NOKHBA_PRODUCTS
-        .filter(isValidProduct)
-        .map(product => product.store)
-    )
-  ];
+  if (!storeFilter) return;
 
   Array.from(storeFilter.options).forEach(option => {
+    if (option.value === "all") return;
 
-    if (
-      option.value !== "all" &&
-      !availableStores.includes(option.value)
-    ) {
+    const available = NOKHBA_PRODUCTS.some(product =>
+      productHasStore(product, option.value)
+    );
 
-      option.remove();
-
-    }
-
+    option.hidden = !available;
+    option.disabled = !available;
   });
 
+  if (
+    storeFilter.value !== "all" &&
+    !NOKHBA_PRODUCTS.some(product =>
+      productHasStore(product, storeFilter.value)
+    )
+  ) {
+    storeFilter.value = "all";
+  }
 }
 
-
-/* =========================================
-   8. إعداد البحث والتصفية
-   ========================================= */
-
+/* البحث والفلاتر */
 function setupProductFilters() {
-
-  searchInput = document.getElementById("productSearch");
-
-  categoryFilter = document.getElementById("categoryFilter");
-
-  storeFilter = document.getElementById("storeFilter");
+  const searchInput = document.getElementById("productSearch");
+  const categoryFilter = document.getElementById("categoryFilter");
+  const storeFilter = document.getElementById("storeFilter");
 
   if (searchInput) {
-
     searchInput.addEventListener("input", renderProducts);
-
   }
 
   if (categoryFilter) {
-
     categoryFilter.addEventListener("change", renderProducts);
-
   }
 
   if (storeFilter) {
-
     storeFilter.addEventListener("change", renderProducts);
+  }
+}
 
+/* روابط الأقسام */
+function setupCategoryLinks() {
+  document.querySelectorAll("[data-category]").forEach(link => {
+    link.addEventListener("click", () => {
+      const categoryFilter =
+        document.getElementById("categoryFilter");
+
+      if (!categoryFilter) return;
+
+      categoryFilter.value = link.dataset.category;
+      renderProducts();
+    });
+  });
+}
+
+/* إنشاء أزرار المتاجر */
+function createStoreButton(product, store) {
+  const url = getStoreUrl(product, store);
+
+  if (!url || !isSafeProductUrl(url, store)) {
+    return null;
   }
 
+  const link = document.createElement("a");
+
+  link.className = "product-button";
+  link.href = url;
+  link.target = "_blank";
+  link.rel = "nofollow sponsored noopener noreferrer";
+
+  link.textContent = "عرض في " + STORE_NAMES[store];
+
+  return link;
 }
 
+/* إنشاء بطاقة المنتج */
+function createProductCard(product) {
+  const card = document.createElement("article");
+  card.className = "product-card";
 
-/* =========================================
-   9. روابط الأقسام
-   ========================================= */
+  const image = document.createElement("div");
+  image.className = "product-image";
+  image.textContent = product.icon || "🛍️";
+  image.setAttribute("aria-hidden", "true");
 
-function setupCategoryLinks() {
+  const info = document.createElement("div");
+  info.className = "product-info";
 
-  const categoryLinks = document.querySelectorAll(
-    "[data-category]"
-  );
+  const name = document.createElement("h3");
+  name.className = "product-name";
+  name.textContent = product.name;
 
-  categoryLinks.forEach(link => {
+  const description = document.createElement("p");
+  description.className = "product-description";
+  description.textContent = product.description || "";
 
-    link.addEventListener("click", () => {
+  const category = document.createElement("span");
+  category.className = "product-category";
+  category.textContent =
+    CATEGORY_NAMES[product.category] || "منتجات متنوعة";
 
-      const category = link.dataset.category;
+  const buttons = document.createElement("div");
+  buttons.className = "product-store-buttons";
 
-      if (categoryFilter) {
+  ["amazon", "noon", "jumia"].forEach(store => {
+    const button = createStoreButton(product, store);
 
-        categoryFilter.value = category;
-
-        renderProducts();
-
-      }
-
-    });
-
+    if (button) {
+      buttons.appendChild(button);
+    }
   });
 
-}
+  const note = document.createElement("small");
+  note.className = "product-note";
+  note.textContent =
+    "تحقق من السعر والتوافر وتفاصيل المنتج في المتجر قبل الشراء.";
 
+  info.appendChild(name);
+  info.appendChild(description);
+  info.appendChild(category);
+  info.appendChild(buttons);
+  info.appendChild(note);
 
-/* =========================================
-   10. إنشاء صورة بديلة
-   ========================================= */
-
-function createProductImage(product) {
-
-  const wrapper = createElement(
-    "div",
-    "product-image-fallback"
-  );
-
-  wrapper.setAttribute("role", "img");
-
-  wrapper.setAttribute(
-    "aria-label",
-    "الصورة غير متوفرة حاليًا للمنتج: " + product.name
-  );
-
-  const label = createElement(
-    "span",
-    "",
-    "NOKHBA"
-  );
-
-  wrapper.appendChild(label);
-
-  return wrapper;
-
-}
-
-
-/* =========================================
-   11. إنشاء بطاقة المنتج
-   ========================================= */
-
-function createProductCard(product) {
-
-  const card = createElement(
-    "article",
-    "product-card"
-  );
-
-  card.dataset.productId = product.id;
-
-  const imageArea = createProductImage(product);
-
-  card.appendChild(imageArea);
-
-
-  const content = createElement(
-    "div",
-    "product-content"
-  );
-
-
-  const category = createElement(
-    "span",
-    "product-category",
-    CATEGORY_NAMES[product.category] || "منتج"
-  );
-
-  content.appendChild(category);
-
-
-  const title = createElement(
-    "h3",
-    "product-title",
-    product.name
-  );
-
-  content.appendChild(title);
-
-
-  const description = createElement(
-    "p",
-    "product-description",
-    product.description || "اكتشف تفاصيل المنتج لدى المتجر."
-  );
-
-  content.appendChild(description);
-
-
-  const store = createElement(
-    "p",
-    "product-store",
-    "المتجر: " + (STORE_NAMES[product.store] || product.store)
-  );
-
-  content.appendChild(store);
-
-
-  const button = createElement(
-    "a",
-    "product-link",
-    "عرض المنتج في أمازون"
-  );
-
-  button.href = product.url;
-
-  button.target = "_blank";
-
-  button.rel = "nofollow sponsored noopener noreferrer";
-
-  button.setAttribute(
-    "aria-label",
-    "عرض " + product.name + " في أمازون"
-  );
-
-  content.appendChild(button);
-
-  card.appendChild(content);
+  card.appendChild(image);
+  card.appendChild(info);
 
   return card;
-
 }
 
-
-/* =========================================
-   12. رسالة عدم وجود نتائج
-   ========================================= */
-
-function showEmptyState() {
-
-  const empty = createElement(
-    "div",
-    "empty-state"
-  );
-
-  const title = createElement(
-    "h3",
-    "",
-    "لم نعثر على منتجات مطابقة"
-  );
-
-  const message = createElement(
-    "p",
-    "",
-    "جرّب تغيير كلمة البحث أو اختيار قسم آخر."
-  );
-
-  empty.appendChild(title);
-
-  empty.appendChild(message);
-
-  productsContainer.appendChild(empty);
-
-}
-
-
-/* =========================================
-   13. تصفية المنتجات
-   ========================================= */
-
+/* تصفية المنتجات */
 function getFilteredProducts() {
+  const searchInput = document.getElementById("productSearch");
+  const categoryFilter = document.getElementById("categoryFilter");
+  const storeFilter = document.getElementById("storeFilter");
 
   const searchTerm = normalizeArabic(
     searchInput ? searchInput.value : ""
@@ -557,157 +362,94 @@ function getFilteredProducts() {
     ? storeFilter.value
     : "all";
 
-
   return NOKHBA_PRODUCTS.filter(product => {
+    const searchableText = normalizeArabic([
+      product.name,
+      product.description,
+      product.search,
+      CATEGORY_NAMES[product.category]
+    ].join(" "));
 
-    if (!isValidProduct(product)) {
-      return false;
-    }
+    const matchesSearch =
+      !searchTerm || searchableText.includes(searchTerm);
 
     const matchesCategory =
       selectedCategory === "all" ||
       product.category === selectedCategory;
 
     const matchesStore =
-      selectedStore === "all" ||
-      product.store === selectedStore;
+      productHasStore(product, selectedStore);
 
-    const searchableText = normalizeArabic(
-      product.name + " " +
-      product.description + " " +
-      (CATEGORY_NAMES[product.category] || "") + " " +
-      (STORE_NAMES[product.store] || "")
-    );
-
-    const matchesSearch =
-      !searchTerm ||
-      searchableText.includes(searchTerm);
-
-    return (
-      matchesCategory &&
-      matchesStore &&
-      matchesSearch
-    );
-
+    return matchesSearch && matchesCategory && matchesStore;
   });
-
 }
 
-
-/* =========================================
-   14. عرض المنتجات
-   ========================================= */
-
+/* عرض المنتجات */
 function renderProducts() {
+  const productsContainer = document.getElementById("products");
 
-  if (!productsContainer) {
-    return;
-  }
+  if (!productsContainer) return;
+
+  const products = getFilteredProducts();
 
   productsContainer.replaceChildren();
 
-  const filteredProducts = getFilteredProducts();
-
-  updateResultsCounter(filteredProducts.length);
-
-  if (filteredProducts.length === 0) {
-
-    showEmptyState();
-
-    return;
-
-  }
-
-  filteredProducts.forEach(product => {
-
-    const card = createProductCard(product);
-
-    productsContainer.appendChild(card);
-
-  });
-
-}
-
-
-/* =========================================
-   15. تسجيل PWA
-   ========================================= */
-
-function registerServiceWorker() {
-
-  if (!("serviceWorker" in navigator)) {
-    return;
-  }
-
-  window.addEventListener("load", () => {
-
-    navigator.serviceWorker
-      .register("./service-worker.js")
-      .catch(error => {
-
-        console.warn(
-          "تعذر تسجيل Service Worker:",
-          error
-        );
-
-      });
-
-  });
-
-}
-
-
-/* =========================================
-   16. تشغيل التطبيق
-   ========================================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  productsContainer = document.getElementById("products");
-
-  if (!productsContainer) {
-
-    console.error(
-      "لم يتم العثور على عنصر المنتجات products"
+  products.forEach(product => {
+    productsContainer.appendChild(
+      createProductCard(product)
     );
+  });
 
-    return;
+  const resultCount = document.getElementById("resultCount");
 
+  if (resultCount) {
+    resultCount.textContent =
+      "عدد المنتجات: " + products.length;
   }
 
-  setupMobileMenu();
+  if (products.length === 0) {
+    const emptyMessage = document.createElement("p");
 
-  setupResultsCounter();
+    emptyMessage.className = "empty-state";
+    emptyMessage.textContent =
+      "لم نعثر على منتجات مطابقة. جرّب تغيير كلمات البحث أو الفلاتر.";
 
+    productsContainer.appendChild(emptyMessage);
+  }
+}
+
+/* الإفصاح عن التسويق بالعمولة */
+function setupAffiliateDisclosure() {
+  const disclosure = document.getElementById("affiliateNotice");
+
+  if (disclosure) {
+    disclosure.textContent =
+      "قد نحصل على عمولة من بعض عمليات الشراء المؤهلة عبر روابط أمازون، دون تكلفة إضافية عليك. روابط نون وجوميا هنا هي روابط بحث، ولا ندّعي وجود عمولة عليها.";
+  }
+}
+
+/* تشغيل الموقع */
+document.addEventListener("DOMContentLoaded", () => {
   setupStoreFilter();
-
   setupProductFilters();
-
   setupCategoryLinks();
-
+  setupAffiliateDisclosure();
   renderProducts();
 
-  registerServiceWorker();
-
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js")
+      .catch(error => {
+        console.log("Service Worker:", error);
+      });
+  }
 });
 
-
-/* =========================================
-   17. إتاحة وظائف التطبيق
-   ========================================= */
-
+/* إتاحة وظائف الموقع */
 window.NOKHBA = {
-
   products: NOKHBA_PRODUCTS,
-
-  renderProducts: renderProducts,
-
-  getFilteredProducts: getFilteredProducts,
-
-  normalizeArabic: normalizeArabic,
-
+  renderProducts,
+  getFilteredProducts,
+  normalizeArabic,
   stores: STORE_NAMES,
-
   categories: CATEGORY_NAMES
-
 };
