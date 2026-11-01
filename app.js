@@ -2,6 +2,12 @@
 (() => {
   "use strict";
 
+  // =====================================
+  // NOKHBA | نخبة
+  // Main Application - Version 2.1
+  // =====================================
+
+  // منتجات أمازون الأصلية التي أرسلها صاحب الموقع
   const AMAZON_PRODUCTS = [
     {
       name: "Razer Viper V3 HyperSpeed",
@@ -85,10 +91,12 @@
     }
   ];
 
+  // المنتجات الإضافية من ملف products-multi.js
   const EXTRA_PRODUCTS = Array.isArray(window.NOKHBA_EXTRA_PRODUCTS)
     ? window.NOKHBA_EXTRA_PRODUCTS
     : [];
 
+  // أسماء الأقسام
   const CATEGORY_NAMES = {
     electronics: "التقنية والإلكترونيات",
     home: "المنزل والمطبخ",
@@ -98,12 +106,14 @@
     daily: "احتياجات يومية"
   };
 
+  // أسماء المتاجر
   const STORE_NAMES = {
     amazon: "Amazon Egypt",
     noon: "Noon Egypt",
     jumia: "Jumia Egypt"
   };
 
+  // دمج المنتجات في قائمة واحدة
   const PRODUCTS = [
     ...AMAZON_PRODUCTS,
     ...EXTRA_PRODUCTS.map((product) => ({
@@ -112,6 +122,7 @@
     }))
   ];
 
+  // عناصر الصفحة
   const elements = {
     search: document.getElementById("productSearch"),
     category: document.getElementById("categoryFilter"),
@@ -121,6 +132,10 @@
     menuButton: document.getElementById("menuBtn"),
     nav: document.getElementById("mainNav")
   };
+
+  // =====================================
+  // تنظيف وتوحيد النصوص العربية
+  // =====================================
 
   function normalizeText(value) {
     return String(value || "")
@@ -133,6 +148,10 @@
       .replace(/[ـًٌٍَُِّْ]/g, "")
       .trim();
   }
+
+  // =====================================
+  // التحقق من الروابط الخارجية
+  // =====================================
 
   function safeExternalUrl(url) {
     try {
@@ -148,49 +167,89 @@
         "www.jumia.com.eg"
       ];
 
-      return parsed.protocol === "https:" &&
-        allowedHosts.includes(parsed.hostname);
-    } catch {
+      return (
+        parsed.protocol === "https:" &&
+        allowedHosts.includes(parsed.hostname)
+      );
+
+    } catch (error) {
       return false;
     }
   }
 
+  // =====================================
+  // إنشاء روابط المتاجر
+  // =====================================
+
   function getStoreUrl(product, store) {
+
+    // رابط أمازون المباشر للمنتجات المسجلة
     if (store === "amazon") {
-      return product.store === "amazon" ? product.url : "";
+      return product.store === "amazon"
+        ? product.url
+        : "";
     }
 
-    if (!product.search) return "";
+    // المنتجات الإضافية تستخدم البحث في المتجر
+    if (!product.search) {
+      return "";
+    }
 
     const query = encodeURIComponent(product.search);
 
     if (store === "noon") {
-      return `https://www.noon.com/egypt-en/search/?q=${query}`;
+      return (
+        "https://www.noon.com/egypt-en/search/?q=" +
+        query
+      );
     }
 
     if (store === "jumia") {
-      return `https://www.jumia.com.eg/catalog/?q=${query}`;
+      return (
+        "https://www.jumia.com.eg/catalog/?q=" +
+        query
+      );
     }
 
     return "";
   }
 
+  // =====================================
+  // فلتر المتاجر
+  // =====================================
+
   function productMatchesStore(product, selectedStore) {
-    if (selectedStore === "all") return true;
+
+    if (selectedStore === "all") {
+      return true;
+    }
 
     if (selectedStore === "amazon") {
       return product.store === "amazon";
     }
 
-    if (selectedStore === "noon" || selectedStore === "jumia") {
-      return product.store === "multi" && Boolean(product.search);
+    if (
+      selectedStore === "noon" ||
+      selectedStore === "jumia"
+    ) {
+      return (
+        product.store === "multi" &&
+        Boolean(product.search)
+      );
     }
 
     return false;
   }
 
+  // =====================================
+  // فلتر البحث
+  // =====================================
+
   function productMatchesSearch(product, query) {
-    if (!query) return true;
+
+    if (!query) {
+      return true;
+    }
 
     const searchable = normalizeText([
       product.name,
@@ -199,22 +258,41 @@
       CATEGORY_NAMES[product.category]
     ].join(" "));
 
-    return searchable.includes(normalizeText(query));
+    return searchable.includes(
+      normalizeText(query)
+    );
   }
 
+  // =====================================
+  // إنشاء عناصر HTML بأمان
+  // =====================================
+
   function createElement(tag, className, text) {
+
     const element = document.createElement(tag);
 
-    if (className) element.className = className;
-    if (text !== undefined) element.textContent = text;
+    if (className) {
+      element.className = className;
+    }
+
+    if (text !== undefined) {
+      element.textContent = text;
+    }
 
     return element;
   }
 
+  // =====================================
+  // إنشاء زر المتجر
+  // =====================================
+
   function createStoreButton(product, store) {
+
     const url = getStoreUrl(product, store);
 
-    if (!url || !safeExternalUrl(url)) return null;
+    if (!url || !safeExternalUrl(url)) {
+      return null;
+    }
 
     const labels = {
       amazon: "عرض المنتج في أمازون",
@@ -222,28 +300,60 @@
       jumia: "ابحث عنه في جوميا"
     };
 
-    const link = createElement("a", "product-button", labels[store]);
-    link.href = url;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    link.setAttribute("aria-label", `${labels[store]}: ${product.name}`);
+    const button = createElement(
+      "a",
+      "product-button",
+      labels[store]
+    );
 
-    return link;
+    button.href = url;
+    button.target = "_blank";
+    button.rel = "noopener noreferrer";
+
+    button.setAttribute(
+      "aria-label",
+      labels[store] + ": " + product.name
+    );
+
+    return button;
   }
 
-  function createProductCard(product) {
-    const card = createElement("article", "product-card");
+  // =====================================
+  // إنشاء بطاقة المنتج
+  // =====================================
 
+  function createProductCard(product) {
+
+    const card = createElement(
+      "article",
+      "product-card"
+    );
+
+    // صورة رمزية توضيحية وليست صورة المنتج الأصلية
     const image = createElement(
       "div",
       "product-image product-image-fallback",
       product.icon || "✧"
     );
+
     image.setAttribute("aria-hidden", "true");
 
-    const info = createElement("div", "product-info");
-    const title = createElement("h3", "", product.name);
-    const description = createElement("p", "", product.description || "");
+    const info = createElement(
+      "div",
+      "product-info"
+    );
+
+    const title = createElement(
+      "h3",
+      "",
+      product.name
+    );
+
+    const description = createElement(
+      "p",
+      "",
+      product.description || ""
+    );
 
     const category = createElement(
       "span",
@@ -251,53 +361,145 @@
       CATEGORY_NAMES[product.category] || "منتج متنوع"
     );
 
-    const buttons = createElement("div", "product-store-buttons");
+    const buttons = createElement(
+      "div",
+      "product-store-buttons"
+    );
 
+    // قراءة المتجر المحدد حاليًا
+    const selectedStore = elements.store
+      ? elements.store.value
+      : "all";
+
+    // منتجات أمازون
     if (product.store === "amazon") {
-      const amazonButton = createStoreButton(product, "amazon");
-      if (amazonButton) buttons.appendChild(amazonButton);
-    } else {
-      const noonButton = createStoreButton(product, "noon");
-      const jumiaButton = createStoreButton(product, "jumia");
 
-      if (noonButton) buttons.appendChild(noonButton);
-      if (jumiaButton) buttons.appendChild(jumiaButton);
+      const amazonButton = createStoreButton(
+        product,
+        "amazon"
+      );
+
+      if (amazonButton) {
+        buttons.appendChild(amazonButton);
+      }
+
+    } else {
+
+      // تحديد أزرار المتاجر حسب اختيار المستخدم
+      let storesToShow = [];
+
+      if (selectedStore === "all") {
+        storesToShow = ["noon", "jumia"];
+      } else if (
+        selectedStore === "noon" ||
+        selectedStore === "jumia"
+      ) {
+        storesToShow = [selectedStore];
+      }
+
+      storesToShow.forEach((store) => {
+
+        const storeButton = createStoreButton(
+          product,
+          store
+        );
+
+        if (storeButton) {
+          buttons.appendChild(storeButton);
+        }
+
+      });
     }
 
-    info.append(title, description, category, buttons);
-    card.append(image, info);
+    info.append(
+      title,
+      description,
+      category,
+      buttons
+    );
+
+    card.append(
+      image,
+      info
+    );
 
     return card;
   }
 
+  // =====================================
+  // الحصول على المنتجات بعد التصفية
+  // =====================================
+
   function getFilteredProducts() {
-    const query = elements.search ? elements.search.value : "";
-    const category = elements.category ? elements.category.value : "all";
-    const store = elements.store ? elements.store.value : "all";
+
+    const query = elements.search
+      ? elements.search.value
+      : "";
+
+    const category = elements.category
+      ? elements.category.value
+      : "all";
+
+    const store = elements.store
+      ? elements.store.value
+      : "all";
 
     return PRODUCTS.filter((product) => {
-      const categoryMatch =
-        category === "all" || product.category === category;
 
-      return categoryMatch &&
-        productMatchesStore(product, store) &&
+      const categoryMatch =
+        category === "all" ||
+        product.category === category;
+
+      const storeMatch =
+        productMatchesStore(product, store);
+
+      const searchMatch =
         productMatchesSearch(product, query);
+
+      return (
+        categoryMatch &&
+        storeMatch &&
+        searchMatch
+      );
+
     });
   }
 
+  // =====================================
+  // عرض المنتجات
+  // =====================================
+
   function renderProducts() {
-    if (!elements.products) return;
 
-    const filtered = getFilteredProducts();
-    elements.products.replaceChildren();
-
-    if (elements.count) {
-      elements.count.textContent = `عدد النتائج: ${filtered.length}`;
+    if (!elements.products) {
+      return;
     }
 
-    if (filtered.length === 0) {
-      const empty = createElement("div", "empty-state");
-      const icon = createElement("span", "", "✧");
+    const filteredProducts = getFilteredProducts();
+
+    // مسح البطاقات القديمة
+    elements.products.replaceChildren();
+
+    // تحديث عداد النتائج
+    if (elements.count) {
+      elements.count.textContent =
+        "عدد النتائج: " + filteredProducts.length;
+    }
+
+    // حالة عدم وجود نتائج
+    if (filteredProducts.length === 0) {
+
+      const empty = createElement(
+        "div",
+        "empty-state"
+      );
+
+      const icon = createElement(
+        "span",
+        "",
+        "✧"
+      );
+
       icon.setAttribute("aria-hidden", "true");
 
       const message = createElement(
@@ -312,101 +514,218 @@
         "جرّب تغيير كلمة البحث أو اختيار قسم أو متجر آخر."
       );
 
-      empty.append(icon, message, hint);
+      empty.append(
+        icon,
+        message,
+        hint
+      );
+
       elements.products.appendChild(empty);
+
       return;
     }
 
+    // إضافة البطاقات
     const fragment = document.createDocumentFragment();
 
-    filtered.forEach((product) => {
-      fragment.appendChild(createProductCard(product));
+    filteredProducts.forEach((product) => {
+
+      const card = createProductCard(product);
+
+      fragment.appendChild(card);
+
     });
 
     elements.products.appendChild(fragment);
   }
 
+  // =====================================
+  // تشغيل البحث والفلاتر
+  // =====================================
+
   function setupFilters() {
+
     if (elements.search) {
-      elements.search.addEventListener("input", renderProducts);
+      elements.search.addEventListener(
+        "input",
+        renderProducts
+      );
     }
 
     if (elements.category) {
-      elements.category.addEventListener("change", renderProducts);
+      elements.category.addEventListener(
+        "change",
+        renderProducts
+      );
     }
 
     if (elements.store) {
-      elements.store.addEventListener("change", renderProducts);
+      elements.store.addEventListener(
+        "change",
+        renderProducts
+      );
     }
 
-    document.querySelectorAll("[data-category]").forEach((card) => {
-      card.addEventListener("click", () => {
-        const category = card.getAttribute("data-category");
+    // الضغط على بطاقات الأقسام
+    document.querySelectorAll("[data-category]")
+      .forEach((card) => {
 
-        if (elements.category) {
-          elements.category.value = category;
-        }
+        card.addEventListener("click", () => {
 
-        renderProducts();
+          const category =
+            card.getAttribute("data-category");
+
+          if (elements.category) {
+            elements.category.value = category;
+          }
+
+          renderProducts();
+
+        });
+
       });
-    });
   }
+
+  // =====================================
+  // القائمة المتنقلة للهاتف
+  // =====================================
 
   function setupMobileMenu() {
-    if (!elements.menuButton || !elements.nav) return;
+
+    if (
+      !elements.menuButton ||
+      !elements.nav
+    ) {
+      return;
+    }
 
     function closeMenu() {
+
       elements.nav.classList.remove("open");
-      elements.menuButton.setAttribute("aria-expanded", "false");
-      elements.menuButton.setAttribute("aria-label", "فتح القائمة");
-    }
 
-    elements.menuButton.addEventListener("click", () => {
-      const isOpen = elements.nav.classList.toggle("open");
+      elements.menuButton.setAttribute(
+        "aria-expanded",
+        "false"
+      );
 
-      elements.menuButton.setAttribute("aria-expanded", String(isOpen));
       elements.menuButton.setAttribute(
         "aria-label",
-        isOpen ? "إغلاق القائمة" : "فتح القائمة"
+        "فتح القائمة"
       );
-    });
+    }
 
-    elements.nav.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", closeMenu);
-    });
+    elements.menuButton.addEventListener(
+      "click",
+      () => {
 
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeMenu();
-    });
+        const isOpen =
+          elements.nav.classList.toggle("open");
+
+        elements.menuButton.setAttribute(
+          "aria-expanded",
+          String(isOpen)
+        );
+
+        elements.menuButton.setAttribute(
+          "aria-label",
+          isOpen
+            ? "إغلاق القائمة"
+            : "فتح القائمة"
+        );
+
+      }
+    );
+
+    // إغلاق القائمة عند اختيار رابط
+    elements.nav.querySelectorAll("a")
+      .forEach((link) => {
+
+        link.addEventListener(
+          "click",
+          closeMenu
+        );
+
+      });
+
+    // إغلاق القائمة بزر Escape
+    document.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (event.key === "Escape") {
+          closeMenu();
+        }
+
+      }
+    );
   }
 
+  // =====================================
+  // تسجيل Service Worker
+  // =====================================
+
   function registerServiceWorker() {
-    if ("serviceWorker" in navigator && location.protocol === "https:") {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./service-worker.js")
-          .catch((error) => {
-            console.warn("تعذر تسجيل Service Worker:", error);
-          });
-      });
+
+    if (
+      "serviceWorker" in navigator &&
+      location.protocol === "https:"
+    ) {
+
+      window.addEventListener(
+        "load",
+        () => {
+
+          navigator.serviceWorker
+            .register("./service-worker.js")
+            .catch((error) => {
+
+              console.warn(
+                "تعذر تسجيل Service Worker:",
+                error
+              );
+
+            });
+
+        }
+      );
     }
   }
 
+  // =====================================
+  // تشغيل التطبيق
+  // =====================================
+
   function init() {
+
     setupFilters();
+
     setupMobileMenu();
+
     renderProducts();
+
     registerServiceWorker();
+
   }
 
+  // إتاحة بعض الوظائف للفحص عند الحاجة
   window.NOKHBA = {
     products: PRODUCTS,
-    renderProducts,
-    getFilteredProducts
+    renderProducts: renderProducts,
+    getFilteredProducts: getFilteredProducts
   };
 
+  // التأكد من جاهزية الصفحة
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      init
+    );
+
   } else {
+
     init();
+
   }
+
 })();
