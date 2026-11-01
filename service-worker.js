@@ -1,15 +1,19 @@
+
 "use strict";
 
-const CACHE_NAME = "nokhba-v1";
+const CACHE_NAME = "nokhba-v2";
 
 const APP_FILES = [
+  "./",
   "./index.html",
   "./style.css",
   "./app.js",
-  "./manifest.json"
+  "./manifest.json",
+  "./icon-192.png",
+  "./icon-512.png"
 ];
 
-// تثبيت ملفات الموقع الأساسية
+// تثبيت ملفات نخبة
 self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
@@ -20,22 +24,23 @@ self.addEventListener("install", event => {
   self.skipWaiting();
 });
 
-// تفعيل النسخة الجديدة وحذف التخزين القديم
+// تفعيل النسخة الجديدة
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys => {
       return Promise.all(
         keys
-          .filter(key => key !== CACHE_NAME)
+          .filter(key =>
+            key.startsWith("nokhba-") &&
+            key !== CACHE_NAME
+          )
           .map(key => caches.delete(key))
       );
-    })
+    }).then(() => self.clients.claim())
   );
-
-  self.clients.claim();
 });
 
-// تحميل الملفات من الذاكرة أو الإنترنت
+// تحميل الملفات
 self.addEventListener("fetch", event => {
   const request = event.request;
 
@@ -45,10 +50,38 @@ self.addEventListener("fetch", event => {
 
   if (url.origin !== self.location.origin) return;
 
+  // صفحات الموقع: الإنترنت أولاً ثم النسخة المحفوظة
+  if (request.mode === "navigate") {
+    event.respondWith(
+      fetch(request)
+        .then(response => {
+          if (response.ok) {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put(request, copy);
+            });
+          }
+
+          return response;
+        })
+        .catch(async () => {
+          return (
+            await caches.match(request) ||
+            await caches.match("./index.html")
+          );
+        })
+    );
+
+    return;
+  }
+
+  // الملفات الثابتة: الذاكرة أولاً ثم الإنترنت
   event.respondWith(
-    fetch(request)
-      .then(response => {
-        if (response && response.ok && response.type === "basic") {
+    caches.match(request).then(cached => {
+      if (cached) return cached;
+
+      return fetch(request).then(response => {
+        if (response.ok && response.type === "basic") {
           const copy = response.clone();
 
           caches.open(CACHE_NAME).then(cache => {
@@ -57,11 +90,7 @@ self.addEventListener("fetch", event => {
         }
 
         return response;
-      })
-      .catch(() => {
-        return caches.match(request).then(cached => {
-          return cached || caches.match("./index.html");
-        });
-      })
+      });
+    })
   );
 });
