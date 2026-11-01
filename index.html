@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <meta name="theme-color" content="#15191e">
-  <meta name="description" content="NOKHBA نخبة - اكتشف منتجات مختارة بعناية، وتسوق بذكاء وأناقة في مصر.">
+  <meta name="description" content="NOKHBA نخبة - اكتشف منتجات مختارة بعناية من متاجر متعددة في مصر، وتسوق بذكاء وشفافية.">
   <meta name="robots" content="index,follow">
 
   <title>NOKHBA | نخبة - اكتشف اختيارات استثنائية</title>
@@ -19,16 +20,22 @@
 <body>
 
 <header class="header">
-  <a class="logo" href="index.html">
+  <a class="logo" href="index.html" aria-label="NOKHBA نخبة - الرئيسية">
     NOKHBA<span>.</span>
     <small>نخبة</small>
   </a>
 
-  <button class="menu-btn" id="menuBtn" aria-label="فتح القائمة">
+  <button
+    class="menu-btn"
+    id="menuBtn"
+    type="button"
+    aria-label="فتح القائمة"
+    aria-expanded="false"
+    aria-controls="mainNav">
     ☰
   </button>
 
-  <nav id="mainNav">
+  <nav id="mainNav" aria-label="القائمة الرئيسية">
     <a href="#home">الرئيسية</a>
     <a href="#categories">الأقسام</a>
     <a href="#featured">اختياراتنا</a>
@@ -38,102 +45,141 @@
 
 <main>
 
-<section class="hero" id="home">
-  <div class="hero-content">
-    <span class="eyebrow">عالم من الاختيارات المميزة</span>
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <span class="eyebrow">عالم من الاختيارات المميزة</span>
 
-    <h1>
-      اكتشف اختيارات
-      <span>استثنائية</span>
-    </h1>
+      <h1>
+        اكتشف اختيارات
+        <span>استثنائية</span>
+      </h1>
+
+      <p>
+        منتجات مميزة، أفكار ملهمة، وتجارب تسوق
+        تجمع بين الجودة والأناقة والاختيار الذكي.
+      </p>
+
+      <a href="#categories" class="gold-btn">
+        اكتشف عالم نخبة
+      </a>
+    </div>
+
+    <div class="hero-decoration" aria-hidden="true">
+      <div class="gold-circle"></div>
+      <div class="hero-label">QUALITY · STYLE · VALUE</div>
+    </div>
+  </section>
+
+  <section class="welcome">
+    <span class="section-kicker">مرحبًا بك في نخبة</span>
+
+    <h2>التسوق يبدأ من <span>الاختيار الصحيح</span></h2>
 
     <p>
-      منتجات مميزة، أفكار ملهمة، وتجارب تسوق
-      تجمع بين الجودة والأناقة والاختيار الذكي.
+      نساعدك على اكتشاف منتجات متنوعة من متاجر مختلفة،
+      مع معلومات واضحة وروابط مباشرة لمصادر الشراء.
     </p>
+  </section>
 
-    <a href="#categories" class="gold-btn">
-      اكتشف عالم نخبة
-    </a>
-  </div>
-
-  <div class="hero-decoration">
-    <div class="gold-circle"></div>
-    <div class="hero-label">QUALITY · STYLE · VALUE</div>
-  </div>
-</section>
-
-<section class="welcome">
-  <span class="section-kicker">مرحبًا بك في نخبة</span>
-  <h2>التسوق يبدأ من <span>الاختيار الصحيح</span></h2>
-  <p>
-    نساعدك على اكتشاف منتجات متنوعة من متاجر مختلفة،
-    مع معلومات واضحة وروابط مباشرة لمصادر الشراء.
-  </p>
-</section>
-
-<section class="categories" id="categories">
-  <div class="section-heading">
-    <div>
-      <span class="section-kicker">اكتشف عالمنا</span>
-      <h2>تسوق حسب اهتماماتك</h2>
+  <section class="categories" id="categories">
+    <div class="section-heading">
+      <div>
+        <span class="section-kicker">اكتشف عالمنا</span>
+        <h2>تسوق حسب اهتماماتك</h2>
+      </div>
     </div>
-  </div>
 
-  <div class="category-grid">
+    <div class="category-grid">
 
-    <a href="#featured" class="category-card">
-      <div class="category-icon">⌚</div>
-      <h3>التقنية والإلكترونيات</h3>
-      <p>أجهزة واختيارات ذكية</p>
-    </a>
+      <a href="#featured" class="category-card" data-category="electronics">
+        <div class="category-icon" aria-hidden="true">⌚</div>
+        <h3>التقنية والإلكترونيات</h3>
+        <p>أجهزة واختيارات ذكية</p>
+      </a>
 
-    <a href="#featured" class="category-card">
-      <div class="category-icon">⌂</div>
-      <h3>المنزل والمطبخ</h3>
-      <p>لمسات عملية وأنيقة</p>
-    </a>
+      <a href="#featured" class="category-card" data-category="home">
+        <div class="category-icon" aria-hidden="true">⌂</div>
+        <h3>المنزل والمطبخ</h3>
+        <p>لمسات عملية وأنيقة</p>
+      </a>
 
-    <a href="#featured" class="category-card">
-      <div class="category-icon">✧</div>
-      <h3>الأناقة والعناية</h3>
-      <p>تفاصيل تصنع الفرق</p>
-    </a>
+      <a href="#featured" class="category-card" data-category="fashion">
+        <div class="category-icon" aria-hidden="true">✧</div>
+        <h3>الأناقة والعناية</h3>
+        <p>تفاصيل تصنع الفرق</p>
+      </a>
 
-    <a href="#featured" class="category-card">
-      <div class="category-icon">◇</div>
-      <h3>اختيارات مميزة</h3>
-      <p>منتجات تستحق الاكتشاف</p>
-    </a>
+      <a href="#featured" class="category-card" data-category="featured">
+        <div class="category-icon" aria-hidden="true">◇</div>
+        <h3>اختيارات مميزة</h3>
+        <p>منتجات تستحق الاكتشاف</p>
+      </a>
 
-  </div>
-</section>
-
-<section class="featured" id="featured">
-  <div class="section-heading">
-    <div>
-      <span class="section-kicker">مختارات نخبة</span>
-      <h2>منتجات تستحق الاكتشاف</h2>
     </div>
-  </div>
+  </section>
 
-  <div id="products" class="products-grid">
-    <div class="empty-state">
-      <span>✧</span>
-      <p>نعمل على تجهيز مجموعة مختارة من المنتجات المميزة.</p>
-      <small>قريبًا ستجد هنا اختياراتنا من متاجر متعددة.</small>
+  <section class="featured" id="featured">
+    <div class="section-heading">
+      <div>
+        <span class="section-kicker">مختارات نخبة</span>
+        <h2>منتجات تستحق الاكتشاف</h2>
+        <p>اكتشف اختيارات من متاجر متعددة في مكان واحد.</p>
+      </div>
     </div>
-  </div>
-</section>
 
-<section class="about" id="about">
-  <span class="section-kicker">فلسفة نخبة</span>
-  <h2>الجودة تبدأ من <span>الثقة</span></h2>
-  <p>
-    نؤمن أن الاختيار الجيد يحتاج إلى معلومات واضحة
-    ومصادر موثوقة وشفافية في عرض المنتجات.
-  </p>
-</section>
+    <div class="product-tools">
+
+      <label for="productSearch">ابحث عن منتج</label>
+      <input
+        type="search"
+        id="productSearch"
+        placeholder="اكتب اسم المنتج..."
+        autocomplete="off">
+
+      <label for="categoryFilter">القسم</label>
+      <select id="categoryFilter">
+        <option value="all">كل الأقسام</option>
+        <option value="electronics">التقنية والإلكترونيات</option>
+        <option value="home">المنزل والمطبخ</option>
+        <option value="fashion">الأناقة والعناية</option>
+        <option value="featured">اختيارات مميزة</option>
+      </select>
+
+      <label for="storeFilter">المتجر</label>
+      <select id="storeFilter">
+        <option value="all">كل المتاجر</option>
+        <option value="amazon">Amazon Egypt</option>
+        <option value="noon">Noon Egypt</option>
+        <option value="jumia">Jumia Egypt</option>
+      </select>
+
+    </div>
+
+    <div id="products" class="products-grid" aria-live="polite">
+      <div class="empty-state">
+        <span aria-hidden="true">✧</span>
+        <p>نعمل على تجهيز مجموعة مختارة من المنتجات المميزة.</p>
+        <small>قريبًا ستجد هنا اختياراتنا من متاجر متعددة.</small>
+      </div>
+    </div>
+
+    <p class="product-note">
+      الأسعار والتوافر قد يتغيران لدى المتاجر.
+      يرجى مراجعة السعر والتفاصيل النهائية في صفحة المتجر قبل الشراء.
+    </p>
+  </section>
+
+  <section class="about" id="about">
+    <span class="section-kicker">فلسفة نخبة</span>
+
+    <h2>الجودة تبدأ من <span>الثقة</span></h2>
+
+    <p>
+      نؤمن أن الاختيار الجيد يحتاج إلى معلومات واضحة
+      ومصادر موثوقة وشفافية في عرض المنتجات.
+      هدفنا مساعدتك على المقارنة واتخاذ قرار شراء واعٍ.
+    </p>
+  </section>
 
 </main>
 
