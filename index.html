@@ -4,19 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <meta name="theme-color" content="#15191e">
   <meta name="description" content="NOKHBA نخبة - اكتشف منتجات مختارة بعناية من متاجر متعددة في مصر، وتسوق بذكاء وشفافية.">
   <meta name="robots" content="index,follow">
-
   <title>NOKHBA | نخبة - اكتشف اختيارات استثنائية</title>
 
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="icon-192.png">
   <link rel="stylesheet" href="style.css">
-
 </head>
-
 <body>
 
 <header class="header">
@@ -25,15 +21,9 @@
     <small>نخبة</small>
   </a>
 
-  <button
-    class="menu-btn"
-    id="menuBtn"
-    type="button"
-    aria-label="فتح القائمة"
-    aria-expanded="false"
-    aria-controls="mainNav">
-    ☰
-  </button>
+  <button class="menu-btn" id="menuBtn" type="button"
+    aria-label="فتح القائمة" aria-expanded="false"
+    aria-controls="mainNav">☰</button>
 
   <nav id="mainNav" aria-label="القائمة الرئيسية">
     <a href="#home">الرئيسية</a>
@@ -44,24 +34,15 @@
 </header>
 
 <main>
-
   <section class="hero" id="home">
     <div class="hero-content">
       <span class="eyebrow">عالم من الاختيارات المميزة</span>
-
-      <h1>
-        اكتشف اختيارات
-        <span>استثنائية</span>
-      </h1>
-
+      <h1>اكتشف اختيارات <span>استثنائية</span></h1>
       <p>
         منتجات مميزة، أفكار ملهمة، وتجارب تسوق
         تجمع بين الجودة والأناقة والاختيار الذكي.
       </p>
-
-      <a href="#categories" class="gold-btn">
-        اكتشف عالم نخبة
-      </a>
+      <a href="#categories" class="gold-btn">اكتشف عالم نخبة</a>
     </div>
 
     <div class="hero-decoration" aria-hidden="true">
@@ -72,9 +53,7 @@
 
   <section class="welcome">
     <span class="section-kicker">مرحبًا بك في نخبة</span>
-
     <h2>التسوق يبدأ من <span>الاختيار الصحيح</span></h2>
-
     <p>
       نساعدك على اكتشاف منتجات متنوعة من متاجر مختلفة،
       مع معلومات واضحة وروابط مباشرة لمصادر الشراء.
@@ -90,7 +69,6 @@
     </div>
 
     <div class="category-grid">
-
       <a href="#featured" class="category-card" data-category="electronics">
         <div class="category-icon" aria-hidden="true">⌚</div>
         <h3>التقنية والإلكترونيات</h3>
@@ -115,6 +93,17 @@
         <p>منتجات تستحق الاكتشاف</p>
       </a>
 
+      <a href="#featured" class="category-card" data-category="cars">
+        <div class="category-icon" aria-hidden="true">🚗</div>
+        <h3>السيارات والعناية بها</h3>
+        <p>مستلزمات وأدوات عملية</p>
+      </a>
+
+      <a href="#featured" class="category-card" data-category="daily">
+        <div class="category-icon" aria-hidden="true">🛍️</div>
+        <h3>احتياجات يومية</h3>
+        <p>اختيارات للحياة اليومية</p>
+      </a>
     </div>
   </section>
 
@@ -128,13 +117,9 @@
     </div>
 
     <div class="product-tools">
-
       <label for="productSearch">ابحث عن منتج</label>
-      <input
-        type="search"
-        id="productSearch"
-        placeholder="اكتب اسم المنتج..."
-        autocomplete="off">
+      <input type="search" id="productSearch"
+        placeholder="اكتب اسم المنتج..." autocomplete="off">
 
       <label for="categoryFilter">القسم</label>
       <select id="categoryFilter">
@@ -143,6 +128,8 @@
         <option value="home">المنزل والمطبخ</option>
         <option value="fashion">الأناقة والعناية</option>
         <option value="featured">اختيارات مميزة</option>
+        <option value="cars">السيارات والعناية بها</option>
+        <option value="daily">احتياجات يومية</option>
       </select>
 
       <label for="storeFilter">المتجر</label>
@@ -152,8 +139,9 @@
         <option value="noon">Noon Egypt</option>
         <option value="jumia">Jumia Egypt</option>
       </select>
-
     </div>
+
+    <p id="resultCount" class="results-counter" aria-live="polite"></p>
 
     <div id="products" class="products-grid" aria-live="polite">
       <div class="empty-state">
@@ -164,28 +152,26 @@
     </div>
 
     <p class="product-note">
-      الأسعار والتوافر قد يتغيران لدى المتاجر.
-      يرجى مراجعة السعر والتفاصيل النهائية في صفحة المتجر قبل الشراء.
+      بعض الروابط قد تكون روابط تسويق بالعمولة، وقد نحصل على عمولة
+      عند إتمام عملية شراء مؤهلة دون تكلفة إضافية عليك.
+      المنتجات الإضافية قد تفتح نتائج بحث في المتجر وليست عروضًا مؤكدة.
+      الأسعار والتوافر يتغيران؛ راجع تفاصيل المتجر قبل الشراء.
     </p>
   </section>
 
   <section class="about" id="about">
     <span class="section-kicker">فلسفة نخبة</span>
-
     <h2>الجودة تبدأ من <span>الثقة</span></h2>
-
     <p>
       نؤمن أن الاختيار الجيد يحتاج إلى معلومات واضحة
       ومصادر موثوقة وشفافية في عرض المنتجات.
       هدفنا مساعدتك على المقارنة واتخاذ قرار شراء واعٍ.
     </p>
   </section>
-
 </main>
 
 <footer class="footer">
   <a class="logo" href="#home">NOKHBA<span>.</span></a>
-
   <p>نخبة | اكتشف اختيارات استثنائية</p>
 
   <div class="footer-links">
@@ -195,16 +181,10 @@
     <a href="disclosure.html">إفصاح العمولة</a>
   </div>
 
-  <p class="copyright">
-    © 2026 NOKHBA. جميع الحقوق محفوظة.
-  </p>
+  <p class="copyright">© 2026 NOKHBA. جميع الحقوق محفوظة.</p>
 </footer>
 
-
-<script src="app.js" defer></script>
 <script src="products-multi.js" defer></script>
-
+<script src="app.js" defer></script>
 </body>
 </html>
-
-
