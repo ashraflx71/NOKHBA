@@ -1,7 +1,7 @@
 
 /* =====================================
    NOKHBA | نخبة
-   Premium Shopping Discovery Platform
+   Premium Multi-Store Shopping Platform
    ===================================== */
 
 :root {
@@ -27,7 +27,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 85px;
+  scroll-padding-top: 90px;
 }
 
 body {
@@ -43,8 +43,13 @@ a {
   color: inherit;
 }
 
-button {
+button,
+input,
+select {
   font: inherit;
+}
+
+button {
   cursor: pointer;
 }
 
@@ -75,13 +80,13 @@ button {
 }
 
 .logo span {
-  color: #ffffff;
+  color: var(--white);
 }
 
 .logo small {
   font-size: 12px;
   letter-spacing: 0;
-  color: #ffffff;
+  color: var(--white);
   margin-right: 8px;
 }
 
@@ -255,6 +260,12 @@ button {
   margin-top: 5px;
 }
 
+.section-heading p {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 8px;
+}
+
 /* CATEGORY CARDS */
 
 .category-grid {
@@ -264,7 +275,7 @@ button {
 }
 
 .category-card {
-  background: white;
+  background: var(--white);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 32px 15px;
@@ -300,6 +311,50 @@ button {
   color: var(--muted);
 }
 
+/* PRODUCT SEARCH AND FILTERS */
+
+.product-tools {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  align-items: center;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.product-tools label {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--black);
+}
+
+.product-tools input,
+.product-tools select {
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  padding: 10px 13px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #faf9f6;
+  color: var(--text);
+  outline: none;
+  transition: .3s;
+}
+
+.product-tools input:focus,
+.product-tools select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(197,163,106,.15);
+}
+
+.product-tools input::placeholder {
+  color: #999;
+}
+
 /* PRODUCTS */
 
 .products-grid {
@@ -309,7 +364,7 @@ button {
 }
 
 .product-card {
-  background: white;
+  background: var(--white);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
@@ -324,7 +379,7 @@ button {
 .product-image {
   width: 100%;
   aspect-ratio: 4 / 3;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
   background: var(--cream);
 }
@@ -354,7 +409,7 @@ button {
   display: block;
   margin-top: 15px;
   background: var(--black);
-  color: white;
+  color: var(--white);
   padding: 10px;
   text-align: center;
   border-radius: 6px;
@@ -368,7 +423,7 @@ button {
 
 .empty-state {
   grid-column: 1 / -1;
-  background: white;
+  background: var(--white);
   border: 1px dashed var(--gold);
   border-radius: var(--radius);
   padding: 45px 20px;
@@ -379,6 +434,22 @@ button {
 .empty-state span {
   color: var(--gold);
   font-size: 38px;
+}
+
+.empty-state p {
+  margin: 8px 0;
+}
+
+.empty-state small {
+  font-size: 13px;
+}
+
+.product-note {
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+  margin-top: 22px;
+  padding: 0 10px;
 }
 
 /* ABOUT */
@@ -431,7 +502,9 @@ button {
 /* ACCESSIBILITY */
 
 a:focus-visible,
-button:focus-visible {
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
   outline: 3px solid var(--gold);
   outline-offset: 4px;
 }
@@ -440,6 +513,10 @@ button:focus-visible {
 
 @media (max-width: 900px) {
   .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .products-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -454,6 +531,10 @@ button:focus-visible {
   .gold-circle {
     width: 150px;
     height: 150px;
+  }
+
+  .product-tools {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -542,9 +623,23 @@ button:focus-visible {
     font-size: 11px;
   }
 
+  .product-tools {
+    grid-template-columns: 1fr;
+    gap: 9px;
+    padding: 16px;
+  }
+
+  .product-tools label {
+    margin-top: 5px;
+  }
+
   .products-grid {
     grid-template-columns: 1fr;
     gap: 18px;
+  }
+
+  .product-info {
+    padding: 16px;
   }
 
   .footer-links {
