@@ -3,7 +3,7 @@
   "id": "./",
   "name": "NOKHBA - نخبة",
   "short_name": "نخبة",
-  "description": "اكتشف منتجات مميزة واختيارات تسوق ذكية من متاجر متعددة في مصر.",
+  "description": "اكتشف منتجات مميزة واختيارات تسوق ذكية من المتاجر في مصر.",
   "lang": "ar",
   "dir": "rtl",
   "start_url": "./index.html",
@@ -18,13 +18,13 @@
   ],
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "./icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icon-512.png",
+      "src": "./icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
