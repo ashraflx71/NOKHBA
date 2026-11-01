@@ -7,8 +7,79 @@
 
 "use strict";
 
-/* بيانات المنتجات الموثقة */
-const NOKHBA_PRODUCTS = [];
+/* بيانات المنتجات */
+const NOKHBA_PRODUCTS = [
+  {
+    name: "ماوس Razer Viper V3 HyperSpeed",
+    description: "ماوس ألعاب لاسلكي، وزن 82 جرامًا، مستشعر 30K DPI وبطارية تصل إلى 280 ساعة وفق وصف أمازون.",
+    url: "https://amzn.to/3UQqfhT",
+    store: "amazon",
+    category: "electronics"
+  },
+  {
+    name: "عطر Marina من Kamara",
+    description: "عطر Marina Eau de Parfum للنساء، حجم 100 مل.",
+    url: "https://amzn.to/4A2dtLZ",
+    store: "amazon",
+    category: "fashion"
+  },
+  {
+    name: "ساعة Oraimo Watch 6 OSW-807",
+    description: "ساعة ذكية بشاشة 2.04 بوصة ومكالمات بلوتوث وأكثر من 105 أوضاع رياضية.",
+    url: "https://amzn.to/4f3YHwf",
+    store: "amazon",
+    category: "electronics"
+  },
+  {
+    name: "سماعة Sony WH-CH520 البيضاء",
+    description: "سماعة بلوتوث لاسلكية على الأذن مع ميكروفون للمكالمات.",
+    url: "https://amzn.to/4zk6het",
+    store: "amazon",
+    category: "electronics"
+  },
+  {
+    name: "جراب GRABIST لهاتف Samsung Galaxy A16",
+    description: "جراب أسود مغناطيسي مع حماية لعدسة الكاميرا، متوافق مع إصداري 4G و5G وفق وصف المنتج.",
+    url: "https://amzn.to/4igWGyU",
+    store: "amazon",
+    category: "electronics"
+  },
+  {
+    name: "مكبر صوت Redragon GS511 RGB",
+    description: "مكبر صوت ستيريو 2.0 للألعاب، بإضاءة RGB واتصال Bluetooth 5.3 وUSB.",
+    url: "https://amzn.to/3UpuUab",
+    store: "amazon",
+    category: "electronics"
+  },
+  {
+    name: "قلادة القلب من Julia Store",
+    description: "قلادة نسائية بتصميم قلب، من الستانلس ستيل ومطلية بذهب 18 قيراطًا وفق وصف أمازون.",
+    url: "https://amzn.to/4yPpP9g",
+    store: "amazon",
+    category: "fashion"
+  },
+  {
+    name: "منظم كبسولات القهوة Simple Trending",
+    description: "منظم أسود بطبقتين ودرج منزلق، يتسع حتى 63 كبسولة كبيرة أو 80 صغيرة وفق وصف أمازون.",
+    url: "https://amzn.to/3U1AdNa",
+    store: "amazon",
+    category: "home"
+  },
+  {
+    name: "فساتين Mirokitty الصيفية للنساء",
+    description: "فساتين نسائية كاجوال بتصميم صيفي ناعم وقصة ضيقة، وفق وصف المنتج على أمازون.",
+    url: "https://amzn.to/3UxkoOa",
+    store: "amazon",
+    category: "fashion"
+  },
+  {
+    name: "كتاب Assistant to the Villain",
+    description: "رواية خيالية من تأليف Hannah Nicole Maehrer، وفق وصف أمازون.",
+    url: "https://amzn.to/3UY9K3g",
+    store: "amazon",
+    category: "featured"
+  }
+];
 
 /* أسماء المتاجر */
 const STORE_NAMES = {
@@ -171,7 +242,6 @@ function setupResultsCounter() {
   }
 
   const counter = document.createElement("p");
-
   counter.id = "resultsCounter";
   counter.className = "results-counter";
   counter.setAttribute("role", "status");
@@ -353,7 +423,10 @@ function createProductCard(product) {
   button.href = product.url;
   button.target = "_blank";
   button.rel = "nofollow sponsored noopener noreferrer";
-  button.setAttribute("aria-label", "زيارة متجر " + STORE_NAMES[product.store]);
+  button.setAttribute(
+    "aria-label",
+    "زيارة متجر " + STORE_NAMES[product.store]
+  );
 
   info.appendChild(button);
 
