@@ -4,10 +4,10 @@
 
   // =====================================
   // NOKHBA | نخبة
-  // Main Application - Version 3.0
+  // Main Application - Version 3.1
   // =====================================
 
-  // منتجات أمازون الأصلية
+  // منتجات Amazon Egypt بروابط العمولة
   const AMAZON_PRODUCTS = [
     {
       name: "Razer Viper V3 HyperSpeed",
@@ -88,6 +88,14 @@
       icon: "📚",
       store: "amazon",
       url: "https://amzn.to/3UY9K3g"
+    },
+    {
+      name: "Xiaomi Redmi 15C 8GB / 256GB",
+      category: "electronics",
+      description: "هاتف شاومي ريدمي 15C بذاكرة 8 جيجابايت ومساحة 256 جيجابايت.",
+      icon: "📱",
+      store: "amazon",
+      url: "https://amzn.to/4imw67K"
     }
   ];
 
@@ -124,6 +132,7 @@
 
   // =====================================
   // مكتبة المواد الإعلانية
+  // روابط الصور لا تعني أنها روابط عمولة
   // =====================================
 
   const CAMPAIGN_CREATIVES = [
@@ -154,6 +163,56 @@
       category: "التصوير",
       type: "image",
       url: "https://z.nooncdn.com/rn/ambassadors/Artworks/Noon/Arabic/%D9%86%D8%AE%D9%81%D9%8A%D8%B6%D8%A7%D8%AA/11313_%D8%AA%D8%AE%D9%81%D9%8A%D8%B6%D8%A7%D8%AA_%D9%86%D9%88%D9%86_%D8%B9%D8%B1%D8%A8%D9%8A,%D9%83%D8%A7%D9%85%D9%8A%D8%B1%D8%A7%D8%AA..jpg.jpg"
+    },
+    {
+      title: "أزياء رجالية من نمشي",
+      store: "نمشي Namshi",
+      category: "أزياء رجالية",
+      type: "image",
+      url: "https://z.nooncdn.com/rn/ambassadors/Artworks/Namshi/Arabic/%D8%B1%D8%AC%D8%A7%D9%84/3131_%D8%A7%D8%B2%D9%8A%D8%A7%D8%A1%D8%8C%D9%86%D9%85%D8%B4%D9%89_%D8%B9%D8%B1%D8%A8%D9%8A_%D8%B7%D9%82%D9%85.gif"
+    },
+    {
+      title: "العودة إلى الجامعة",
+      store: "نمشي Namshi",
+      category: "أزياء رجالية",
+      type: "image",
+      url: "https://z.nooncdn.com/rn/ambassadors/Artworks/Namshi/Arabic/%D8%B1%D8%AC%D8%A7%D9%84/3134_%D8%A7%D8%B2%D9%8A%D8%A7%D8%A1%D8%8C%D9%86%D9%85%D8%B4%D9%89_%D8%B9%D8%B1%D8%A8%D9%8A_%D8%B7%D9%82%D9%85%20%D8%A7%D9%84%D8%B1%D8%AC%D9%88%D8%B9%20%D9%84%D9%84%D8%AC%D8%A7%D9%85%D8%B9%D8%A9.jpg"
+    },
+    {
+      title: "الجمال والمكياج",
+      store: "نمشي Namshi",
+      category: "الجمال والعناية",
+      type: "image",
+      note: "ملف الحملة يحمل تاريخ 2024؛ يجب التأكد من صلاحيتها قبل الترويج.",
+      url: "https://z.nooncdn.com/rn/ambassadors/Artworks/Namshi/Arabic/%D9%86%D8%AE%D9%81%D9%8A%D8%B6%D8%A7%D8%AA/31318_%D8%AC%D9%85%D8%A7%D9%84,%D9%85%D9%83%D9%8A%D8%A7%D8%AC%202024.gif"
+    },
+    {
+      title: "الأزياء الأوروبية",
+      store: "نمشي Namshi",
+      category: "الأزياء",
+      type: "image",
+      url: "https://z.nooncdn.com/rn/ambassadors/Artworks/Namshi/Arabic/%D9%86%D8%AE%D9%81%D9%8A%D8%B6%D8%A7%D8%AA/31320_%D8%A7%D8%B2%D9%8A%D8%A7%D8%A1%D8%8C%D9%86%D9%85%D8%B4%D9%89_%D8%B9%D8%B1%D8%A8%D9%8A_%D8%A7%D9%84%D9%83%D8%A7%D8%B3%20%D8%A7%D9%84%D8%A7%D9%88%D8%B1%D9%88%D8%A8%D9%8A.jpg"
+    },
+    {
+      title: "تخفيضات يوم الرواتب",
+      store: "نمشي Namshi",
+      category: "تخفيضات الأزياء",
+      type: "image",
+      url: "https://z.nooncdn.com/rn/ambassadors/Artworks/Namshi/Arabic/%D9%86%D8%AE%D9%81%D9%8A%D8%B6%D8%A7%D8%AA/3135_%D8%A7%D8%B2%D9%8A%D8%A7%D8%A1%D8%8C%D9%86%D9%85%D8%B4%D9%89_%D8%B9%D8%B1%D8%A8%D9%8A_%D8%AA%D8%AE%D9%81%D9%8A%D8%B6%D8%A7%D8%AA%20%D9%84%D9%8A%D9%88%D9%85%20%D8%A7%D9%84%D8%B1%D9%88%D8%A7%D8%AA%D8%A8.gif"
+    },
+    {
+      title: "تخفيضات الأزياء",
+      store: "نمشي Namshi",
+      category: "الأزياء",
+      type: "image",
+      url: "https://z.nooncdn.com/rn/ambassadors/Artworks/Namshi/Arabic/%D9%86%D8%AE%D9%81%D9%8A%D8%B6%D8%A7%D8%AA/3133_%D8%A7%D8%B2%D9%8A%D8%A7%D8%A1%D8%8C%D9%86%D9%85%D8%B4%D9%89_%D8%B9%D8%B1%D8%A8%D9%8A_%D8%AA%D8%AE%D9%81%D9%8A%D8%B6%D8%A7%D8%AA.jpg"
+    },
+    {
+      title: "قمصان نسائية",
+      store: "نمشي Namshi",
+      category: "أزياء نسائية",
+      type: "image",
+      url: "https://z.nooncdn.com/rn/ambassadors/Artworks/Namshi/Arabic/%D9%86%D8%B3%D8%A7%D8%A1/3232_%D8%A7%D8%B2%D9%8A%D8%A7%D8%A1%D8%8C%D9%86%D9%85%D8%B4%D9%89_%D8%B9%D8%B1%D8%A8%D9%8A_%D9%82%D9%85%D8%B5%D8%A7%D9%86.jpg"
     }
   ];
 
@@ -188,7 +247,7 @@
   }
 
   // =====================================
-  // التحقق من الروابط
+  // التحقق من روابط المتاجر
   // =====================================
 
   function safeExternalUrl(url) {
@@ -208,6 +267,20 @@
       return (
         parsed.protocol === "https:" &&
         allowedHosts.includes(parsed.hostname)
+      );
+    } catch (error) {
+      return false;
+    }
+  }
+
+  // التحقق من روابط مواد الحملات
+  function safeCampaignUrl(url) {
+    try {
+      const parsed = new URL(url);
+
+      return (
+        parsed.protocol === "https:" &&
+        parsed.hostname === "z.nooncdn.com"
       );
     } catch (error) {
       return false;
@@ -564,6 +637,12 @@
         color: var(--gold-light, #f0d99e);
       }
 
+      .campaign-note {
+        font-size: 12px;
+        line-height: 1.8;
+        color: var(--muted, #a8adb4);
+      }
+
       .campaign-disclosure {
         margin-top: 18px;
         font-size: 13px;
@@ -600,7 +679,7 @@
     const subtitle = createElement(
       "p",
       "",
-      "مواد إعلانية مختارة من المتاجر والعلامات التجارية."
+      "مواد إعلانية من المتاجر والعلامات التجارية."
     );
 
     heading.append(title, subtitle);
@@ -609,6 +688,8 @@
     grid.className = "campaign-grid";
 
     CAMPAIGN_CREATIVES.forEach((item) => {
+      if (!safeCampaignUrl(item.url)) return;
+
       const card = document.createElement("article");
       card.className = "campaign-card";
 
@@ -664,6 +745,17 @@
       sourceLink.rel = "noopener noreferrer";
 
       info.append(name, store, sourceLink);
+
+      if (item.note) {
+        const note = createElement(
+          "p",
+          "campaign-note",
+          item.note
+        );
+
+        info.appendChild(note);
+      }
+
       card.append(media, info);
       grid.appendChild(card);
     });
@@ -671,7 +763,7 @@
     const note = createElement(
       "p",
       "campaign-disclosure",
-      "هذه مواد إعلانية، وليست روابط شراء أو روابط عمولة. توافر العروض وشروطها يخضع للمتجر والحملة."
+      "تنبيه: هذه مواد إعلانية وصور من مكتبة الحملات، وليست روابط شراء أو روابط تتبع عمولة. يجب التأكد من صلاحية الحملة وإضافة رابط التتبع المعتمد قبل توجيه الزوار للشراء."
     );
 
     section.append(heading, grid, note);
