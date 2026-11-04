@@ -1,13 +1,11 @@
-
 (() => {
   "use strict";
 
   // =====================================
   // NOKHBA | نخبة
-  // Main Application - Version 3.1
+  // Main Application - Version 3.2
   // =====================================
 
-  // منتجات Amazon Egypt بروابط العمولة
   const AMAZON_PRODUCTS = [
     {
       name: "Razer Viper V3 HyperSpeed",
@@ -104,7 +102,6 @@
     ? window.NOKHBA_EXTRA_PRODUCTS
     : [];
 
-  // أسماء الأقسام
   const CATEGORY_NAMES = {
     electronics: "التقنية والإلكترونيات",
     home: "المنزل والمطبخ",
@@ -114,14 +111,6 @@
     daily: "احتياجات يومية"
   };
 
-  // أسماء المتاجر
-  const STORE_NAMES = {
-    amazon: "Amazon Egypt",
-    noon: "Noon Egypt",
-    jumia: "Jumia Egypt"
-  };
-
-  // دمج المنتجات
   const PRODUCTS = [
     ...AMAZON_PRODUCTS,
     ...EXTRA_PRODUCTS.map((product) => ({
@@ -131,8 +120,7 @@
   ];
 
   // =====================================
-  // مكتبة المواد الإعلانية
-  // روابط الصور لا تعني أنها روابط عمولة
+  // مكتبة الحملات الإعلانية
   // =====================================
 
   const CAMPAIGN_CREATIVES = [
@@ -231,7 +219,7 @@
   };
 
   // =====================================
-  // تنظيف النصوص وتوحيد العربية
+  // تنسيق البحث
   // =====================================
 
   function normalizeText(value) {
@@ -247,7 +235,7 @@
   }
 
   // =====================================
-  // التحقق من روابط المتاجر
+  // التحقق من الروابط
   // =====================================
 
   function safeExternalUrl(url) {
@@ -273,7 +261,14 @@
     }
   }
 
-  // التحقق من روابط مواد الحملات
+  function safeImageUrl(url) {
+    try {
+      return new URL(url).protocol === "https:";
+    } catch (error) {
+      return false;
+    }
+  }
+
   function safeCampaignUrl(url) {
     try {
       const parsed = new URL(url);
@@ -293,9 +288,7 @@
 
   function getStoreUrl(product, store) {
     if (store === "amazon") {
-      return product.store === "amazon"
-        ? product.url
-        : "";
+      return product.store === "amazon" ? product.url : "";
     }
 
     if (!product.search) {
@@ -315,33 +308,30 @@
     return "";
   }
 
-  // =====================================
-  // فلتر المتاجر
-  // =====================================
-
   function productMatchesStore(product, selectedStore) {
-    if (selectedStore === "all") return true;
+    if (selectedStore === "all") {
+      return true;
+    }
 
     if (selectedStore === "amazon") {
       return product.store === "amazon";
     }
 
     if (selectedStore === "noon" || selectedStore === "jumia") {
-      return (
-        product.store === "multi" &&
-        Boolean(product.search)
-      );
+      return product.store === "multi" && Boolean(product.search);
     }
 
     return false;
   }
 
   // =====================================
-  // البحث
+  // البحث والتصفية
   // =====================================
 
   function productMatchesSearch(product, query) {
-    if (!query) return true;
+    if (!query) {
+      return true;
+    }
 
     const searchable = normalizeText([
       product.name,
@@ -351,6 +341,23 @@
     ].join(" "));
 
     return searchable.includes(normalizeText(query));
+  }
+
+  function getFilteredProducts() {
+    const query = elements.search ? elements.search.value : "";
+    const category = elements.category ? elements.category.value : "all";
+    const store = elements.store ? elements.store.value : "all";
+
+    return PRODUCTS.filter((product) => {
+      const categoryMatch =
+        category === "all" || product.category === category;
+
+      return (
+        categoryMatch &&
+        productMatchesStore(product, store) &&
+        productMatchesSearch(product, query)
+      );
+    });
   }
 
   // =====================================
@@ -372,7 +379,48 @@
   }
 
   // =====================================
-  // زر المتجر
+  // صور المنتجات
+  // =====================================
+
+  function createProductImage(product) {
+    const wrapper = createElement("div", "product-image");
+    const fallback = createElement(
+      "span",
+      "product-image-fallback",
+      product.icon || "✧"
+    );
+
+    fallback.setAttribute("aria-hidden", "true");
+
+    const imageUrl = product.image || product.imageUrl || "";
+
+    if (imageUrl && safeImageUrl(imageUrl)) {
+      const image = createElement("img", "product-photo");
+
+      image.src = imageUrl;
+      image.alt = product.name || "صورة المنتج";
+      image.loading = "lazy";
+      image.decoding = "async";
+
+      image.style.width = "100%";
+      image.style.height = "100%";
+      image.style.objectFit = "contain";
+
+      image.addEventListener("error", () => {
+        image.remove();
+        wrapper.appendChild(fallback);
+      }, { once: true });
+
+      wrapper.appendChild(image);
+    } else {
+      wrapper.appendChild(fallback);
+    }
+
+    return wrapper;
+  }
+
+  // =====================================
+  // أزرار المتاجر
   // =====================================
 
   function createStoreButton(product, store) {
@@ -396,7 +444,7 @@
 
     button.href = url;
     button.target = "_blank";
-    button.rel = "noopener noreferrer";
+    button.rel = "noopener noreferrer sponsored nofollow";
 
     button.setAttribute(
       "aria-label",
@@ -412,19 +460,10 @@
 
   function createProductCard(product) {
     const card = createElement("article", "product-card");
-
-    const image = createElement(
-      "div",
-      "product-image product-image-fallback",
-      product.icon || "✧"
-    );
-
-    image.setAttribute("aria-hidden", "true");
-
+    const image = createProductImage(product);
     const info = createElement("div", "product-info");
 
     const title = createElement("h3", "", product.name);
-
     const description = createElement(
       "p",
       "",
@@ -437,34 +476,31 @@
       CATEGORY_NAMES[product.category] || "منتج متنوع"
     );
 
-    const buttons = createElement(
-      "div",
-      "product-store-buttons"
-    );
+    const buttons = createElement("div", "product-store-buttons");
 
     const selectedStore = elements.store
       ? elements.store.value
       : "all";
 
     if (product.store === "amazon") {
-      const amazonButton = createStoreButton(product, "amazon");
+      const button = createStoreButton(product, "amazon");
 
-      if (amazonButton) {
-        buttons.appendChild(amazonButton);
+      if (button) {
+        buttons.appendChild(button);
       }
     } else {
-      let storesToShow = [];
+      let stores = [];
 
       if (selectedStore === "all") {
-        storesToShow = ["noon", "jumia"];
+        stores = ["noon", "jumia"];
       } else if (
         selectedStore === "noon" ||
         selectedStore === "jumia"
       ) {
-        storesToShow = [selectedStore];
+        stores = [selectedStore];
       }
 
-      storesToShow.forEach((store) => {
+      stores.forEach((store) => {
         const button = createStoreButton(product, store);
 
         if (button) {
@@ -480,43 +516,13 @@
   }
 
   // =====================================
-  // المنتجات بعد التصفية
-  // =====================================
-
-  function getFilteredProducts() {
-    const query = elements.search
-      ? elements.search.value
-      : "";
-
-    const category = elements.category
-      ? elements.category.value
-      : "all";
-
-    const store = elements.store
-      ? elements.store.value
-      : "all";
-
-    return PRODUCTS.filter((product) => {
-      const categoryMatch =
-        category === "all" ||
-        product.category === category;
-
-      const storeMatch =
-        productMatchesStore(product, store);
-
-      const searchMatch =
-        productMatchesSearch(product, query);
-
-      return categoryMatch && storeMatch && searchMatch;
-    });
-  }
-
-  // =====================================
   // عرض المنتجات
   // =====================================
 
   function renderProducts() {
-    if (!elements.products) return;
+    if (!elements.products) {
+      return;
+    }
 
     const filteredProducts = getFilteredProducts();
 
@@ -530,24 +536,21 @@
     if (filteredProducts.length === 0) {
       const empty = createElement("div", "empty-state");
 
-      const icon = createElement("span", "", "✧");
-      icon.setAttribute("aria-hidden", "true");
-
-      const message = createElement(
-        "p",
-        "",
-        "لم نعثر على منتجات تطابق اختياراتك."
+      empty.append(
+        createElement("span", "", "✧"),
+        createElement(
+          "p",
+          "",
+          "لم نعثر على منتجات تطابق اختياراتك."
+        ),
+        createElement(
+          "small",
+          "",
+          "جرّب تغيير كلمة البحث أو اختيار قسم أو متجر آخر."
+        )
       );
 
-      const hint = createElement(
-        "small",
-        "",
-        "جرّب تغيير كلمة البحث أو اختيار قسم أو متجر آخر."
-      );
-
-      empty.append(icon, message, hint);
       elements.products.appendChild(empty);
-
       return;
     }
 
@@ -561,11 +564,13 @@
   }
 
   // =====================================
-  // مكتبة الإعلانات
+  // تنسيق مكتبة الحملات
   // =====================================
 
   function addCampaignStyles() {
-    if (document.getElementById("campaignStyles")) return;
+    if (document.getElementById("campaignStyles")) {
+      return;
+    }
 
     const style = document.createElement("style");
     style.id = "campaignStyles";
@@ -649,46 +654,75 @@
         color: var(--muted, #a8adb4);
         line-height: 1.8;
       }
+
+      .product-image {
+        height: 220px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .product-photo {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+
+      .product-image-fallback {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        font-size: 64px;
+      }
     `;
 
     document.head.appendChild(style);
   }
 
+  // =====================================
+  // عرض مكتبة الحملات
+  // =====================================
+
   function renderCampaignCreatives() {
-    if (document.getElementById("campaignCreatives")) return;
+    if (document.getElementById("campaignCreatives")) {
+      return;
+    }
 
     const anchor =
       document.getElementById("about") ||
       document.querySelector("footer");
 
-    if (!anchor || !anchor.parentNode) return;
+    if (!anchor || !anchor.parentNode) {
+      return;
+    }
 
     const section = document.createElement("section");
+
     section.id = "campaignCreatives";
     section.className = "campaign-creatives";
 
     const heading = document.createElement("div");
     heading.className = "campaign-heading";
 
-    const title = createElement(
-      "h2",
-      "",
-      "مكتبة العروض والإعلانات"
+    heading.append(
+      createElement("h2", "", "مكتبة العروض والإعلانات"),
+      createElement(
+        "p",
+        "",
+        "مواد إعلانية من المتاجر والعلامات التجارية."
+      )
     );
-
-    const subtitle = createElement(
-      "p",
-      "",
-      "مواد إعلانية من المتاجر والعلامات التجارية."
-    );
-
-    heading.append(title, subtitle);
 
     const grid = document.createElement("div");
     grid.className = "campaign-grid";
 
     CAMPAIGN_CREATIVES.forEach((item) => {
-      if (!safeCampaignUrl(item.url)) return;
+      if (!safeCampaignUrl(item.url)) {
+        return;
+      }
 
       const card = document.createElement("article");
       card.className = "campaign-card";
@@ -698,6 +732,7 @@
 
       if (item.type === "video") {
         const video = document.createElement("video");
+
         video.controls = true;
         video.preload = "metadata";
         video.playsInline = true;
@@ -710,6 +745,7 @@
         media.appendChild(video);
       } else {
         const image = document.createElement("img");
+
         image.src = item.url;
         image.alt = item.title;
         image.loading = "lazy";
@@ -727,46 +763,37 @@
       info.className = "campaign-info";
 
       const name = createElement("h3", "", item.title);
-
       const store = createElement(
         "p",
         "",
         item.store + " · " + item.category
       );
 
-      const sourceLink = createElement(
-        "a",
-        "",
-        "فتح المادة الأصلية"
-      );
+      const link = createElement("a", "", "فتح المادة الأصلية");
 
-      sourceLink.href = item.url;
-      sourceLink.target = "_blank";
-      sourceLink.rel = "noopener noreferrer";
+      link.href = item.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
 
-      info.append(name, store, sourceLink);
+      info.append(name, store, link);
 
       if (item.note) {
-        const note = createElement(
-          "p",
-          "campaign-note",
-          item.note
+        info.appendChild(
+          createElement("p", "campaign-note", item.note)
         );
-
-        info.appendChild(note);
       }
 
       card.append(media, info);
       grid.appendChild(card);
     });
 
-    const note = createElement(
+    const disclosure = createElement(
       "p",
       "campaign-disclosure",
       "تنبيه: هذه مواد إعلانية وصور من مكتبة الحملات، وليست روابط شراء أو روابط تتبع عمولة. يجب التأكد من صلاحية الحملة وإضافة رابط التتبع المعتمد قبل توجيه الزوار للشراء."
     );
 
-    section.append(heading, grid, note);
+    section.append(heading, grid, disclosure);
     anchor.parentNode.insertBefore(section, anchor);
   }
 
@@ -792,18 +819,17 @@
       elements.store.addEventListener("change", renderProducts);
     }
 
-    document.querySelectorAll("[data-category]")
-      .forEach((card) => {
-        card.addEventListener("click", () => {
-          const category = card.getAttribute("data-category");
+    document.querySelectorAll("[data-category]").forEach((card) => {
+      card.addEventListener("click", () => {
+        const category = card.getAttribute("data-category");
 
-          if (elements.category) {
-            elements.category.value = category;
-          }
+        if (elements.category) {
+          elements.category.value = category;
+        }
 
-          renderProducts();
-        });
+        renderProducts();
       });
+    });
   }
 
   // =====================================
@@ -811,7 +837,9 @@
   // =====================================
 
   function setupMobileMenu() {
-    if (!elements.menuButton || !elements.nav) return;
+    if (!elements.menuButton || !elements.nav) {
+      return;
+    }
 
     function closeMenu() {
       elements.nav.classList.remove("open");
@@ -853,7 +881,7 @@
   }
 
   // =====================================
-  // Service Worker
+  // تسجيل Service Worker
   // =====================================
 
   function registerServiceWorker() {
@@ -886,13 +914,12 @@
     registerServiceWorker();
   }
 
-  // إتاحة الوظائف للفحص
   window.NOKHBA = {
     products: PRODUCTS,
     creatives: CAMPAIGN_CREATIVES,
-    renderProducts: renderProducts,
-    getFilteredProducts: getFilteredProducts,
-    renderCampaignCreatives: renderCampaignCreatives
+    renderProducts,
+    getFilteredProducts,
+    renderCampaignCreatives
   };
 
   if (document.readyState === "loading") {
