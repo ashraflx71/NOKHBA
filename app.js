@@ -1,10 +1,18 @@
+
 (() => {
   "use strict";
 
-  // =====================================
-  // NOKHBA | نخبة
-  // Main Application - Version 3.2
-  // =====================================
+  /* =========================================
+     NOKHBA | نخبة
+     Main Application - Version 3.3
+     Amazon ID: ashrafdealseg-21
+     ========================================= */
+
+  const AMAZON_TAG = "ashrafdealseg-21";
+
+  // =========================================
+  // المنتجات الأساسية - روابط أمازون الأصلية
+  // =========================================
 
   const AMAZON_PRODUCTS = [
     {
@@ -90,15 +98,21 @@
     {
       name: "Xiaomi Redmi 15C 8GB / 256GB",
       category: "electronics",
-      description: "هاتف شاومي ريدمي 15C بذاكرة 8 جيجابايت ومساحة 256 جيجابايت.",
+      description: "هاتف شاومي ريدمي 15C.",
       icon: "📱",
       store: "amazon",
       url: "https://amzn.to/4imw67K"
     }
   ];
 
-  // المنتجات الإضافية من products-multi.js
-  const EXTRA_PRODUCTS = Array.isArray(window.NOKHBA_EXTRA_PRODUCTS)
+  // =========================================
+  // المنتجات الإضافية
+  // يجب تحميل products-multi.js أولاً
+  // =========================================
+
+  const EXTRA_PRODUCTS = Array.isArray(
+    window.NOKHBA_EXTRA_PRODUCTS
+  )
     ? window.NOKHBA_EXTRA_PRODUCTS
     : [];
 
@@ -113,15 +127,15 @@
 
   const PRODUCTS = [
     ...AMAZON_PRODUCTS,
-    ...EXTRA_PRODUCTS.map((product) => ({
+    ...EXTRA_PRODUCTS.map(product => ({
       ...product,
       store: "multi"
     }))
   ];
 
-  // =====================================
+  // =========================================
   // مكتبة الحملات الإعلانية
-  // =====================================
+  // =========================================
 
   const CAMPAIGN_CREATIVES = [
     {
@@ -171,7 +185,7 @@
       store: "نمشي Namshi",
       category: "الجمال والعناية",
       type: "image",
-      note: "ملف الحملة يحمل تاريخ 2024؛ يجب التأكد من صلاحيتها قبل الترويج.",
+      note: "يرجى التأكد من صلاحية الحملة قبل الترويج.",
       url: "https://z.nooncdn.com/rn/ambassadors/Artworks/Namshi/Arabic/%D9%86%D8%AE%D9%81%D9%8A%D8%B6%D8%A7%D8%AA/31318_%D8%AC%D9%85%D8%A7%D9%84,%D9%85%D9%83%D9%8A%D8%A7%D8%AC%202024.gif"
     },
     {
@@ -204,9 +218,9 @@
     }
   ];
 
-  // =====================================
+  // =========================================
   // عناصر الصفحة
-  // =====================================
+  // =========================================
 
   const elements = {
     search: document.getElementById("productSearch"),
@@ -218,9 +232,9 @@
     nav: document.getElementById("mainNav")
   };
 
-  // =====================================
-  // تنسيق البحث
-  // =====================================
+  // =========================================
+  // أدوات مساعدة
+  // =========================================
 
   function normalizeText(value) {
     return String(value || "")
@@ -233,10 +247,6 @@
       .replace(/[ـًٌٍَُِّْ]/g, "")
       .trim();
   }
-
-  // =====================================
-  // التحقق من الروابط
-  // =====================================
 
   function safeExternalUrl(url) {
     try {
@@ -252,19 +262,18 @@
         "www.jumia.com.eg"
       ];
 
-      return (
-        parsed.protocol === "https:" &&
-        allowedHosts.includes(parsed.hostname)
-      );
-    } catch (error) {
+      return parsed.protocol === "https:" &&
+        allowedHosts.includes(parsed.hostname);
+    } catch {
       return false;
     }
   }
 
   function safeImageUrl(url) {
     try {
-      return new URL(url).protocol === "https:";
-    } catch (error) {
+      const parsed = new URL(url);
+      return parsed.protocol === "https:";
+    } catch {
       return false;
     }
   }
@@ -272,28 +281,42 @@
   function safeCampaignUrl(url) {
     try {
       const parsed = new URL(url);
-
-      return (
-        parsed.protocol === "https:" &&
-        parsed.hostname === "z.nooncdn.com"
-      );
-    } catch (error) {
+      return parsed.protocol === "https:" &&
+        parsed.hostname === "z.nooncdn.com";
+    } catch {
       return false;
     }
   }
 
-  // =====================================
+  function createElement(tag, className, text) {
+    const element = document.createElement(tag);
+
+    if (className) element.className = className;
+    if (text !== undefined) element.textContent = text;
+
+    return element;
+  }
+
+  // =========================================
   // روابط المتاجر
-  // =====================================
+  // =========================================
 
   function getStoreUrl(product, store) {
     if (store === "amazon") {
-      return product.store === "amazon" ? product.url : "";
-    }
+      if (product.store === "amazon" && product.url) {
+        return product.url;
+      }
 
-    if (!product.search) {
+      if (product.search) {
+        return "https://www.amazon.eg/s?k=" +
+          encodeURIComponent(product.search) +
+          "&tag=" + encodeURIComponent(AMAZON_TAG);
+      }
+
       return "";
     }
+
+    if (!product.search) return "";
 
     const query = encodeURIComponent(product.search);
 
@@ -309,12 +332,11 @@
   }
 
   function productMatchesStore(product, selectedStore) {
-    if (selectedStore === "all") {
-      return true;
-    }
+    if (selectedStore === "all") return true;
 
     if (selectedStore === "amazon") {
-      return product.store === "amazon";
+      return product.store === "amazon" ||
+        (product.store === "multi" && Boolean(product.search));
     }
 
     if (selectedStore === "noon" || selectedStore === "jumia") {
@@ -324,14 +346,12 @@
     return false;
   }
 
-  // =====================================
+  // =========================================
   // البحث والتصفية
-  // =====================================
+  // =========================================
 
   function productMatchesSearch(product, query) {
-    if (!query) {
-      return true;
-    }
+    if (!query) return true;
 
     const searchable = normalizeText([
       product.name,
@@ -344,53 +364,34 @@
   }
 
   function getFilteredProducts() {
-    const query = elements.search ? elements.search.value : "";
-    const category = elements.category ? elements.category.value : "all";
-    const store = elements.store ? elements.store.value : "all";
+    const query = elements.search
+      ? elements.search.value
+      : "";
 
-    return PRODUCTS.filter((product) => {
+    const category = elements.category
+      ? elements.category.value
+      : "all";
+
+    const store = elements.store
+      ? elements.store.value
+      : "all";
+
+    return PRODUCTS.filter(product => {
       const categoryMatch =
         category === "all" || product.category === category;
 
-      return (
-        categoryMatch &&
+      return categoryMatch &&
         productMatchesStore(product, store) &&
-        productMatchesSearch(product, query)
-      );
+        productMatchesSearch(product, query);
     });
   }
 
-  // =====================================
-  // إنشاء عناصر HTML بأمان
-  // =====================================
-
-  function createElement(tag, className, text) {
-    const element = document.createElement(tag);
-
-    if (className) {
-      element.className = className;
-    }
-
-    if (text !== undefined) {
-      element.textContent = text;
-    }
-
-    return element;
-  }
-
-  // =====================================
+  // =========================================
   // صور المنتجات
-  // =====================================
+  // =========================================
 
   function createProductImage(product) {
     const wrapper = createElement("div", "product-image");
-    const fallback = createElement(
-      "span",
-      "product-image-fallback",
-      product.icon || "✧"
-    );
-
-    fallback.setAttribute("aria-hidden", "true");
 
     const imageUrl = product.image || product.imageUrl || "";
 
@@ -402,38 +403,46 @@
       image.loading = "lazy";
       image.decoding = "async";
 
-      image.style.width = "100%";
-      image.style.height = "100%";
-      image.style.objectFit = "contain";
-
       image.addEventListener("error", () => {
         image.remove();
-        wrapper.appendChild(fallback);
+        wrapper.appendChild(
+          createElement(
+            "span",
+            "product-image-fallback",
+            product.icon || "✧"
+          )
+        );
       }, { once: true });
 
       wrapper.appendChild(image);
     } else {
-      wrapper.appendChild(fallback);
+      wrapper.appendChild(
+        createElement(
+          "span",
+          "product-image-fallback",
+          product.icon || "✧"
+        )
+      );
     }
 
     return wrapper;
   }
 
-  // =====================================
+  // =========================================
   // أزرار المتاجر
-  // =====================================
+  // =========================================
 
   function createStoreButton(product, store) {
     const url = getStoreUrl(product, store);
 
-    if (!url || !safeExternalUrl(url)) {
-      return null;
-    }
+    if (!url || !safeExternalUrl(url)) return null;
 
     const labels = {
-      amazon: "عرض المنتج في أمازون",
-      noon: "ابحث عنه في نون",
-      jumia: "ابحث عنه في جوميا"
+      amazon: product.store === "amazon"
+        ? "عرض المنتج في أمازون"
+        : "البحث في أمازون",
+      noon: "البحث في نون",
+      jumia: "البحث في جوميا"
     };
 
     const button = createElement(
@@ -454,9 +463,9 @@
     return button;
   }
 
-  // =====================================
+  // =========================================
   // بطاقة المنتج
-  // =====================================
+  // =========================================
 
   function createProductCard(product) {
     const card = createElement("article", "product-card");
@@ -464,6 +473,7 @@
     const info = createElement("div", "product-info");
 
     const title = createElement("h3", "", product.name);
+
     const description = createElement(
       "p",
       "",
@@ -476,38 +486,25 @@
       CATEGORY_NAMES[product.category] || "منتج متنوع"
     );
 
-    const buttons = createElement("div", "product-store-buttons");
+    const buttons = createElement(
+      "div",
+      "product-store-buttons"
+    );
 
     const selectedStore = elements.store
       ? elements.store.value
       : "all";
 
-    if (product.store === "amazon") {
-      const button = createStoreButton(product, "amazon");
+    const stores = product.store === "amazon"
+      ? ["amazon"]
+      : selectedStore === "all"
+        ? ["amazon", "noon", "jumia"]
+        : [selectedStore];
 
-      if (button) {
-        buttons.appendChild(button);
-      }
-    } else {
-      let stores = [];
-
-      if (selectedStore === "all") {
-        stores = ["noon", "jumia"];
-      } else if (
-        selectedStore === "noon" ||
-        selectedStore === "jumia"
-      ) {
-        stores = [selectedStore];
-      }
-
-      stores.forEach((store) => {
-        const button = createStoreButton(product, store);
-
-        if (button) {
-          buttons.appendChild(button);
-        }
-      });
-    }
+    stores.forEach(store => {
+      const button = createStoreButton(product, store);
+      if (button) buttons.appendChild(button);
+    });
 
     info.append(title, description, category, buttons);
     card.append(image, info);
@@ -515,14 +512,12 @@
     return card;
   }
 
-  // =====================================
+  // =========================================
   // عرض المنتجات
-  // =====================================
+  // =========================================
 
   function renderProducts() {
-    if (!elements.products) {
-      return;
-    }
+    if (!elements.products) return;
 
     const filteredProducts = getFilteredProducts();
 
@@ -546,7 +541,7 @@
         createElement(
           "small",
           "",
-          "جرّب تغيير كلمة البحث أو اختيار قسم أو متجر آخر."
+          "جرّب تغيير كلمة البحث أو اختيار قسم آخر."
         )
       );
 
@@ -556,21 +551,19 @@
 
     const fragment = document.createDocumentFragment();
 
-    filteredProducts.forEach((product) => {
+    filteredProducts.forEach(product => {
       fragment.appendChild(createProductCard(product));
     });
 
     elements.products.appendChild(fragment);
   }
 
-  // =====================================
+  // =========================================
   // تنسيق مكتبة الحملات
-  // =====================================
+  // =========================================
 
   function addCampaignStyles() {
-    if (document.getElementById("campaignStyles")) {
-      return;
-    }
+    if (document.getElementById("campaignStyles")) return;
 
     const style = document.createElement("style");
     style.id = "campaignStyles";
@@ -645,14 +638,13 @@
       .campaign-note {
         font-size: 12px;
         line-height: 1.8;
-        color: var(--muted, #a8adb4);
       }
 
       .campaign-disclosure {
         margin-top: 18px;
         font-size: 13px;
-        color: var(--muted, #a8adb4);
         line-height: 1.8;
+        color: var(--muted, #a8adb4);
       }
 
       .product-image {
@@ -664,8 +656,8 @@
       }
 
       .product-photo {
-        max-width: 100%;
-        max-height: 100%;
+        width: 100%;
+        height: 100%;
         object-fit: contain;
       }
 
@@ -677,27 +669,30 @@
         justify-content: center;
         font-size: 64px;
       }
+
+      .product-store-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
     `;
 
     document.head.appendChild(style);
   }
 
-  // =====================================
+  // =========================================
   // عرض مكتبة الحملات
-  // =====================================
+  // =========================================
 
   function renderCampaignCreatives() {
-    if (document.getElementById("campaignCreatives")) {
-      return;
-    }
+    if (document.getElementById("campaignCreatives")) return;
 
     const anchor =
       document.getElementById("about") ||
       document.querySelector("footer");
 
-    if (!anchor || !anchor.parentNode) {
-      return;
-    }
+    if (!anchor || !anchor.parentNode) return;
 
     const section = document.createElement("section");
 
@@ -719,10 +714,8 @@
     const grid = document.createElement("div");
     grid.className = "campaign-grid";
 
-    CAMPAIGN_CREATIVES.forEach((item) => {
-      if (!safeCampaignUrl(item.url)) {
-        return;
-      }
+    CAMPAIGN_CREATIVES.forEach(item => {
+      if (!safeCampaignUrl(item.url)) return;
 
       const card = document.createElement("article");
       card.className = "campaign-card";
@@ -752,7 +745,6 @@
         image.decoding = "async";
 
         image.addEventListener("error", () => {
-          image.alt = "تعذر تحميل المادة الإعلانية";
           image.style.display = "none";
         });
 
@@ -763,13 +755,18 @@
       info.className = "campaign-info";
 
       const name = createElement("h3", "", item.title);
+
       const store = createElement(
         "p",
         "",
         item.store + " · " + item.category
       );
 
-      const link = createElement("a", "", "فتح المادة الأصلية");
+      const link = createElement(
+        "a",
+        "",
+        "فتح المادة الأصلية"
+      );
 
       link.href = item.url;
       link.target = "_blank";
@@ -790,21 +787,17 @@
     const disclosure = createElement(
       "p",
       "campaign-disclosure",
-      "تنبيه: هذه مواد إعلانية وصور من مكتبة الحملات، وليست روابط شراء أو روابط تتبع عمولة. يجب التأكد من صلاحية الحملة وإضافة رابط التتبع المعتمد قبل توجيه الزوار للشراء."
+      "تنبيه: المواد الإعلانية المعروضة ليست روابط شراء أو روابط تتبع عمولة. يجب التأكد من صلاحية الحملات وإضافة روابط التتبع المعتمدة قبل الترويج."
     );
 
     section.append(heading, grid, disclosure);
+
     anchor.parentNode.insertBefore(section, anchor);
   }
 
-  function initCampaignLibrary() {
-    addCampaignStyles();
-    renderCampaignCreatives();
-  }
-
-  // =====================================
+  // =========================================
   // البحث والفلاتر
-  // =====================================
+  // =========================================
 
   function setupFilters() {
     if (elements.search) {
@@ -819,7 +812,7 @@
       elements.store.addEventListener("change", renderProducts);
     }
 
-    document.querySelectorAll("[data-category]").forEach((card) => {
+    document.querySelectorAll("[data-category]").forEach(card => {
       card.addEventListener("click", () => {
         const category = card.getAttribute("data-category");
 
@@ -832,14 +825,12 @@
     });
   }
 
-  // =====================================
+  // =========================================
   // القائمة المتنقلة
-  // =====================================
+  // =========================================
 
   function setupMobileMenu() {
-    if (!elements.menuButton || !elements.nav) {
-      return;
-    }
+    if (!elements.menuButton || !elements.nav) return;
 
     function closeMenu() {
       elements.nav.classList.remove("open");
@@ -869,20 +860,18 @@
       );
     });
 
-    elements.nav.querySelectorAll("a").forEach((link) => {
+    elements.nav.querySelectorAll("a").forEach(link => {
       link.addEventListener("click", closeMenu);
     });
 
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        closeMenu();
-      }
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") closeMenu();
     });
   }
 
-  // =====================================
-  // تسجيل Service Worker
-  // =====================================
+  // =========================================
+  // Service Worker
+  // =========================================
 
   function registerServiceWorker() {
     if (
@@ -892,7 +881,7 @@
       window.addEventListener("load", () => {
         navigator.serviceWorker
           .register("./service-worker.js")
-          .catch((error) => {
+          .catch(error => {
             console.warn(
               "تعذر تسجيل Service Worker:",
               error
@@ -902,15 +891,16 @@
     }
   }
 
-  // =====================================
+  // =========================================
   // تشغيل التطبيق
-  // =====================================
+  // =========================================
 
   function init() {
     setupFilters();
     setupMobileMenu();
     renderProducts();
-    initCampaignLibrary();
+    addCampaignStyles();
+    renderCampaignCreatives();
     registerServiceWorker();
   }
 
