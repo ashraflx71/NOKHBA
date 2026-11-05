@@ -1,4 +1,12 @@
 
+"use strict";
+
+/* =========================================
+   NOKHBA | نخبة
+   Multi-Store Products
+   Amazon Affiliate ID: ashrafdealseg-21
+   ========================================= */
+
 window.NOKHBA_EXTRA_PRODUCTS = [
   {
     name: "سماعة Soundcore R50i لاسلكية",
