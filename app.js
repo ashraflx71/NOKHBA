@@ -1,17 +1,16 @@
-
 (() => {
   "use strict";
 
   /* =========================================
      NOKHBA | نخبة
-     Main Application - Version 3.3
-     Amazon ID: ashrafdealseg-21
+     Main Application - Version 3.4
+     Amazon Tracking ID: ashrafdealseg-21
      ========================================= */
 
   const AMAZON_TAG = "ashrafdealseg-21";
 
   // =========================================
-  // المنتجات الأساسية - روابط أمازون الأصلية
+  // المنتجات الأساسية
   // =========================================
 
   const AMAZON_PRODUCTS = [
@@ -107,7 +106,6 @@
 
   // =========================================
   // المنتجات الإضافية
-  // يجب تحميل products-multi.js أولاً
   // =========================================
 
   const EXTRA_PRODUCTS = Array.isArray(
@@ -125,11 +123,15 @@
     daily: "احتياجات يومية"
   };
 
+  // =========================================
+  // تجهيز المنتجات دون تغيير بياناتها
+  // =========================================
+
   const PRODUCTS = [
     ...AMAZON_PRODUCTS,
     ...EXTRA_PRODUCTS.map(product => ({
       ...product,
-      store: "multi"
+      store: product.store || "multi"
     }))
   ];
 
@@ -395,6 +397,18 @@
 
     const imageUrl = product.image || product.imageUrl || "";
 
+    function showFallback() {
+      wrapper.replaceChildren();
+
+      wrapper.appendChild(
+        createElement(
+          "span",
+          "product-image-fallback",
+          product.icon || "✧"
+        )
+      );
+    }
+
     if (imageUrl && safeImageUrl(imageUrl)) {
       const image = createElement("img", "product-photo");
 
@@ -403,26 +417,13 @@
       image.loading = "lazy";
       image.decoding = "async";
 
-      image.addEventListener("error", () => {
-        image.remove();
-        wrapper.appendChild(
-          createElement(
-            "span",
-            "product-image-fallback",
-            product.icon || "✧"
-          )
-        );
-      }, { once: true });
+      image.addEventListener("error", showFallback, {
+        once: true
+      });
 
       wrapper.appendChild(image);
     } else {
-      wrapper.appendChild(
-        createElement(
-          "span",
-          "product-image-fallback",
-          product.icon || "✧"
-        )
-      );
+      showFallback();
     }
 
     return wrapper;
@@ -495,11 +496,19 @@
       ? elements.store.value
       : "all";
 
-    const stores = product.store === "amazon"
-      ? ["amazon"]
-      : selectedStore === "all"
+    let stores = [];
+
+    if (product.store === "amazon") {
+      stores = ["amazon"];
+    } else if (product.store === "noon") {
+      stores = ["noon"];
+    } else if (product.store === "jumia") {
+      stores = ["jumia"];
+    } else {
+      stores = selectedStore === "all"
         ? ["amazon", "noon", "jumia"]
         : [selectedStore];
+    }
 
     stores.forEach(store => {
       const button = createStoreButton(product, store);
@@ -653,12 +662,15 @@
         align-items: center;
         justify-content: center;
         overflow: hidden;
+        background: #f8f8f6;
       }
 
       .product-photo {
         width: 100%;
         height: 100%;
+        display: block;
         object-fit: contain;
+        padding: 15px;
       }
 
       .product-image-fallback {
@@ -668,6 +680,7 @@
         align-items: center;
         justify-content: center;
         font-size: 64px;
+        color: #a98743;
       }
 
       .product-store-buttons {
@@ -675,6 +688,11 @@
         flex-wrap: wrap;
         gap: 8px;
         margin-top: 12px;
+      }
+
+      .product-button {
+        text-decoration: none;
+        cursor: pointer;
       }
     `;
 
@@ -745,8 +763,14 @@
         image.decoding = "async";
 
         image.addEventListener("error", () => {
-          image.style.display = "none";
-        });
+          media.replaceChildren(
+            createElement(
+              "span",
+              "product-image-fallback",
+              "✧"
+            )
+          );
+        }, { once: true });
 
         media.appendChild(image);
       }
@@ -821,6 +845,15 @@
         }
 
         renderProducts();
+
+        const productSection = document.getElementById("products");
+
+        if (productSection) {
+          productSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }
       });
     });
   }
