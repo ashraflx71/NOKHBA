@@ -1,27 +1,33 @@
-
 /* =========================================
    NOKHBA | نخبة
-   Version 2.0
-   Premium Shopping Platform
+   PREMIUM SHOPPING PLATFORM
+   FINAL STYLE VERSION 3.0
    ========================================= */
 
 :root {
   --dark: #15191e;
   --dark-soft: #1d242c;
   --dark-card: #222a33;
+
   --gold: #d6b36a;
   --gold-light: #f0d99e;
   --gold-dark: #a98743;
+
   --cream: #f5efe3;
   --white: #ffffff;
   --text: #f1f1ed;
   --muted: #a8adb4;
+
   --border: rgba(214,179,106,0.22);
   --success: #75c99a;
+
   --radius: 16px;
   --shadow: 0 12px 35px rgba(0,0,0,0.22);
+
   --max-width: 1180px;
 }
+
+/* RESET */
 
 * {
   box-sizing: border-box;
@@ -68,9 +74,7 @@ select:focus-visible {
   outline-offset: 4px;
 }
 
-/* =========================================
-   HEADER
-   ========================================= */
+/* HEADER */
 
 .header {
   width: 100%;
@@ -119,7 +123,7 @@ select:focus-visible {
 .header nav a {
   color: #d7d9dc;
   font-size: 14px;
-  transition: color 0.25s;
+  transition: color .25s;
 }
 
 .header nav a:hover {
@@ -137,9 +141,7 @@ select:focus-visible {
   cursor: pointer;
 }
 
-/* =========================================
-   HERO
-   ========================================= */
+/* HERO */
 
 .hero {
   max-width: var(--max-width);
@@ -147,7 +149,7 @@ select:focus-visible {
   margin: auto;
   padding: 90px 7%;
   display: grid;
-  grid-template-columns: 1.3fr 0.7fr;
+  grid-template-columns: 1.3fr .7fr;
   align-items: center;
   gap: 30px;
   position: relative;
@@ -190,21 +192,17 @@ select:focus-visible {
 
 .gold-btn {
   display: inline-block;
-  background: linear-gradient(
-    135deg,
-    var(--gold-light),
-    var(--gold-dark)
-  );
+  background: linear-gradient(135deg,var(--gold-light),var(--gold-dark));
   color: #17191c;
   padding: 12px 30px;
   border-radius: 8px;
   font-weight: bold;
-  transition: transform 0.25s, box-shadow 0.25s;
+  transition: transform .25s,box-shadow .25s;
 }
 
 .gold-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(214,179,106,0.25);
+  box-shadow: 0 8px 25px rgba(214,179,106,.25);
 }
 
 .hero-decoration {
@@ -221,15 +219,15 @@ select:focus-visible {
   border-radius: 50%;
   position: relative;
   box-shadow:
-    0 0 35px rgba(214,179,106,0.08),
-    inset 0 0 35px rgba(214,179,106,0.06);
+    0 0 35px rgba(214,179,106,.08),
+    inset 0 0 35px rgba(214,179,106,.06);
 }
 
 .gold-circle::before {
   content: "";
   position: absolute;
   inset: 20px;
-  border: 1px solid rgba(214,179,106,0.5);
+  border: 1px solid rgba(214,179,106,.5);
   border-radius: 50%;
 }
 
@@ -241,7 +239,7 @@ select:focus-visible {
   place-items: center;
   color: var(--gold);
   font-size: 115px;
-  font-family: Georgia, serif;
+  font-family: Georgia,serif;
 }
 
 .hero-label {
@@ -253,9 +251,7 @@ select:focus-visible {
   direction: ltr;
 }
 
-/* =========================================
-   WELCOME
-   ========================================= */
+/* WELCOME */
 
 .welcome {
   padding: 65px 20px;
@@ -267,7 +263,7 @@ select:focus-visible {
 
 .welcome h2,
 .about h2 {
-  font-size: clamp(25px, 4vw, 35px);
+  font-size: clamp(25px,4vw,35px);
   margin-bottom: 15px;
 }
 
@@ -279,19 +275,18 @@ select:focus-visible {
   font-size: 15px;
 }
 
-/* =========================================
-   SECTION HEADING
-   ========================================= */
+/* SECTION HEADINGS */
 
 .section-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 30px;
+  gap: 15px;
 }
 
 .section-heading h2 {
-  font-size: clamp(24px, 4vw, 32px);
+  font-size: clamp(24px,4vw,32px);
   margin-bottom: 7px;
 }
 
@@ -300,9 +295,7 @@ select:focus-visible {
   font-size: 14px;
 }
 
-/* =========================================
-   CATEGORIES
-   ========================================= */
+/* CATEGORIES */
 
 .categories,
 .featured {
@@ -313,7 +306,7 @@ select:focus-visible {
 
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4,minmax(0,1fr));
   gap: 18px;
 }
 
@@ -323,8 +316,7 @@ select:focus-visible {
   border-radius: var(--radius);
   padding: 27px 15px;
   text-align: center;
-  transition: transform 0.3s, border-color 0.3s,
-              background 0.3s;
+  transition: transform .3s,border-color .3s,background .3s;
 }
 
 .category-card:hover {
@@ -349,9 +341,7 @@ select:focus-visible {
   font-size: 13px;
 }
 
-/* =========================================
-   PRODUCT TOOLS
-   ========================================= */
+/* PRODUCT TOOLS */
 
 .product-tools {
   display: grid;
@@ -397,24 +387,20 @@ select:focus-visible {
   color: var(--white);
 }
 
-/* =========================================
-   RESULTS COUNTER
-   ========================================= */
+/* RESULTS */
 
 .results-counter {
-  color: var(--muted);
+  color: var(--gold-light);
   font-size: 14px;
   margin: 0 0 15px;
   padding: 0 5px;
 }
 
-/* =========================================
-   PRODUCTS GRID
-   ========================================= */
+/* PRODUCTS GRID */
 
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(3,minmax(0,1fr));
   gap: 23px;
 }
 
@@ -427,7 +413,7 @@ select:focus-visible {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  transition: transform 0.3s, border-color 0.3s;
+  transition: transform .3s,border-color .3s;
 }
 
 .product-card:hover {
@@ -435,16 +421,23 @@ select:focus-visible {
   border-color: var(--gold);
 }
 
+/* REAL PRODUCT IMAGES */
+
 .product-image {
   width: 100%;
   height: 220px;
   object-fit: contain;
+  object-position: center;
   padding: 15px;
   background: #f8f8f6;
   display: block;
 }
 
+/* Keep fallback only when explicitly generated by app.js */
+
 .product-image-fallback {
+  width: 100%;
+  min-height: 220px;
   display: grid;
   place-items: center;
   color: var(--gold-dark);
@@ -453,6 +446,8 @@ select:focus-visible {
   letter-spacing: 3px;
   background: var(--cream);
 }
+
+/* PRODUCT INFORMATION */
 
 .product-info {
   padding: 19px;
@@ -489,32 +484,50 @@ select:focus-visible {
   margin: 5px 0 12px;
 }
 
-.product-btn {
+.product-category {
+  display: inline-block;
+  color: var(--gold);
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* PRODUCT BUTTONS */
+
+.product-btn,
+.product-button {
   display: block;
   width: 100%;
   text-align: center;
   margin-top: auto;
   padding: 11px 15px;
   color: #17191c;
-  background: linear-gradient(
-    135deg,
-    var(--gold-light),
-    var(--gold-dark)
-  );
+  background: linear-gradient(135deg,var(--gold-light),var(--gold-dark));
   border-radius: 8px;
   font-weight: bold;
   font-size: 14px;
-  transition: opacity 0.25s, transform 0.25s;
+  transition: opacity .25s,transform .25s;
 }
 
-.product-btn:hover {
-  opacity: 0.9;
+.product-btn:hover,
+.product-button:hover {
+  opacity: .9;
   transform: translateY(-2px);
 }
 
-/* =========================================
-   EMPTY STATE
-   ========================================= */
+.product-store-buttons {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 9px;
+  margin-top: 16px;
+}
+
+.product-button {
+  margin-top: 0;
+  padding: 10px 12px;
+  font-size: 13px;
+}
+
+/* EMPTY STATE */
 
 .empty-state {
   grid-column: 1 / -1;
@@ -541,13 +554,12 @@ select:focus-visible {
   color: var(--muted);
 }
 
-/* =========================================
-   PRODUCT NOTE
-   ========================================= */
+/* PRODUCT NOTE */
 
 .product-note {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 11px;
+  line-height: 1.7;
   text-align: center;
   margin-top: 30px;
   padding: 15px;
@@ -555,9 +567,7 @@ select:focus-visible {
   border-radius: 10px;
 }
 
-/* =========================================
-   ABOUT
-   ========================================= */
+/* ABOUT */
 
 .about {
   text-align: center;
@@ -567,9 +577,7 @@ select:focus-visible {
   border-bottom: 1px solid var(--border);
 }
 
-/* =========================================
-   FOOTER
-   ========================================= */
+/* FOOTER */
 
 .footer {
   padding: 45px 20px 20px;
@@ -599,7 +607,7 @@ select:focus-visible {
 .footer-links a {
   color: #c4c7cb;
   font-size: 13px;
-  transition: color 0.2s;
+  transition: color .2s;
 }
 
 .footer-links a:hover {
@@ -611,23 +619,20 @@ select:focus-visible {
   border-top: 1px solid var(--border);
 }
 
-/* =========================================
-   RESPONSIVE - TABLET
-   ========================================= */
+/* TABLET */
 
 @media (max-width: 900px) {
-
   .hero {
-    grid-template-columns: 1fr 0.7fr;
+    grid-template-columns: 1fr .7fr;
     padding: 65px 5%;
   }
 
   .category-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2,minmax(0,1fr));
   }
 
   .products-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2,minmax(0,1fr));
   }
 
   .product-tools {
@@ -635,12 +640,9 @@ select:focus-visible {
   }
 }
 
-/* =========================================
-   RESPONSIVE - MOBILE
-   ========================================= */
+/* MOBILE */
 
 @media (max-width: 600px) {
-
   .header {
     min-height: 68px;
     padding: 10px 5%;
@@ -718,7 +720,7 @@ select:focus-visible {
   }
 
   .category-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2,minmax(0,1fr));
     gap: 12px;
   }
 
@@ -757,79 +759,23 @@ select:focus-visible {
     padding: 17px;
   }
 
+  .product-store-buttons {
+    grid-template-columns: 1fr;
+  }
+
   .footer-links {
     gap: 13px 20px;
   }
 }
 
-/* =========================================
-   REDUCED MOTION
-   ========================================= */
+/* ACCESSIBILITY */
 
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
   }
 }
-
-/* NOKHBA - إضافات توافق المنتجات والمتاجر */
-
-.product-store-buttons {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 9px;
-  margin-top: 16px;
-}
-
-.product-button {
-  display: block;
-  width: 100%;
-  padding: 10px 12px;
-  text-align: center;
-  color: #17191c;
-  background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: bold;
-  transition: transform .2s, opacity .2s;
-}
-
-.product-button:hover {
-  transform: translateY(-2px);
-  opacity: .9;
-}
-
-.product-category {
-  display: inline-block;
-  color: var(--gold);
-  font-size: 12px;
-  margin-top: 5px;
-}
-
-.product-note {
-  margin-top: 14px;
-  font-size: 11px;
-  line-height: 1.7;
-}
-
-.product-image {
-  display: grid;
-  place-items: center;
-  font-size: 65px;
-  color: var(--gold-dark);
-}
-
-.results-counter {
-  color: var(--gold-light);
-}
-
-@media (max-width: 600px) {
-  .product-store-buttons {
-    grid-template-columns: 1fr;
-  }
-}
-
