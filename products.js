@@ -1,23 +1,18 @@
-
 "use strict";
 
 /* =========================================
    NOKHBA | نخبة
-   عروض وخصومات مصر
-   Amazon Egypt Affiliate
-   Products Database
+   Amazon Egypt Products Database
+   Version 2.0
    ========================================= */
 
 (() => {
 
-  // معرّف العمولة الذي سبق استخدامه
-  const TAG = "ashrafhassa03-21";
+  const TAG = "ashrafdealseg-21";
 
-  // رابط المنتج مع معرّف العمولة
-  const amazonLink = (asin) =>
+  const amazonLink = asin =>
     `https://www.amazon.eg/dp/${asin}?tag=${TAG}`;
 
-  // قاعدة بيانات المنتجات
   const PRODUCTS = [
 
     {
@@ -30,11 +25,9 @@
       price: null,
       currency: "EGP",
       rating: null,
-      description:
-        "سماعة بلوتوث لاسلكية مع ميكروفون للمكالمات الهاتفية.",
+      description: "سماعة بلوتوث لاسلكية مع ميكروفون للمكالمات الهاتفية.",
       url: amazonLink("B0BS1QB15L"),
-      store: "Amazon Egypt",
-      verified: true
+      store: "Amazon Egypt"
     },
 
     {
@@ -47,19 +40,20 @@
       price: null,
       currency: "EGP",
       rating: null,
-      description:
-        "جهاز مطبخ متعدد الوظائف لتحضير الطعام.",
+      description: "جهاز مطبخ متعدد الوظائف لتحضير الطعام.",
       url: amazonLink("B08HSF4FY6"),
-      store: "Amazon Egypt",
-      verified: true
+      store: "Amazon Egypt"
     }
 
   ];
 
-  // إتاحة المنتجات لبقية ملفات الموقع
+  // قاعدة المنتجات الرئيسية
+  window.AMAZON_PRODUCTS = PRODUCTS;
+
+  // توافق مع الملفات والإصدارات السابقة
   window.NOKHBA_PRODUCTS = PRODUCTS;
 
-  // إتاحة معرّف العمولة
+  // معرّف العمولة
   window.NOKHBA_AFFILIATE_TAG = TAG;
 
 })();
