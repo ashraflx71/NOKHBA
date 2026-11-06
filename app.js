@@ -1,15 +1,24 @@
+
 "use strict";
 
 /* ==================================================
    NOKHBA | نخبة
-   Premium Products Display Engine
-   Version 5.0
-   Amazon Affiliate: ashrafdealseg-21
+   PREMIUM PRODUCTS DISPLAY ENGINE
+   VERSION 5.1 - FIXED
+   AMAZON TAG: ashrafdealseg-21
    ================================================== */
 
 (() => {
-  const AMAZON_TAG = "ashrafdealseg-21";
-  const VERSION = "5.0";
+
+  /* ================================================
+     CONFIGURATION
+     ================================================ */
+
+  const CONFIG = {
+    version: "5.1",
+    amazonTag: "ashrafdealseg-21",
+    defaultStore: "amazon"
+  };
 
   const $ = id => document.getElementById(id);
 
@@ -26,7 +35,7 @@
   }
 
   /* ================================================
-     CATEGORY NAMES
+     CATEGORIES
      ================================================ */
 
   const categoryNames = {
@@ -45,7 +54,7 @@
   };
 
   /* ================================================
-     SECURITY HELPERS
+     SECURITY
      ================================================ */
 
   function escapeHTML(value) {
@@ -62,16 +71,21 @@
   }
 
   function safeURL(value) {
-    if (!value || typeof value !== "string") {
+    if (
+      typeof value !== "string" ||
+      !value.trim()
+    ) {
       return "";
     }
 
     try {
-      const url = new URL(value.trim(), location.href);
+      const url = new URL(
+        value.trim(),
+        location.href
+      );
 
       if (
-        url.protocol !== "https:" &&
-        url.protocol !== "http:"
+        !["https:", "http:"].includes(url.protocol)
       ) {
         return "";
       }
@@ -83,83 +97,14 @@
     }
   }
 
-  function isAmazonURL(value) {
-    try {
-      return new URL(value).hostname.endsWith("amazon.eg");
-    } catch {
-      return false;
-    }
-  }
-
-  function addAmazonTag(value) {
-    const url = safeURL(value);
-
-    if (!url || !isAmazonURL(url)) {
-      return url;
-    }
-
-    try {
-      const parsed = new URL(url);
-
-      parsed.searchParams.set("tag", AMAZON_TAG);
-
-      return parsed.href;
-
-    } catch {
-      return url;
-    }
-  }
-
   /* ================================================
-     PRODUCT DATA
-     Preserve existing product databases
+     STORE NORMALIZATION
      ================================================ */
 
-  function getProducts() {
-    const sources = [
-      window.AMAZON_PRODUCTS,
-      window.NOKHBA_EXTRA_PRODUCTS
-    ];
-
-    const allProducts = [];
-
-    sources.forEach(source => {
-      if (!Array.isArray(source)) return;
-
-      source.forEach(product => {
-        if (
-          product &&
-          typeof product === "object" &&
-          product.name
-        ) {
-          allProducts.push(product);
-        }
-      });
-    });
-
-    const unique = new Map();
-
-    allProducts.forEach(product => {
-      const name = String(product.name).trim();
-
-      if (!name) return;
-
-      const store = normalizeStore(product.store);
-
-      const key = (
-        name.toLowerCase() + "|" + store
-      );
-
-      if (!unique.has(key)) {
-        unique.set(key, product);
-      }
-    });
-
-    return Array.from(unique.values());
-  }
-
   function normalizeStore(store) {
-    const value = String(store || "").toLowerCase();
+    const value = String(
+      store || ""
+    ).toLowerCase().trim();
 
     if (
       value.includes("amazon") ||
@@ -184,32 +129,150 @@
     return value;
   }
 
+  /* ================================================
+     AMAZON AFFILIATE
+     ================================================ */
+
+  function addAmazonTag(value) {
+    const url = safeURL(value);
+
+    if (!url) return "";
+
+    try {
+      const parsed = new URL(url);
+
+      const hostname = parsed.hostname.toLowerCase();
+
+      if (
+        hostname !== "amazon.eg" &&
+        !hostname.endsWith(".amazon.eg")
+      ) {
+        return url;
+      }
+
+      parsed.searchParams.set(
+        "tag",
+        CONFIG.amazonTag
+      );
+
+      return parsed.href;
+
+    } catch {
+      return url;
+    }
+  }
+
+  /* ================================================
+     LOAD PRODUCT DATABASES
+     ================================================ */
+
+  function getProducts() {
+
+    const sources = [
+      window.AMAZON_PRODUCTS,
+      window.NOKHBA_EXTRA_PRODUCTS
+    ];
+
+    const all = [];
+
+    sources.forEach(source => {
+
+      if (!Array.isArray(source)) return;
+
+      source.forEach(product => {
+
+        if (
+          !product ||
+          typeof product !== "object" ||
+          !product.name
+        ) {
+          return;
+        }
+
+        all.push(product);
+
+      });
+
+    });
+
+    const unique = new Map();
+
+    all.forEach(product => {
+
+      const name = String(
+        product.name
+      ).trim();
+
+      if (!name) return;
+
+      const store = normalizeStore(
+        product.store
+      );
+
+      const key = name.toLowerCase();
+
+      if (!unique.has(key)) {
+        unique.set(key, product);
+        return;
+      }
+
+      // Prefer the entry containing more useful data.
+      const existing = unique.get(key);
+
+      const score = item => [
+        item.image,
+        item.imageUrl,
+        item.url,
+        item.amazonUrl,
+        item.amazonLink,
+        item.description,
+        item.price
+      ].filter(Boolean).length;
+
+      if (score(product) > score(existing)) {
+        unique.set(key, product);
+      }
+
+    });
+
+    return [...unique.values()];
+  }
+
   const products = getProducts();
 
   /* ================================================
-     PRODUCT IMAGE
-     Use original images only
+     PRODUCT IMAGES
      ================================================ */
 
   function getProductImage(product) {
-    return safeURL(
-      product.image ||
-      product.imageUrl ||
-      product.img ||
-      product.thumbnail ||
-      ""
-    );
+
+    const candidates = [
+      product.image,
+      product.imageUrl,
+      product.img,
+      product.thumbnail
+    ];
+
+    for (const candidate of candidates) {
+
+      const url = safeURL(candidate);
+
+      if (url) return url;
+
+    }
+
+    return "";
   }
 
   function createImage(product) {
+
     const image = getProductImage(product);
 
-    if (!image) {
-      return "";
-    }
+    if (!image) return "";
 
     return `
       <div class="product-image-container">
+
         <img
           class="product-image"
           src="${escapeHTML(image)}"
@@ -217,35 +280,42 @@
           loading="lazy"
           decoding="async"
         >
+
       </div>
     `;
   }
 
-  // Hide broken images without replacing them
-  productsGrid.addEventListener("error", event => {
-    const target = event.target;
+  // Remove broken images without fake replacements.
+  productsGrid.addEventListener(
+    "error",
+    event => {
 
-    if (
-      target &&
-      target.tagName === "IMG" &&
-      target.classList.contains("product-image")
-    ) {
-      const container = target.closest(
-        ".product-image-container"
-      );
+      const target = event.target;
 
-      if (container) {
-        container.remove();
+      if (
+        target &&
+        target.tagName === "IMG" &&
+        target.classList.contains("product-image")
+      ) {
+
+        target.closest(
+          ".product-image-container"
+        )?.remove();
+
       }
-    }
-  }, true);
+
+    },
+    true
+  );
 
   /* ================================================
-     STORE LINKS
+     DIRECT PRODUCT LINKS
      ================================================ */
 
   function getDirectLink(product, store) {
+
     const fields = {
+
       amazon: [
         product.amazonUrl,
         product.amazonLink,
@@ -263,16 +333,19 @@
         product.jumiaLink,
         product.jumiaURL
       ]
+
     };
 
     for (const candidate of fields[store] || []) {
+
       const url = safeURL(candidate);
 
-      if (url) {
-        return store === "amazon"
-          ? addAmazonTag(url)
-          : url;
-      }
+      if (!url) continue;
+
+      return store === "amazon"
+        ? addAmazonTag(url)
+        : url;
+
     }
 
     const mainURL = safeURL(product.url);
@@ -281,15 +354,22 @@
       mainURL &&
       normalizeStore(product.store) === store
     ) {
+
       return store === "amazon"
         ? addAmazonTag(mainURL)
         : mainURL;
+
     }
 
     return "";
   }
 
+  /* ================================================
+     STORE SEARCH LINKS
+     ================================================ */
+
   function searchURL(store, product) {
+
     const query = String(
       product.search || product.name
     ).trim();
@@ -297,98 +377,118 @@
     if (!query) return "";
 
     if (store === "amazon") {
+
       return (
         "https://www.amazon.eg/s?k=" +
         encodeURIComponent(query) +
         "&tag=" +
-        AMAZON_TAG
+        CONFIG.amazonTag
       );
+
     }
 
     if (store === "noon") {
+
       return (
         "https://www.noon.com/egypt-en/search/?q=" +
         encodeURIComponent(query)
       );
+
     }
 
     if (store === "jumia") {
+
       return (
         "https://www.jumia.com.eg/catalog/?q=" +
         encodeURIComponent(query)
       );
-    }
 
-    return "";
-  }
-
-  function getAvailableStores(product) {
-    const stores = [];
-
-    const productStore = normalizeStore(product.store);
-
-    ["amazon", "noon", "jumia"].forEach(store => {
-      const direct = getDirectLink(product, store);
-
-      const isPrimaryStore = productStore === store;
-
-      // Products without a specified store are treated
-      // as Amazon products for backward compatibility.
-      const isLegacyAmazon =
-        !productStore &&
-        store === "amazon";
-
-      const isExplicitMultiStore =
-        productStore === "multi" &&
-        Boolean(direct);
-
-      if (
-        direct ||
-        isPrimaryStore ||
-        isLegacyAmazon ||
-        isExplicitMultiStore
-      ) {
-        stores.push(store);
-      }
-    });
-
-    return stores;
-  }
-
-  function getStoreLink(product, store) {
-    const direct = getDirectLink(product, store);
-
-    if (direct) {
-      return direct;
-    }
-
-    const productStore = normalizeStore(product.store);
-
-    if (
-      productStore === store ||
-      (!productStore && store === "amazon")
-    ) {
-      return searchURL(store, product);
     }
 
     return "";
   }
 
   /* ================================================
+     AVAILABLE STORES
+     ================================================ */
+
+  function getAvailableStores(product) {
+
+    const productStore = normalizeStore(
+      product.store
+    );
+
+    // Explicit multi-store products.
+    if (productStore === "multi") {
+
+      return [
+        "amazon",
+        "noon",
+        "jumia"
+      ];
+
+    }
+
+    // Products assigned to one specific store.
+    if (
+      ["amazon", "noon", "jumia"].includes(
+        productStore
+      )
+    ) {
+
+      return [productStore];
+
+    }
+
+    // Backward compatibility for older products.
+    return [CONFIG.defaultStore];
+  }
+
+  /* ================================================
+     FINAL STORE LINK
+     ================================================ */
+
+  function getStoreLink(product, store) {
+
+    const direct = getDirectLink(
+      product,
+      store
+    );
+
+    if (direct) return direct;
+
+    const available = getAvailableStores(product);
+
+    if (!available.includes(store)) {
+      return "";
+    }
+
+    return searchURL(store, product);
+  }
+
+  /* ================================================
      STORE BUTTONS
      ================================================ */
 
-  function createStoreButtons(product, selectedStore) {
-    const availableStores = getAvailableStores(product);
+  function createStoreButtons(
+    product,
+    selectedStore
+  ) {
+
+    const available = getAvailableStores(product);
 
     const stores = selectedStore === "all"
-      ? availableStores
-      : availableStores.includes(selectedStore)
+      ? available
+      : available.includes(selectedStore)
         ? [selectedStore]
         : [];
 
     return stores.map(store => {
-      const url = getStoreLink(product, store);
+
+      const url = getStoreLink(
+        product,
+        store
+      );
 
       if (!url) return "";
 
@@ -404,7 +504,9 @@
           <span aria-hidden="true">↗</span>
         </a>
       `;
+
     }).join("");
+
   }
 
   /* ================================================
@@ -412,11 +514,12 @@
      ================================================ */
 
   function createCard(product, selectedStore) {
+
     const name = escapeHTML(product.name);
 
     const description = escapeHTML(
       product.description ||
-      "اكتشف تفاصيل المنتج من المتجر."
+      "اكتشف تفاصيل المنتج في المتجر."
     );
 
     const category = escapeHTML(
@@ -431,9 +534,7 @@
       selectedStore
     );
 
-    if (!buttons) {
-      return "";
-    }
+    if (!buttons) return "";
 
     const price = product.price
       ? `
@@ -468,29 +569,35 @@
 
       </article>
     `;
+
   }
 
   /* ================================================
-     SEARCH AND FILTERS
+     SEARCH AND FILTER ENGINE
      ================================================ */
 
   function renderProducts() {
+
     const search = (
       searchInput?.value || ""
     ).trim().toLowerCase();
 
-    const category = categoryFilter?.value || "all";
+    const category =
+      categoryFilter?.value || "all";
 
-    const store = storeFilter?.value || "all";
+    const store =
+      storeFilter?.value || "all";
 
     const filtered = products.filter(product => {
 
       const searchable = [
+
         product.name,
         product.description,
         product.search,
         product.category,
         product.store
+
       ]
         .filter(Boolean)
         .join(" ")
@@ -503,39 +610,45 @@
         category === "all" ||
         product.category === category;
 
-      const availableStores =
-        getAvailableStores(product);
-
       const matchesStore =
         store === "all" ||
-        availableStores.includes(store);
+        getAvailableStores(product).includes(store);
 
       return (
         matchesSearch &&
         matchesCategory &&
         matchesStore
       );
+
     });
 
     const cards = filtered
-      .map(product => createCard(product, store))
+      .map(product =>
+        createCard(product, store)
+      )
       .filter(Boolean);
 
     productsGrid.innerHTML = cards.join("");
 
     if (resultCount) {
+
       resultCount.textContent =
         `عدد المنتجات: ${cards.length}`;
+
     }
 
     if (emptyMessage) {
-      emptyMessage.hidden = cards.length !== 0;
+
+      emptyMessage.hidden =
+        cards.length !== 0;
+
     }
 
     productsGrid.setAttribute(
       "aria-live",
       "polite"
     );
+
   }
 
   /* ================================================
@@ -567,7 +680,8 @@
 
       card.addEventListener("click", () => {
 
-        const category = card.dataset.category;
+        const category =
+          card.dataset.category;
 
         if (!categoryFilter || !category) {
           return;
@@ -577,7 +691,7 @@
 
         renderProducts();
 
-        $("products")?.scrollIntoView({
+        productsGrid.scrollIntoView({
           behavior: "smooth",
           block: "start"
         });
@@ -587,7 +701,7 @@
     });
 
   /* ================================================
-     MOBILE NAVIGATION
+     MOBILE MENU
      ================================================ */
 
   const menuBtn = $("menuBtn");
@@ -597,7 +711,8 @@
 
     if (!mainNav) return;
 
-    const opened = mainNav.classList.toggle("open");
+    const opened =
+      mainNav.classList.toggle("open");
 
     menuBtn.setAttribute(
       "aria-expanded",
@@ -628,7 +743,8 @@
   renderProducts();
 
   console.log(
-    `NOKHBA ${VERSION}: ${products.length} products loaded.`
+    `NOKHBA ${CONFIG.version}: ` +
+    `${products.length} products loaded successfully.`
   );
 
 })();
