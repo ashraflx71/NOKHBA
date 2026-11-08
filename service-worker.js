@@ -1,12 +1,12 @@
-
 "use strict";
 
 /* =========================================
    NOKHBA | نخبة
-   Service Worker - Version 4.0
+   SERVICE WORKER
+   VERSION 4.1
    ========================================= */
 
-const CACHE_NAME = "nokhba-v4";
+const CACHE_NAME = "nokhba-v4.1";
 
 const APP_FILES = [
   "./",
@@ -19,34 +19,40 @@ const APP_FILES = [
   "./icon-512.png"
 ];
 
-/* تثبيت التطبيق وحفظ الملفات */
+/* INSTALL */
 
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(async cache => {
-      for (const file of APP_FILES) {
-        try {
-          const response = await fetch(file);
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
 
-          if (response.ok) {
-            await cache.put(file, response);
+      await Promise.all(
+        APP_FILES.map(async file => {
+          try {
+            const response = await fetch(file);
+
+            if (response.ok) {
+              await cache.put(file, response);
+            }
+          } catch (error) {
+            console.warn("NOKHBA cache error:", file);
           }
-        } catch (error) {
-          console.warn("تعذر حفظ الملف:", file, error);
-        }
-      }
-    })
-  );
+        })
+      );
 
-  self.skipWaiting();
+      await self.skipWaiting();
+    })()
+  );
 });
 
-/* تفعيل النسخة الجديدة */
+/* ACTIVATE */
 
 self.addEventListener("activate", event => {
   event.waitUntil(
-    caches.keys().then(keys => {
-      return Promise.all(
+    (async () => {
+      const keys = await caches.keys();
+
+      await Promise.all(
         keys
           .filter(key =>
             key.startsWith("nokhba-") &&
@@ -54,43 +60,48 @@ self.addEventListener("activate", event => {
           )
           .map(key => caches.delete(key))
       );
-    }).then(() => self.clients.claim())
+
+      await self.clients.claim();
+    })()
   );
 });
 
-/* التعامل مع الطلبات */
+/* FETCH */
 
 self.addEventListener("fetch", event => {
+
   const request = event.request;
 
   if (request.method !== "GET") return;
 
   const url = new URL(request.url);
 
-  // لا نتدخل في طلبات المواقع الخارجية
   if (url.origin !== self.location.origin) return;
 
-  // صفحات الموقع
-  if (request.mode === "navigate") {
-    event.respondWith(
-      fetch(request)
-        .then(response => {
-          if (response.ok) {
-            const copy = response.clone();
+  /* HTML PAGES */
 
-            caches.open(CACHE_NAME).then(cache => {
-              cache.put("./index.html", copy);
-            });
+  if (request.mode === "navigate") {
+
+    event.respondWith(
+      (async () => {
+
+        try {
+          const response = await fetch(request);
+
+          if (response.ok) {
+            const cache = await caches.open(CACHE_NAME);
+
+            await cache.put("./index.html", response.clone());
           }
 
           return response;
-        })
-        .catch(async () => {
+
+        } catch (error) {
+
           return (
-            await caches.match(request) ||
             await caches.match("./index.html") ||
             new Response(
-              "أنت غير متصل بالإنترنت. يرجى الاتصال بالشبكة والمحاولة مرة أخرى.",
+              "أنت غير متصل بالإنترنت. يرجى المحاولة لاحقاً.",
               {
                 status: 503,
                 headers: {
@@ -99,28 +110,46 @@ self.addEventListener("fetch", event => {
               }
             )
           );
-        })
+        }
+
+      })()
     );
 
     return;
   }
 
-  // الملفات الثابتة والصور المحلية
+  /* STATIC FILES */
+
   event.respondWith(
-    caches.match(request).then(cached => {
+    (async () => {
+
+      const cached = await caches.match(request);
+
       if (cached) return cached;
 
-      return fetch(request).then(response => {
-        if (response.ok && response.type === "basic") {
-          const copy = response.clone();
+      try {
 
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(request, copy);
-          });
+        const response = await fetch(request);
+
+        if (response.ok && response.type === "basic") {
+
+          const cache = await caches.open(CACHE_NAME);
+
+          await cache.put(request, response.clone());
         }
 
         return response;
-      });
-    })
+
+      } catch (error) {
+
+        return new Response("", {
+          status: 503,
+          statusText: "Offline"
+        });
+
+      }
+
+    })()
   );
+
 });
