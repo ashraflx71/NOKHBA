@@ -1,211 +1,260 @@
+
 "use strict";
 
 /* =========================================
    NOKHBA | نخبة
-   Multi-Store Products
-   Version 2.0
+   MULTI PRODUCTS DATABASE
+   FINAL VERSION 3.0
+   AMAZON EGYPT
+   AFFILIATE TAG: ashrafdealseg-21
+
+   يعتمد على app.js VERSION 5.2
+   لا يكرر المنتجات الموجودة في products.js
    ========================================= */
 
-window.NOKHBA_EXTRA_PRODUCTS = [
+(() => {
 
-  {
-    name: "سماعة Soundcore R50i لاسلكية",
-    category: "electronics",
-    description: "سماعة بلوتوث للاستخدام اليومي.",
-    icon: "🎧",
-    search: "Soundcore R50i",
-    store: "multi",
-    image: ""
-  },
+  const AMAZON_TAG = "ashrafdealseg-21";
 
-  {
-    name: "ساعة Oraimo Watch 5 Lite",
-    category: "electronics",
-    description: "ساعة ذكية لمتابعة النشاط اليومي.",
-    icon: "⌚",
-    search: "Oraimo Watch 5 Lite",
-    store: "multi",
-    image: ""
-  },
+  const PRODUCTS = [
 
-  {
-    name: "باور بانك JOYROOM سعة 10000",
-    category: "electronics",
-    description: "شاحن متنقل للهواتف.",
-    icon: "🔋",
-    search: "JOYROOM 10000mAh power bank",
-    store: "multi",
-    image: ""
-  },
+    // =========================
+    // ELECTRONICS
+    // =========================
 
-  {
-    name: "شاحن Anker Zolo Type-C 20W",
-    category: "electronics",
-    description: "شاحن للأجهزة المتوافقة.",
-    icon: "🔌",
-    search: "Anker Zolo Type C 20W charger",
-    store: "multi",
-    image: ""
-  },
+    {
+      id: "multi-001",
+      name: "سماعة Soundcore R50i اللاسلكية",
+      category: "electronics",
+      description: "سماعة لاسلكية للاستخدام اليومي.",
+      search: "Soundcore R50i wireless earbuds",
+      store: "amazon",
+      image: ""
+    },
 
-  {
-    name: "سماعة ألعاب Havit H2008D",
-    category: "electronics",
-    description: "سماعة رأس للألعاب والاستخدام اليومي.",
-    icon: "🎮",
-    search: "Havit H2008D gaming headset",
-    store: "multi",
-    image: ""
-  },
+    {
+      id: "multi-002",
+      name: "ساعة Oraimo Watch 5 Lite",
+      category: "electronics",
+      description: "ساعة ذكية لمتابعة النشاط اليومي.",
+      search: "Oraimo Watch 5 Lite",
+      store: "amazon",
+      image: ""
+    },
 
-  {
-    name: "غلاية مياه Hoho سعة 1.5 لتر",
-    category: "home",
-    description: "غلاية مياه للاستخدام المنزلي.",
-    icon: "☕",
-    search: "Hoho kettle 1.5L",
-    store: "multi",
-    image: ""
-  },
+    {
+      id: "multi-003",
+      name: "باور بانك JOYROOM 10000mAh",
+      category: "electronics",
+      description: "شاحن متنقل للهواتف والأجهزة المتوافقة.",
+      search: "JOYROOM 10000mAh power bank",
+      store: "amazon",
+      image: ""
+    },
 
-  {
-    name: "صانعة ساندويتش",
-    category: "home",
-    description: "جهاز لتحضير الساندويتش في المنزل.",
-    icon: "🥪",
-    search: "sandwich maker",
-    store: "multi",
-    image: ""
-  },
+    {
+      id: "multi-004",
+      name: "شاحن Anker Zolo Type-C 20W",
+      category: "electronics",
+      description: "شاحن سريع للأجهزة المتوافقة.",
+      search: "Anker Zolo Type C 20W charger",
+      store: "amazon",
+      image: ""
+    },
 
-  {
-    name: "ميزان مطبخ رقمي",
-    category: "home",
-    description: "ميزان لقياس مكونات الطعام.",
-    icon: "⚖️",
-    search: "digital kitchen scale",
-    store: "multi",
-    image: ""
-  },
+    {
+      id: "multi-005",
+      name: "سماعة ألعاب Havit H2008D",
+      category: "electronics",
+      description: "سماعة رأس للألعاب والاستخدام اليومي.",
+      search: "Havit H2008D gaming headset",
+      store: "amazon",
+      image: ""
+    },
 
-  {
-    name: "كبة Fresh CH-400",
-    category: "home",
-    description: "كبة كهربائية لتحضير الطعام.",
-    icon: "🥕",
-    search: "Fresh CH-400 chopper",
-    store: "multi",
-    image: ""
-  },
+    // =========================
+    // HOME & KITCHEN
+    // =========================
 
-  {
-    name: "أكياس حفظ الطعام قابلة لإعادة الاستخدام",
-    category: "home",
-    description: "أكياس لتنظيم وحفظ الطعام.",
-    icon: "🥗",
-    search: "reusable food storage bags",
-    store: "multi",
-    image: ""
-  },
+    {
+      id: "multi-006",
+      name: "غلاية كهربائية Hoho سعة 1.5 لتر",
+      category: "home",
+      description: "غلاية مياه للاستخدام المنزلي.",
+      search: "Hoho electric kettle 1.5L",
+      store: "amazon",
+      image: ""
+    },
 
-  {
-    name: "حذاء رياضي أبيض Activ",
-    category: "fashion",
-    description: "حذاء رياضي للاستخدام اليومي.",
-    icon: "👟",
-    search: "Activ white sneakers",
-    store: "multi",
-    image: ""
-  },
+    {
+      id: "multi-007",
+      name: "صانعة ساندويتش وشواية",
+      category: "home",
+      description: "جهاز لتحضير الساندويتش في المنزل.",
+      search: "sandwich maker grill",
+      store: "amazon",
+      image: ""
+    },
 
-  {
-    name: "بلوفر رجالي Caesar",
-    category: "fashion",
-    description: "ملابس رجالية للاستخدام اليومي.",
-    icon: "🧥",
-    search: "Caesar men's wool pullover",
-    store: "multi",
-    image: ""
-  },
+    {
+      id: "multi-008",
+      name: "ميزان مطبخ رقمي",
+      category: "home",
+      description: "ميزان رقمي لقياس مكونات الطعام.",
+      search: "digital kitchen scale",
+      store: "amazon",
+      image: ""
+    },
 
-  {
-    name: "تيشيرت بولو رجالي Defacto",
-    category: "fashion",
-    description: "تيشيرت رجالي بتصميم بولو.",
-    icon: "👕",
-    search: "Defacto men's polo shirt",
-    store: "multi",
-    image: ""
-  },
+    {
+      id: "multi-009",
+      name: "كبة Fresh CH-400",
+      category: "home",
+      description: "كبة كهربائية لتحضير الطعام.",
+      search: "Fresh CH-400 chopper",
+      store: "amazon",
+      image: ""
+    },
 
-  {
-    name: "بطانية شتوية Mintra",
-    category: "home",
-    description: "بطانية للاستخدام المنزلي.",
-    icon: "🛏️",
-    search: "Mintra winter blanket",
-    store: "multi",
-    image: ""
-  },
+    {
+      id: "multi-010",
+      name: "أكياس حفظ الطعام القابلة لإعادة الاستخدام",
+      category: "home",
+      description: "أكياس لحفظ وتنظيم الطعام.",
+      search: "reusable food storage bags",
+      store: "amazon",
+      image: ""
+    },
 
-  {
-    name: "مظلة واقية لزجاج السيارة",
-    category: "cars",
-    description: "مظلة لتقليل تعرض السيارة للشمس.",
-    icon: "🚗",
-    search: "car windshield sunshade umbrella",
-    store: "multi",
-    image: ""
-  },
+    // =========================
+    // FASHION
+    // =========================
 
-  {
-    name: "ممسحة تنظيف السيارة من المايكروفايبر",
-    category: "cars",
-    description: "أداة لتنظيف السيارة.",
-    icon: "🧽",
-    search: "microfiber car cleaning mop",
-    store: "multi",
-    image: ""
-  },
+    {
+      id: "multi-011",
+      name: "حذاء رياضي Activ أبيض",
+      category: "fashion",
+      description: "حذاء رياضي للاستخدام اليومي.",
+      search: "Activ white sneakers",
+      store: "amazon",
+      image: ""
+    },
 
-  {
-    name: "جل تلميع إطارات Flamingo",
-    category: "cars",
-    description: "منتج للعناية بمظهر إطارات السيارة.",
-    icon: "🛞",
-    search: "Flamingo tire gel",
-    store: "multi",
-    image: ""
-  },
+    {
+      id: "multi-012",
+      name: "بلوفر Caesar رجالي",
+      category: "fashion",
+      description: "ملابس رجالية للاستخدام اليومي.",
+      search: "Caesar mens wool pullover",
+      store: "amazon",
+      image: ""
+    },
 
-  {
-    name: "ماوس لاسلكي",
-    category: "electronics",
-    description: "فأرة لاسلكية للكمبيوتر.",
-    icon: "🖱️",
-    search: "wireless computer mouse",
-    store: "multi",
-    image: ""
-  },
+    {
+      id: "multi-013",
+      name: "تيشيرت بولو رجالي Defacto",
+      category: "fashion",
+      description: "تيشيرت رجالي بتصميم بولو.",
+      search: "Defacto mens polo shirt",
+      store: "amazon",
+      image: ""
+    },
 
-  {
-    name: "زجاجة حرارية استانلس 1 لتر",
-    category: "daily",
-    description: "زجاجة لحفظ المشروبات.",
-    icon: "🥤",
-    search: "1L stainless steel thermal bottle",
-    store: "multi",
-    image: ""
-  },
+    {
+      id: "multi-014",
+      name: "بطانية شتوية Mintra",
+      category: "home",
+      description: "بطانية للاستخدام المنزلي.",
+      search: "Mintra winter blanket",
+      store: "amazon",
+      image: ""
+    },
 
-  {
-    name: "آلة حاسبة Casio FX-991ARX",
-    category: "daily",
-    description: "آلة حاسبة علمية للدراسة والعمل.",
-    icon: "🧮",
-    search: "Casio FX-991ARX",
-    store: "multi",
-    image: ""
+    // =========================
+    // CAR ACCESSORIES
+    // =========================
+
+    {
+      id: "multi-015",
+      name: "مظلة واقية لزجاج السيارة",
+      category: "cars",
+      description: "مظلة لحماية السيارة من أشعة الشمس.",
+      search: "car windshield sunshade umbrella",
+      store: "amazon",
+      image: ""
+    },
+
+    {
+      id: "multi-016",
+      name: "ممسحة تنظيف السيارة من المايكروفايبر",
+      category: "cars",
+      description: "أداة لتنظيف السيارة.",
+      search: "microfiber car cleaning mop",
+      store: "amazon",
+      image: ""
+    },
+
+    {
+      id: "multi-017",
+      name: "جل تلميع إطارات Flamingo",
+      category: "cars",
+      description: "منتج للعناية بمظهر إطارات السيارة.",
+      search: "Flamingo tire gel",
+      store: "amazon",
+      image: ""
+    },
+
+    // =========================
+    // DAILY PRODUCTS
+    // =========================
+
+    {
+      id: "multi-018",
+      name: "ماوس لاسلكي",
+      category: "electronics",
+      description: "فأرة لاسلكية للكمبيوتر.",
+      search: "wireless computer mouse",
+      store: "amazon",
+      image: ""
+    },
+
+    {
+      id: "multi-019",
+      name: "زجاجة حرارية استانلس 1 لتر",
+      category: "daily",
+      description: "زجاجة لحفظ المشروبات.",
+      search: "1L stainless steel thermal bottle",
+      store: "amazon",
+      image: ""
+    },
+
+    {
+      id: "multi-020",
+      name: "آلة حاسبة Casio FX-991ARX",
+      category: "daily",
+      description: "آلة حاسبة علمية للدراسة والعمل.",
+      search: "Casio FX-991ARX",
+      store: "amazon",
+      image: ""
+    }
+
+  ];
+
+  // منع تحميل قاعدة البيانات أكثر من مرة
+  if (window.NOKHBA_EXTRA_PRODUCTS_LOADED) {
+    console.warn("NOKHBA products already loaded.");
+    return;
   }
 
-];
+  window.NOKHBA_EXTRA_PRODUCTS = PRODUCTS;
+  window.NOKHBA_EXTRA_PRODUCTS_LOADED = true;
+
+  console.log(
+    "NOKHBA Multi Products:",
+    PRODUCTS.length,
+    "products loaded.",
+    "Amazon Tag:",
+    AMAZON_TAG
+  );
+
+})();
