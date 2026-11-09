@@ -1,12 +1,14 @@
+
 "use strict";
 
 /* =========================================
    NOKHBA | نخبة
    SERVICE WORKER
-   VERSION 4.1
+   VERSION 4.2
+   NETWORK FIRST + OFFLINE SUPPORT
    ========================================= */
 
-const CACHE_NAME = "nokhba-v4.1";
+const CACHE_NAME = "nokhba-v4.2";
 
 const APP_FILES = [
   "./",
@@ -19,23 +21,31 @@ const APP_FILES = [
   "./icon-512.png"
 ];
 
-/* INSTALL */
+const INDEX_URL = new URL("./index.html", self.registration.scope);
+
+/* =========================================
+   INSTALL
+   ========================================= */
 
 self.addEventListener("install", event => {
   event.waitUntil(
     (async () => {
       const cache = await caches.open(CACHE_NAME);
 
-      await Promise.all(
+      await Promise.allSettled(
         APP_FILES.map(async file => {
-          try {
-            const response = await fetch(file);
+          const url = new URL(file, self.registration.scope);
 
-            if (response.ok) {
-              await cache.put(file, response);
+          try {
+            const response = await fetch(url, {
+              cache: "reload"
+            });
+
+            if (response.ok && response.type === "basic") {
+              await cache.put(url, response);
             }
           } catch (error) {
-            console.warn("NOKHBA cache error:", file);
+            console.warn("NOKHBA install cache:", file);
           }
         })
       );
@@ -45,7 +55,9 @@ self.addEventListener("install", event => {
   );
 });
 
-/* ACTIVATE */
+/* =========================================
+   ACTIVATE
+   ========================================= */
 
 self.addEventListener("activate", event => {
   event.waitUntil(
@@ -66,7 +78,9 @@ self.addEventListener("activate", event => {
   );
 });
 
-/* FETCH */
+/* =========================================
+   FETCH
+   ========================================= */
 
 self.addEventListener("fetch", event => {
 
@@ -78,7 +92,7 @@ self.addEventListener("fetch", event => {
 
   if (url.origin !== self.location.origin) return;
 
-  /* HTML PAGES */
+  /* NAVIGATION */
 
   if (request.mode === "navigate") {
 
@@ -91,24 +105,35 @@ self.addEventListener("fetch", event => {
           if (response.ok) {
             const cache = await caches.open(CACHE_NAME);
 
-            await cache.put("./index.html", response.clone());
+            await cache.put(INDEX_URL, response.clone());
           }
 
           return response;
 
         } catch (error) {
 
-          return (
-            await caches.match("./index.html") ||
-            new Response(
-              "أنت غير متصل بالإنترنت. يرجى المحاولة لاحقاً.",
-              {
-                status: 503,
-                headers: {
-                  "Content-Type": "text/plain; charset=utf-8"
-                }
+          const cached = await caches.match(INDEX_URL);
+
+          if (cached) return cached;
+
+          return new Response(
+            `<!DOCTYPE html>
+            <html lang="ar" dir="rtl">
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>NOKHBA | نخبة</title>
+            <body style="background:#15191e;color:#d6b36a;text-align:center;padding:50px;font-family:Arial">
+            <h2>نخبة | NOKHBA</h2>
+            <p>أنت غير متصل بالإنترنت حالياً.</p>
+            <p>يرجى الاتصال بالإنترنت والمحاولة مرة أخرى.</p>
+            </body>
+            </html>`,
+            {
+              status: 503,
+              headers: {
+                "Content-Type": "text/html; charset=utf-8"
               }
-            )
+            }
           );
         }
 
@@ -118,29 +143,28 @@ self.addEventListener("fetch", event => {
     return;
   }
 
-  /* STATIC FILES */
+  /* STATIC FILES: NETWORK FIRST */
 
   event.respondWith(
     (async () => {
 
-      const cached = await caches.match(request);
-
-      if (cached) return cached;
+      const cache = await caches.open(CACHE_NAME);
 
       try {
 
         const response = await fetch(request);
 
         if (response.ok && response.type === "basic") {
-
-          const cache = await caches.open(CACHE_NAME);
-
           await cache.put(request, response.clone());
         }
 
         return response;
 
       } catch (error) {
+
+        const cached = await cache.match(request);
+
+        if (cached) return cached;
 
         return new Response("", {
           status: 503,
