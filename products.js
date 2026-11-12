@@ -1,11 +1,10 @@
-
 "use strict";
 
 /* =========================================
    NOKHBA | نخبة
    قاعدة المنتجات الرئيسية
    Amazon Egypt Affiliate
-   Version 3.0
+   Version 3.1
    ========================================= */
 
 (() => {
@@ -55,6 +54,33 @@
 
       url: amazonLink("B08HSF4FY6")
     }
+
+    /* ==== لإضافة منتج جديد ====
+       1) ضع فاصلة بعد قوس المنتج السابق }
+       2) انسخ القالب التالي، وأزل علامات التعليق عنه، واملأ بياناته
+
+    ,
+    {
+      id: "product-id",
+      name: "اسم المنتج",
+      brand: "الماركة",
+      category: "electronics",
+      store: "amazon",
+
+      asin: "XXXXXXXXXX",
+
+      image: "https://m.media-amazon.com/images/I/XXXXXXXX.jpg",
+
+      description:
+        "وصف قصير وصادق للمنتج.",
+
+      price: null,
+      currency: "EGP",
+
+      url: amazonLink("XXXXXXXXXX")
+    }
+
+    ==== نهاية القالب ==== */
 
   ];
 
