@@ -4,14 +4,14 @@
 /* ==================================================
    NOKHBA | نخبة
    PREMIUM PRODUCTS DISPLAY ENGINE
-   VERSION 5.4
+   VERSION 5.5 FINAL
    AMAZON TAG: ashrafdealseg-21
    ================================================== */
 
 (() => {
 
   const CONFIG = {
-    version: "5.4",
+    version: "5.5",
     amazonTag: "ashrafdealseg-21"
   };
 
@@ -30,6 +30,8 @@
     return;
   }
 
+  /* CATEGORY NAMES */
+
   const categoryNames = {
     electronics: "الإلكترونيات",
     home: "المنزل والمطبخ",
@@ -38,6 +40,8 @@
     cars: "مستلزمات السيارات",
     daily: "احتياجات يومية"
   };
+
+  /* STORE NAMES */
 
   const storeNames = {
     amazon: "Amazon Egypt",
@@ -61,18 +65,28 @@
   }
 
   function safeURL(value) {
-    if (typeof value !== "string" || !value.trim()) {
+
+    if (
+      typeof value !== "string" ||
+      !value.trim()
+    ) {
       return "";
     }
 
     try {
+
       const url = new URL(value.trim());
 
-      if (url.protocol !== "https:") {
+      if (
+        url.protocol !== "https:" ||
+        url.username ||
+        url.password
+      ) {
         return "";
       }
 
       return url.href;
+
     } catch {
       return "";
     }
@@ -81,6 +95,7 @@
   /* STORE NORMALIZATION */
 
   function normalizeStore(store) {
+
     const value = String(store || "")
       .toLowerCase()
       .trim();
@@ -109,24 +124,59 @@
     return "";
   }
 
+  /* STORE URL VALIDATION */
+
+  function isStoreURL(value, store) {
+
+    const url = safeURL(value);
+
+    if (!url) return false;
+
+    try {
+
+      const hostname = new URL(url)
+        .hostname
+        .toLowerCase();
+
+      if (store === "amazon") {
+        return (
+          hostname === "amazon.eg" ||
+          hostname.endsWith(".amazon.eg")
+        );
+      }
+
+      if (store === "noon") {
+        return (
+          hostname === "noon.com" ||
+          hostname.endsWith(".noon.com")
+        );
+      }
+
+      if (store === "jumia") {
+        return (
+          hostname === "jumia.com.eg" ||
+          hostname.endsWith(".jumia.com.eg")
+        );
+      }
+
+      return false;
+
+    } catch {
+      return false;
+    }
+  }
+
   /* AMAZON AFFILIATE */
 
   function addAmazonTag(value) {
-    const url = safeURL(value);
 
-    if (!url) return "";
+    if (!isStoreURL(value, "amazon")) {
+      return "";
+    }
 
     try {
-      const parsed = new URL(url);
 
-      const hostname = parsed.hostname.toLowerCase();
-
-      if (
-        hostname !== "amazon.eg" &&
-        !hostname.endsWith(".amazon.eg")
-      ) {
-        return "";
-      }
+      const parsed = new URL(value);
 
       parsed.searchParams.set(
         "tag",
@@ -143,26 +193,23 @@
   /* PRODUCT APPROVAL */
 
   function isApproved(product) {
+
     const status = String(product.status || "")
       .toLowerCase()
       .trim();
 
-    // المنتجات الرئيسية القديمة معتمدة
-    // ما لم تحمل حالة صريحة تمنع النشر.
-    if (!status) return true;
-
     const approvedStatuses = [
       "approved",
+      "verified",
       "active",
       "published",
-      "ready",
-      "verified"
+      "ready"
     ];
 
     return approvedStatuses.includes(status);
   }
 
-  /* LOAD DATABASES */
+  /* DATABASE LOADING */
 
   function getProducts() {
 
@@ -173,14 +220,12 @@
     ];
 
     const all = [];
-
     const usedArrays = new Set();
 
     sources.forEach(source => {
 
       if (!Array.isArray(source)) return;
 
-      // منع قراءة المصفوفة نفسها مرتين
       if (usedArrays.has(source)) return;
 
       usedArrays.add(source);
@@ -201,6 +246,33 @@
 
     const unique = new Map();
 
+    function productScore(product) {
+
+      let score = 0;
+
+      if (product.image || product.imageUrl || product.img) {
+        score += 3;
+      }
+
+      if (product.url) score += 2;
+
+      if (
+        product.amazonUrl ||
+        product.noonUrl ||
+        product.jumiaUrl
+      ) {
+        score += 2;
+      }
+
+      if (product.description) score++;
+
+      if (Number(product.price) > 0) score++;
+
+      if (isApproved(product)) score += 3;
+
+      return score;
+    }
+
     all.forEach(product => {
 
       const identity = String(
@@ -212,34 +284,18 @@
         .toLowerCase();
 
       if (!unique.has(identity)) {
+
         unique.set(identity, product);
+
         return;
       }
 
       const existing = unique.get(identity);
 
-      const score = item => {
-
-        let points = 0;
-
-        if (item.image || item.imageUrl || item.img) {
-          points += 3;
-        }
-
-        if (item.url || item.amazonUrl || item.amazonLink) {
-          points += 2;
-        }
-
-        if (item.description) points++;
-
-        if (item.price > 0) points++;
-
-        if (isApproved(item)) points += 2;
-
-        return points;
-      };
-
-      if (score(product) > score(existing)) {
+      if (
+        productScore(product) >
+        productScore(existing)
+      ) {
         unique.set(identity, product);
       }
 
@@ -250,10 +306,9 @@
 
   const allProducts = getProducts();
 
-  // لا نعرض المنتجات المعلقة أو غير المعتمدة.
   const products = allProducts.filter(isApproved);
 
-  /* REAL PRODUCT IMAGES */
+  /* PRODUCT IMAGES */
 
   function getProductImage(product) {
 
@@ -283,6 +338,7 @@
 
     return `
       <div class="product-image-container">
+
         <img
           class="product-image"
           src="${escapeHTML(image)}"
@@ -290,6 +346,7 @@
           loading="lazy"
           decoding="async"
         >
+
       </div>
     `;
   }
@@ -301,20 +358,30 @@
     const target = event.target;
 
     if (
-      target &&
-      target.tagName === "IMG" &&
-      target.classList.contains("product-image")
+      !target ||
+      target.tagName !== "IMG" ||
+      !target.classList.contains("product-image")
     ) {
+      return;
+    }
 
-      const card = target.closest(".product-card");
+    const card = target.closest(".product-card");
 
-      if (card) {
-        card.remove();
-      }
+    if (card) {
 
-      updateVisibleCount();
+      console.warn(
+        "NOKHBA: Product image unavailable:",
+        target.alt
+      );
+
+      // إخفاء البطاقة فقط.
+      // لا نحذف المنتج من قاعدة البيانات.
+
+      card.remove();
 
     }
+
+    updateVisibleCount();
 
   }, true);
 
@@ -346,21 +413,15 @@
 
     for (const candidate of fields[store] || []) {
 
-      const url = safeURL(candidate);
-
-      if (!url) continue;
+      if (!isStoreURL(candidate, store)) {
+        continue;
+      }
 
       if (store === "amazon") {
-
-        const tagged = addAmazonTag(url);
-
-        if (tagged) return tagged;
-
-      } else {
-
-        return url;
-
+        return addAmazonTag(candidate);
       }
+
+      return safeURL(candidate);
 
     }
 
@@ -368,7 +429,8 @@
 
     if (
       mainURL &&
-      normalizeStore(product.store) === store
+      normalizeStore(product.store) === store &&
+      isStoreURL(mainURL, store)
     ) {
 
       return store === "amazon"
@@ -403,14 +465,20 @@
 
     const price = Number(product.price);
 
-    if (!Number.isFinite(price) || price <= 0) {
+    if (
+      !Number.isFinite(price) ||
+      price <= 0
+    ) {
       return "";
     }
 
-    const formatted = new Intl.NumberFormat("en-EG", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    }).format(price);
+    const formatted = new Intl.NumberFormat(
+      "en-EG",
+      {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }
+    ).format(price);
 
     return `
       <div class="product-price" dir="rtl">
@@ -460,7 +528,6 @@
 
     const imageURL = getProductImage(product);
 
-    // لا تعرض منتجًا دون صورة حقيقية.
     if (!imageURL) return "";
 
     const buttons = createStoreButtons(
@@ -468,7 +535,6 @@
       selectedStore
     );
 
-    // لا تعرض منتجًا دون متجر مباشر.
     if (!buttons) return "";
 
     const name = escapeHTML(product.name);
@@ -508,7 +574,6 @@
 
       </article>
     `;
-
   }
 
   /* COUNTER */
@@ -529,7 +594,6 @@
     if (emptyMessage) {
       emptyMessage.hidden = count !== 0;
     }
-
   }
 
   /* SEARCH AND FILTER */
@@ -542,9 +606,11 @@
       .trim()
       .toLowerCase();
 
-    const category = categoryFilter?.value || "all";
+    const category =
+      categoryFilter?.value || "all";
 
-    const store = storeFilter?.value || "all";
+    const store =
+      storeFilter?.value || "all";
 
     const filtered = products.filter(product => {
 
@@ -585,7 +651,9 @@
     });
 
     productsGrid.innerHTML = filtered
-      .map(product => createCard(product, store))
+      .map(product =>
+        createCard(product, store)
+      )
       .filter(Boolean)
       .join("");
 
@@ -595,7 +663,6 @@
       "aria-live",
       "polite"
     );
-
   }
 
   /* RESET FILTERS */
@@ -637,13 +704,17 @@
 
   /* CATEGORY CARDS */
 
-  document.querySelectorAll(".category-card").forEach(card => {
+  document.querySelectorAll(
+    ".category-card"
+  ).forEach(card => {
 
     card.addEventListener("click", event => {
 
       const category = card.dataset.category;
 
-      if (!categoryFilter || !category) return;
+      if (!categoryFilter || !category) {
+        return;
+      }
 
       event.preventDefault();
 
