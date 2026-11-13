@@ -4,77 +4,72 @@
 /* ==================================================
    NOKHBA | نخبة
    MULTI-STORE PRODUCTS DATABASE
-   VERSION 1.0 FINAL BASE
+   VERSION 2.0
    AMAZON TAG: ashrafdealseg-21
-
-   سياسة نخبة:
-   - لا صور وهمية.
-   - لا روابط بحث بدل روابط المنتجات.
-   - لا أسعار غير مؤكدة.
-   - لا منتجات غير معتمدة.
-   - لا تكرار للمنتجات.
    ================================================== */
 
 (() => {
 
-  const CONFIG = {
-    version: "1.0",
-    amazonTag: "ashrafdealseg-21",
-    currency: "EGP"
-  };
+  const PRODUCTS = [
 
-  /*
-   * قاعدة المنتجات الإضافية.
-   *
-   * لا يُضاف المنتج هنا إلا بعد التحقق من:
-   * 1. الاسم والموديل.
-   * 2. صورة المنتج الأصلية.
-   * 3. رابط الشراء المباشر.
-   * 4. المتجر.
-   * 5. السعر عند توفره والتحقق منه.
-   *
-   * المنتجات غير المعتمدة لا تظهر في الموقع.
-   */
+    /* 1. ORAIMO WATCH 6 */
 
-  const PRODUCTS = [];
+    {
+      id: "nokhba-oraimo-watch-6",
+      asin: "B0FMR7H8FT",
 
-  /*
-   * شكل سجل المنتج المعتمد:
-   *
-   * {
-   *   id: "nokhba-001",
-   *   name: "اسم المنتج",
-   *   description: "وصف دقيق للمنتج",
-   *   category: "electronics",
-   *   store: "noon",
-   *   image: "https://رابط-الصورة-الأصلية",
-   *   price: 1000,
-   *   noonUrl: "https://www.noon.com/...",
-   *   status: "approved"
-   * }
-   *
-   * المتاجر:
-   * amazon
-   * noon
-   * jumia
-   *
-   * التصنيفات:
-   * electronics
-   * home
-   * fashion
-   * featured
-   * cars
-   * daily
-   */
+      name: "ساعة Oraimo Watch 6 الذكية OSW-807",
 
-  // نشر قاعدة البيانات لمحرك NOKHBA
+      description:
+        "ساعة ذكية بشاشة TFT مقاس 2.04 بوصة ومكالمات بلوتوث ومقاومة ماء IP68.",
+
+      category: "electronics",
+      brand: "Oraimo",
+      store: "amazon",
+
+      price: 949.05,
+
+      image:
+        "https://cdn-img.oraimo.com/fit-in/600x600/EG/product/2026/09/16/oraimo-smartwatch-watch6-OSW-807-1.jpg.jpg",
+
+      amazonUrl:
+        "https://www.amazon.eg/dp/B0FMR7H8FT?tag=ashrafdealseg-21",
+
+      status: "approved"
+    },
+
+    /* 2. FRESH VENUS WATER HEATER */
+
+    {
+      id: "nokhba-fresh-venus-50l",
+      asin: "B0DJ963QF6",
+
+      name: "سخان فريش فينوس الرقمي 50 لتر",
+
+      description:
+        "سخان مياه كهربائي رقمي من فريش بسعة 50 لتر وقدرة 1500 واط.",
+
+      category: "home",
+      brand: "Fresh",
+      store: "amazon",
+
+      image:
+        "https://m.media-amazon.com/images/I/21mONXyr%2BQL._SL500_.jpg",
+
+      amazonUrl:
+        "https://www.amazon.eg/dp/B0DJ963QF6?tag=ashrafdealseg-21",
+
+      status: "approved"
+    }
+
+  ];
 
   window.NOKHBA_EXTRA_PRODUCTS = PRODUCTS;
 
   console.log(
-    `NOKHBA Products Database v${CONFIG.version}:`,
+    "NOKHBA PRODUCTS v2.0:",
     PRODUCTS.length,
-    "approved additional products."
+    "approved products."
   );
 
 })();
