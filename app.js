@@ -4,14 +4,14 @@
 /* ==================================================
    NOKHBA | نخبة
    PREMIUM PRODUCTS DISPLAY ENGINE
-   VERSION 5.5 FINAL
+   VERSION 5.6 FINAL
    AMAZON TAG: ashrafdealseg-21
    ================================================== */
 
 (() => {
 
   const CONFIG = {
-    version: "5.5",
+    version: "5.6",
     amazonTag: "ashrafdealseg-21"
   };
 
@@ -74,7 +74,6 @@
     }
 
     try {
-
       const url = new URL(value.trim());
 
       if (
@@ -103,23 +102,17 @@
     if (
       value.includes("amazon") ||
       value.includes("أمازون")
-    ) {
-      return "amazon";
-    }
+    ) return "amazon";
 
     if (
       value.includes("noon") ||
       value.includes("نون")
-    ) {
-      return "noon";
-    }
+    ) return "noon";
 
     if (
       value.includes("jumia") ||
       value.includes("جوميا")
-    ) {
-      return "jumia";
-    }
+    ) return "jumia";
 
     return "";
   }
@@ -141,7 +134,9 @@
       if (store === "amazon") {
         return (
           hostname === "amazon.eg" ||
-          hostname.endsWith(".amazon.eg")
+          hostname.endsWith(".amazon.eg") ||
+          hostname === "amzn.eu" ||
+          hostname === "amzn.to"
         );
       }
 
@@ -194,7 +189,9 @@
 
   function isApproved(product) {
 
-    const status = String(product.status || "")
+    const status = String(
+      product.status ?? ""
+    )
       .toLowerCase()
       .trim();
 
@@ -206,7 +203,34 @@
       "ready"
     ];
 
-    return approvedStatuses.includes(status);
+    const rejectedStatuses = [
+      "pending",
+      "pending_review",
+      "pending_verification",
+      "pending_image",
+      "rejected",
+      "disabled",
+      "inactive",
+      "draft",
+      "blocked"
+    ];
+
+    if (approvedStatuses.includes(status)) {
+      return true;
+    }
+
+    if (rejectedStatuses.includes(status)) {
+      return false;
+    }
+
+    // المنتجات القديمة التي لا تحتوي على status
+    // تبقى معتمدة كما في الإصدارات السابقة.
+
+    if (!status) {
+      return true;
+    }
+
+    return false;
   }
 
   /* DATABASE LOADING */
@@ -250,7 +274,12 @@
 
       let score = 0;
 
-      if (product.image || product.imageUrl || product.img) {
+      if (
+        product.image ||
+        product.imageUrl ||
+        product.img ||
+        product.thumbnail
+      ) {
         score += 3;
       }
 
@@ -353,37 +382,37 @@
 
   /* IMAGE ERROR HANDLING */
 
-  productsGrid.addEventListener("error", event => {
+  productsGrid.addEventListener(
+    "error",
+    event => {
 
-    const target = event.target;
+      const target = event.target;
 
-    if (
-      !target ||
-      target.tagName !== "IMG" ||
-      !target.classList.contains("product-image")
-    ) {
-      return;
-    }
+      if (
+        !target ||
+        target.tagName !== "IMG" ||
+        !target.classList.contains("product-image")
+      ) {
+        return;
+      }
 
-    const card = target.closest(".product-card");
+      const card = target.closest(".product-card");
 
-    if (card) {
+      if (card) {
 
-      console.warn(
-        "NOKHBA: Product image unavailable:",
-        target.alt
-      );
+        console.warn(
+          "NOKHBA: Product image unavailable:",
+          target.alt
+        );
 
-      // إخفاء البطاقة فقط.
-      // لا نحذف المنتج من قاعدة البيانات.
+        card.remove();
+      }
 
-      card.remove();
+      updateVisibleCount();
 
-    }
-
-    updateVisibleCount();
-
-  }, true);
+    },
+    true
+  );
 
   /* DIRECT STORE LINKS */
 
@@ -422,7 +451,6 @@
       }
 
       return safeURL(candidate);
-
     }
 
     const mainURL = safeURL(product.url);
