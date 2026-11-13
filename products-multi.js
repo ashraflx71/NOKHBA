@@ -4,24 +4,20 @@
 /* =========================================
    NOKHBA | نخبة
    MULTI PRODUCTS DATABASE
-   FINAL VERSION 3.0
+   FINAL VERSION 3.1
    AMAZON EGYPT
    AFFILIATE TAG: ashrafdealseg-21
-
    يعتمد على app.js VERSION 5.2
    لا يكرر المنتجات الموجودة في products.js
    ========================================= */
 
 (() => {
-
   const AMAZON_TAG = "ashrafdealseg-21";
 
   const PRODUCTS = [
-
     // =========================
     // ELECTRONICS
     // =========================
-
     {
       id: "multi-001",
       name: "سماعة Soundcore R50i اللاسلكية",
@@ -31,7 +27,6 @@
       store: "amazon",
       image: ""
     },
-
     {
       id: "multi-002",
       name: "ساعة Oraimo Watch 5 Lite",
@@ -41,7 +36,6 @@
       store: "amazon",
       image: ""
     },
-
     {
       id: "multi-003",
       name: "باور بانك JOYROOM 10000mAh",
@@ -51,7 +45,6 @@
       store: "amazon",
       image: ""
     },
-
     {
       id: "multi-004",
       name: "شاحن Anker Zolo Type-C 20W",
@@ -61,7 +54,6 @@
       store: "amazon",
       image: ""
     },
-
     {
       id: "multi-005",
       name: "سماعة ألعاب Havit H2008D",
@@ -75,7 +67,6 @@
     // =========================
     // HOME & KITCHEN
     // =========================
-
     {
       id: "multi-006",
       name: "غلاية كهربائية Hoho سعة 1.5 لتر",
@@ -85,7 +76,6 @@
       store: "amazon",
       image: ""
     },
-
     {
       id: "multi-007",
       name: "صانعة ساندويتش وشواية",
@@ -95,7 +85,6 @@
       store: "amazon",
       image: ""
     },
-
     {
       id: "multi-008",
       name: "ميزان مطبخ رقمي",
@@ -105,7 +94,6 @@
       store: "amazon",
       image: ""
     },
-
     {
       id: "multi-009",
       name: "كبة Fresh CH-400",
@@ -115,7 +103,6 @@
       store: "amazon",
       image: ""
     },
-
     {
       id: "multi-010",
       name: "أكياس حفظ الطعام القابلة لإعادة الاستخدام",
@@ -129,7 +116,6 @@
     // =========================
     // FASHION
     // =========================
-
     {
       id: "multi-011",
       name: "حذاء رياضي Activ أبيض",
@@ -139,7 +125,6 @@
       store: "amazon",
       image: ""
     },
-
     {
       id: "multi-012",
       name: "بلوفر Caesar رجالي",
@@ -149,7 +134,6 @@
       store: "amazon",
       image: ""
     },
-
     {
       id: "multi-013",
       name: "تيشيرت بولو رجالي Defacto",
@@ -159,7 +143,6 @@
       store: "amazon",
       image: ""
     },
-
     {
       id: "multi-014",
       name: "بطانية شتوية Mintra",
@@ -173,7 +156,6 @@
     // =========================
     // CAR ACCESSORIES
     // =========================
-
     {
       id: "multi-015",
       name: "مظلة واقية لزجاج السيارة",
@@ -183,7 +165,6 @@
       store: "amazon",
       image: ""
     },
-
     {
       id: "multi-016",
       name: "ممسحة تنظيف السيارة من المايكروفايبر",
@@ -193,7 +174,6 @@
       store: "amazon",
       image: ""
     },
-
     {
       id: "multi-017",
       name: "جل تلميع إطارات Flamingo",
@@ -207,7 +187,6 @@
     // =========================
     // DAILY PRODUCTS
     // =========================
-
     {
       id: "multi-018",
       name: "ماوس لاسلكي",
@@ -217,7 +196,6 @@
       store: "amazon",
       image: ""
     },
-
     {
       id: "multi-019",
       name: "زجاجة حرارية استانلس 1 لتر",
@@ -227,7 +205,6 @@
       store: "amazon",
       image: ""
     },
-
     {
       id: "multi-020",
       name: "آلة حاسبة Casio FX-991ARX",
@@ -236,8 +213,25 @@
       search: "Casio FX-991ARX",
       store: "amazon",
       image: ""
-    }
+    },
 
+    // =========================
+    // NEW PRODUCT 021
+    // FASHION - COUPLE HOODIE
+    // =========================
+    {
+      id: "multi-021",
+      asin: "B0HM7RR3BK",
+      name: "سويت شيرت هودي للزوجين بنقوش النجوم",
+      category: "fashion",
+      description: "هودي رمادي داكن للزوجين بنقوش نجوم صغيرة وجيب أمامي وغطاء رأس.",
+      search: "هودي رمادي بنقوش نجوم للزوجين",
+      store: "amazon",
+      seller: "Amazon.eg",
+      amazonUrl: "https://amzn.eu/d/02w5yP6T",
+      image: "",
+      status: "pending_review"
+    }
   ];
 
   // منع تحميل قاعدة البيانات أكثر من مرة
