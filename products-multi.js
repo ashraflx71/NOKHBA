@@ -3,9 +3,9 @@
 
 /* =========================================
    NOKHBA | نخبة
-   MAIN PRODUCTS DATABASE
-   VERSION 3.4
-   VERIFIED PRODUCT RECORDS
+   MULTI-STORE PRODUCTS DATABASE
+   VERSION 3.5 FINAL
+   AMAZON + NOON + JUMIA
    AMAZON TAG: ashrafdealseg-21
    ========================================= */
 
@@ -83,10 +83,6 @@
       status: "needs_image"
     },
 
-    /* =====================================
-       AMAZON - NEEDS FINAL VERIFICATION
-       ===================================== */
-
     {
       id: "multi-005",
       name: "iLOCK مشترك كهربائي أصفر 3 متر",
@@ -101,18 +97,174 @@
       description: "مشترك كهربائي بثلاثة مخارج ومفتاح تشغيل.",
       active: false,
       status: "verify_variant_and_image"
+    },
+
+    /* =====================================
+       NOON EGYPT
+       TOOLS & HOME IMPROVEMENT
+       ===================================== */
+
+    {
+      id: "noon-001",
+      name: "TOTAL طقم أدوات 148 قطعة مع مثقاب لاسلكي 12V",
+      category: "home",
+      store: "noon",
+      price: 1525,
+      oldPrice: null,
+      rating: null,
+      reviews: null,
+      image: "",
+      url: "",
+      noonUrl: "",
+      description: "طقم أدوات TOTAL يضم 148 قطعة مع مثقاب لاسلكي بجهد 12 فولت.",
+      active: false,
+      status: "needs_image_and_direct_link"
+    },
+
+    {
+      id: "noon-002",
+      name: "طقم مفكات دقيقة مغناطيسي 32 في 1",
+      category: "home",
+      store: "noon",
+      price: 99,
+      oldPrice: null,
+      rating: null,
+      reviews: null,
+      image: "",
+      url: "",
+      noonUrl: "",
+      description: "طقم مفكات دقيقة مغناطيسي متعدد الاستخدامات، 32 قطعة.",
+      active: false,
+      status: "needs_image_and_direct_link"
+    },
+
+    {
+      id: "noon-003",
+      name: "TOTAL مفك اختبار ديجيتال THT210003",
+      category: "home",
+      store: "noon",
+      price: 233.10,
+      oldPrice: null,
+      rating: null,
+      reviews: null,
+      image: "",
+      url: "",
+      noonUrl: "",
+      description: "مفك اختبار كهربائي ديجيتال من TOTAL، موديل THT210003.",
+      active: false,
+      status: "needs_image_and_direct_link"
+    },
+
+    /* =====================================
+       NOON - ADDITIONAL PRODUCTS
+       ===================================== */
+
+    {
+      id: "noon-004",
+      name: "TOTAL طقم أدوات 166 قطعة مع مثقاب 20V",
+      category: "home",
+      store: "noon",
+      price: null,
+      oldPrice: null,
+      rating: null,
+      reviews: null,
+      image: "",
+      url: "",
+      noonUrl: "",
+      description: "طقم أدوات TOTAL مع مثقاب لاسلكي بجهد 20 فولت.",
+      active: false,
+      status: "needs_price_image_and_link"
+    },
+
+    {
+      id: "noon-005",
+      name: "Jadever شاكوش كهربائي 800W",
+      category: "home",
+      store: "noon",
+      price: null,
+      oldPrice: null,
+      rating: null,
+      reviews: null,
+      image: "",
+      url: "",
+      noonUrl: "",
+      description: "شاكوش كهربائي من Jadever بقدرة 800 واط.",
+      active: false,
+      status: "needs_price_image_and_link"
+    },
+
+    {
+      id: "noon-006",
+      name: "TOTAL منفاخ هواء كهربائي 800W",
+      category: "cars",
+      store: "noon",
+      price: null,
+      oldPrice: null,
+      rating: null,
+      reviews: null,
+      image: "",
+      url: "",
+      noonUrl: "",
+      description: "منفاخ هواء كهربائي من TOTAL بقدرة 800 واط.",
+      active: false,
+      status: "needs_price_image_and_link"
+    },
+
+    {
+      id: "noon-007",
+      name: "TOTAL مفك كهربائي 4V",
+      category: "home",
+      store: "noon",
+      price: null,
+      oldPrice: null,
+      rating: null,
+      reviews: null,
+      image: "",
+      url: "",
+      noonUrl: "",
+      description: "مفك كهربائي صغير من TOTAL بجهد 4 فولت.",
+      active: false,
+      status: "needs_price_image_and_link"
+    },
+
+    {
+      id: "noon-008",
+      name: "TOTAL طقم مفكات 55 قطعة",
+      category: "home",
+      store: "noon",
+      price: null,
+      oldPrice: null,
+      rating: null,
+      reviews: null,
+      image: "",
+      url: "",
+      noonUrl: "",
+      description: "طقم مفكات وأدوات يدوية من TOTAL، 55 قطعة.",
+      active: false,
+      status: "needs_price_image_and_link"
     }
+
+    /* =====================================
+       JUMIA EGYPT
+       READY FOR VERIFIED PRODUCTS
+       ===================================== */
 
   ];
 
   /* =====================================
-     PUBLISH DATABASE
+     DATABASE PUBLICATION
      ===================================== */
 
   window.NOKHBA_EXTRA_PRODUCTS = PRODUCTS;
 
   window.NOKHBA_AFFILIATE_TAG = TAG;
 
-  window.NOKHBA_PRODUCTS_VERSION = "3.4";
+  window.NOKHBA_PRODUCTS_VERSION = "3.5";
+
+  console.log(
+    "NOKHBA DATABASE 3.5:",
+    PRODUCTS.length,
+    "product records loaded."
+  );
 
 })();
