@@ -4,7 +4,7 @@
 /* ==================================================
    NOKHBA | نخبة
    MULTI-STORE PRODUCTS DATABASE
-   VERSION 2.0
+   VERSION 2.1
    AMAZON TAG: ashrafdealseg-21
    ================================================== */
 
@@ -60,6 +60,31 @@
         "https://www.amazon.eg/dp/B0DJ963QF6?tag=ashrafdealseg-21",
 
       status: "approved"
+    },
+
+    /* 3. TOTAL 148-PIECE POWER TOOL SET */
+
+    {
+      id: "nokhba-total-148-piece-tool-set",
+
+      name:
+        "طقم أدوات TOTAL 148 قطعة مع شنيور لاسلكي 12V",
+
+      description:
+        "طقم أدوات متعدد الاستخدامات يضم شنيور لاسلكي 12 فولت ومجموعة متنوعة من أدوات الصيانة المنزلية داخل حقيبة تخزين.",
+
+      category: "home",
+      brand: "TOTAL",
+      store: "noon",
+
+      price: 1525,
+
+      image: "",
+
+      noonUrl:
+        "https://www.noon.com/egypt-en/total-148-piece-power-tool-set-with-12v-cordless-drill-multicolour/ZAC882C29DF3C75F799F7Z/p/?o=c072a43077526c5a",
+
+      status: "approved"
     }
 
   ];
@@ -67,9 +92,9 @@
   window.NOKHBA_EXTRA_PRODUCTS = PRODUCTS;
 
   console.log(
-    "NOKHBA PRODUCTS v2.0:",
+    "NOKHBA PRODUCTS v2.1:",
     PRODUCTS.length,
-    "approved products."
+    "products loaded."
   );
 
 })();
