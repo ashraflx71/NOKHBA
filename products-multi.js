@@ -53,6 +53,9 @@
       brand: "Fresh",
       store: "amazon",
 
+      price: 3999,
+      currency: "EGP",
+
       image:
         "https://www.ahmedelsallab.com/media/catalog/product/cache/115636a5cb38ddb0354ff4b19da0ffc5/a/p/apfrh000083.jpg",
 
