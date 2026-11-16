@@ -179,6 +179,34 @@
       status: "approved"
     }
 
+    /* 10. HAVIT H2008D GAMING HEADSET — NOON EGYPT */
+
+    {
+      id: "nokhba-havit-h2008d",
+      name: "سماعة الألعاب Havit H2008D",
+      description: "سماعة ألعاب سلكية بمكبرات 50 مم وميكروفون قابل للفصل، مع وصلة 3.5 مم وعصابة رأس قابلة للتعديل.",
+      category: "gaming",
+      brand: "Havit",
+      store: "noon",
+      image: "https://www.prohavit.com/cdn/shop/products/havit-h2008d-wired-gaming-headset-with-3-5mm-plug-50mm-drivers-surround-sound-hd-detachable-mic-1.jpg?v=1650527284&width=1400",
+      noonUrl: "https://www.noon.com/egypt-ar/havit-h2008d-gaming-headphone-with-high-magnetic-50mm-speakers-adjustable-headband-and-pluggable-mic/N52116037A/p/?o=df45ba45ecc2003f",
+      status: "approved"
+    },
+
+    /* 11. CAR WINDSHIELD SUNSHADE — NOON EGYPT */
+
+    {
+      id: "nokhba-car-umbrella-sunshade",
+      name: "مظلة شمس للسيارة بتصميم المظلة",
+      description: "مظلة للزجاج الأمامي تساعد على حجب أشعة الشمس والأشعة فوق البنفسجية عن مقصورة السيارة.",
+      category: "cars",
+      brand: "Generic",
+      store: "noon",
+      image: "https://f.nooncdn.com/p/v1663755669/N44899538A_1.jpg",
+      noonUrl: "https://www.noon.com/egypt-ar/uv-protection-car-umbrella-sunshade/N44899538A/p/",
+      status: "approved"
+    }
+
   ];
 
   window.NOKHBA_EXTRA_PRODUCTS = PRODUCTS;
