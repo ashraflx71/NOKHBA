@@ -87,6 +87,64 @@
       status: "pending_image"
     }
 
+
+    /* GAMING ACCESSORIES — NOON EGYPT */
+
+    {
+      id: "nokhba-redragon-fizz-k617",
+      name: "لوحة مفاتيح Redragon FIZZ K617 الميكانيكية RGB",
+      description: "لوحة ألعاب ميكانيكية مدمجة بنسبة 60% تضم 61 مفتاحًا ومفاتيح Red خطية وإضاءة RGB وكابل USB-C قابل للفصل. تخطيط إنجليزي/عربي حسب صفحة نون.",
+      category: "gaming",
+      brand: "Redragon",
+      store: "noon",
+      price: 1670,
+      currency: "EGP",
+      image: "https://redragonshop.com/cdn/shop/products/minikeyboard.png?v=1762457848&width=1946",
+      noonUrl: "https://www.noon.com/egypt-ar/fizz-k617-60-mechanical-keyboard-red-key-switches-hot-swappable-detachable-type-c-cable-pro-software-customizable-rgb-full-rollover-61-keys-white-gray-k617-rgb/N53340668A/p/",
+      status: "approved"
+    },
+
+    {
+      id: "nokhba-logitech-g502-hero",
+      name: "ماوس الألعاب Logitech G502 HERO",
+      description: "ماوس ألعاب سلكي بمستشعر HERO 25K ودقة تصل إلى 25,600 DPI وإضاءة RGB و11 زرًا قابلًا للبرمجة وأوزان قابلة للتعديل.",
+      category: "gaming",
+      brand: "Logitech",
+      store: "noon",
+      price: 1990,
+      currency: "EGP",
+      image: "https://resource.logitechg.com/w_544,h_466,ar_7:6,c_pad,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/gaming/en/non-braid/hyjal-g502-hero/2025/g502-hero-mouse-top-angle-gallery-1.png",
+      noonUrl: "https://www.noon.com/egypt-en/g502-hero-high-performance-wired-gaming-mouse-hero-25k-sensor-25-600-dpi-rgb-adjustable-weights-11-programmable-buttons-on-board-memory-pc-mac-black/N21961435A/p/",
+      status: "approved"
+    },
+
+    {
+      id: "nokhba-redragon-tophis-g821",
+      name: "يد تحكم الألعاب اللاسلكية Redragon Tophis G821",
+      description: "وحدة تحكم لاسلكية وسلكية USB-C بعصي Hall Effect، واهتزاز مزدوج وإضاءة RGB ووضع Turbo. السعر يحتاج إعادة تحقق من صفحة نون قبل تحديثه.",
+      category: "gaming",
+      brand: "Redragon",
+      store: "noon",
+      currency: "EGP",
+      image: "https://f.nooncdn.com/p/pzsku/Z70335A1D575E6FA59294Z/45/_/1778748211/dfda66a0-9695-4374-9847-8a7a2d4f67b3.jpg",
+      noonUrl: "https://www.noon.com/egypt-ar/tophis-g821-wireless-gamepad-controller-with-hall-effect-3d-joysticks-turbo-function-dual-motor-vibration-rgb-lighting-2-4ghz-wireless-usb-c-wired-connectivity-multi-platform-support-for-pc-ps3-nintendo-switch-and-android/N70262028V/p/",
+      status: "approved"
+    },
+
+    {
+      id: "nokhba-aukey-km-p3-xl-mousepad",
+      name: "لوحة ماوس AUKEY KM-P3 XL للألعاب",
+      description: "لوحة ماوس كبيرة بمقاس 900 × 400 × 3 مم، سطح قماشي وقاعدة مطاطية مانعة للانزلاق وحواف مخيطة. مناسبة للوحة المفاتيح والماوس معًا.",
+      category: "gaming",
+      brand: "AUKEY",
+      store: "noon",
+      price: 275,
+      currency: "EGP",
+      image: "https://f.nooncdn.com/p/pzsku/Z6186C380562FA9E66660Z/45/_/1778747996/cc56eceb-e609-498b-92e3-d6dcbf3cde41.jpg",
+      noonUrl: "https://www.noon.com/egypt-en/gaming-mouse-pad-large-xl-900-x-400-x-3-mm-thick-extended-mouse-mat-non-slip-spill-resistant-desk-pad-with-special-textured-surface-anti-fray-stitched-edges-for-keyboard-pc/N53411662A/p/",
+      status: "approved"
+    }
+
   ];
 
   window.NOKHBA_EXTRA_PRODUCTS = PRODUCTS;
