@@ -112,7 +112,7 @@
       store: "noon",
       price: 1990,
       currency: "EGP",
-      image: "https://resource.logitechg.com/w_544,h_466,ar_7:6,c_pad,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/gaming/en/non-braid/hyjal-g502-hero/2025/g502-hero-mouse-top-angle-gallery-1.png",
+      image: "https://f.nooncdn.com/p/pnsku/N21961435A/45/_/1767607792/6320d274-c154-4f0e-87b7-c8993a898fdb.jpg",
       noonUrl: "https://www.noon.com/egypt-en/g502-hero-high-performance-wired-gaming-mouse-hero-25k-sensor-25-600-dpi-rgb-adjustable-weights-11-programmable-buttons-on-board-memory-pc-mac-black/N21961435A/p/",
       status: "approved"
     },
