@@ -84,7 +84,7 @@
       noonUrl:
         "https://www.noon.com/egypt-en/total-148-piece-power-tool-set-with-12v-cordless-drill-multicolour/ZAC882C29DF3C75F799F7Z/p/?o=c072a43077526c5a",
 
-      status: "approved"
+      status: "pending_image"
     }
 
   ];
