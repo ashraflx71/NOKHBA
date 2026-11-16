@@ -4,14 +4,14 @@
 /* ==================================================
    NOKHBA | نخبة
    PREMIUM PRODUCTS DISPLAY ENGINE
-   VERSION 5.6 FINAL
+   VERSION 5.7
    AMAZON TAG: ashrafdealseg-21
    ================================================== */
 
 (() => {
 
   const CONFIG = {
-    version: "5.6",
+    version: "5.7",
     amazonTag: "ashrafdealseg-21"
   };
 
@@ -397,16 +397,19 @@
         return;
       }
 
-      const card = target.closest(".product-card");
+      const container = target.closest(".product-image-container");
 
-      if (card) {
+      if (container) {
 
         console.warn(
           "NOKHBA: Product image unavailable:",
           target.alt
         );
 
-        card.remove();
+        const notice = document.createElement("div");
+        notice.className = "product-image-fallback";
+        notice.textContent = "تعذر تحميل الصورة من مصدرها حاليًا";
+        container.replaceChildren(notice);
       }
 
       updateVisibleCount();
