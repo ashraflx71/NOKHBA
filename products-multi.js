@@ -4,7 +4,7 @@
 /* ==================================================
    NOKHBA | نخبة
    MULTI-STORE PRODUCTS DATABASE
-   VERSION 2.1
+   VERSION 2.2
    AMAZON TAG: ashrafdealseg-21
    ================================================== */
 
@@ -30,7 +30,7 @@
       price: 949.05,
 
       image:
-        "https://cdn-img.oraimo.com/fit-in/600x600/EG/product/2026/09/16/oraimo-smartwatch-watch6-OSW-807-1.jpg.jpg",
+        "https://cloud-img.oraimo.com/official/2025/10/31/OBs9o513gs.jpg",
 
       amazonUrl:
         "https://www.amazon.eg/dp/B0FMR7H8FT?tag=ashrafdealseg-21",
@@ -54,7 +54,7 @@
       store: "amazon",
 
       image:
-        "https://m.media-amazon.com/images/I/21mONXyr%2BQL._SL500_.jpg",
+        "https://www.ahmedelsallab.com/media/catalog/product/cache/115636a5cb38ddb0354ff4b19da0ffc5/a/p/apfrh000083.jpg",
 
       amazonUrl:
         "https://www.amazon.eg/dp/B0DJ963QF6?tag=ashrafdealseg-21",
@@ -79,12 +79,12 @@
 
       price: 1525,
 
-      image: "",
+      image: "https://static.wixstatic.com/media/06303a_76a0ae9352864a4c8b65a633b3dd9bdf~mv2.jpg/v1/fill/w_900%2Ch_900%2Cal_c%2Cq_85%2Cenc_avif%2Cquality_auto/06303a_76a0ae9352864a4c8b65a633b3dd9bdf~mv2.jpg",
 
       noonUrl:
         "https://www.noon.com/egypt-en/total-148-piece-power-tool-set-with-12v-cordless-drill-multicolour/ZAC882C29DF3C75F799F7Z/p/?o=c072a43077526c5a",
 
-      status: "pending_image"
+      status: "approved"
     },
 
     /* GAMING ACCESSORIES — NOON EGYPT */
@@ -98,7 +98,7 @@
       store: "noon",
       price: 1670,
       currency: "EGP",
-      image: "https://redragonshop.com/cdn/shop/products/minikeyboard.png?v=1762457848&width=1946",
+      image: "https://down-id.img.susercontent.com/file/id-11134207-82251-mgyrffneyubu64",
       noonUrl: "https://www.noon.com/egypt-ar/fizz-k617-60-mechanical-keyboard-red-key-switches-hot-swappable-detachable-type-c-cable-pro-software-customizable-rgb-full-rollover-61-keys-white-gray-k617-rgb/N53340668A/p/",
       status: "approved"
     },
@@ -112,7 +112,7 @@
       store: "noon",
       price: 2029,
       currency: "EGP",
-      image: "https://f.nooncdn.com/p/pzsku/ZC828F28BBB2158AD1155Z/45/_/1779704343/7ad6add4-8892-4182-829f-97d019bebfde.jpg",
+      image: "https://www.pixelzones.com/cdn/shop/files/Logitech_G502_Hero_Gaming_Mouse.jpg?v=1744804538&width=1946",
       noonUrl: "https://www.noon.com/egypt-en/g502-hero-high-performance-wired-gaming-mouse-hero-25k-sensor-25-600-dpi-rgb-adjustable-weights-11-programmable-buttons-on-board-memory-pc-mac-black/N21961435A/p/",
       status: "approved"
     },
@@ -126,7 +126,7 @@
       store: "noon",
       price: 1495,
       currency: "EGP",
-      image: "https://f.nooncdn.com/p/pzsku/Z70335A1D575E6FA59294Z/45/_/1778748211/dfda66a0-9695-4374-9847-8a7a2d4f67b3.jpg",
+      image: "https://www.ue.ba/img/product/40377-ReDragon---Gamepad-Tophis-G821-PC-Nintendo-Android-Wireless-1.webp",
       noonUrl: "https://www.noon.com/egypt-ar/tophis-g821-wireless-gamepad-controller-with-hall-effect-3d-joysticks-turbo-function-dual-motor-vibration-rgb-lighting-2-4ghz-wireless-usb-c-wired-connectivity-multi-platform-support-for-pc-ps3-nintendo-switch-and-android/N70262028V/p/",
       status: "approved"
     },
@@ -140,8 +140,36 @@
       store: "noon",
       price: 241,
       currency: "EGP",
-      image: "https://f.nooncdn.com/p/pzsku/Z6186C380562FA9E66660Z/45/_/1778747996/cc56eceb-e609-498b-92e3-d6dcbf3cde41.jpg",
+      image: "https://www.aukey.my/cdn/shop/products/Aukey-KM-P3-3.jpg?v=1535544605&width=1500",
       noonUrl: "https://www.noon.com/egypt-en/gaming-mouse-pad-large-xl-900-x-400-x-3-mm-thick-extended-mouse-mat-non-slip-spill-resistant-desk-pad-with-special-textured-surface-anti-fray-stitched-edges-for-keyboard-pc/N53411662A/p/",
+      status: "approved"
+    }
+
+,
+    /* 8. MINI FOCUS MEN'S WATCH */
+    {
+      id: "nokhba-mini-focus-24-0463",
+      asin: "B0BX55B652",
+      name: "ساعة Mini Focus رجالي 24 0463 بمينا خضراء",
+      description: "ساعة كوارتز رجالية بمينا خضراء وسوار من الستانلس ستيل، مع كرونوغراف وتقويم ومؤشر 24 ساعة.",
+      category: "fashion",
+      brand: "Mini Focus",
+      store: "amazon",
+      image: "https://i.ebayimg.com/images/g/44cAAOSw8FVnBqAR/s-l1600.jpg",
+      amazonUrl: "https://www.amazon.eg/dp/B0BX55B652?tag=ashrafdealseg-21",
+      status: "approved"
+    },
+    /* 9. iLOCK 3-METER POWER STRIP */
+    {
+      id: "nokhba-ilock-power-strip-3m",
+      asin: "B0CLKQKFL3",
+      name: "مشترك كهرباء iLOCK أصفر بطول 3 أمتار",
+      description: "مشترك كهرباء مدمج بثلاثة مخارج مزدوجة وكابل بطول 3 أمتار، مع شريط لتجميع السلك.",
+      category: "home",
+      brand: "iLOCK",
+      store: "amazon",
+      image: "https://cdn.almatjar.org/fluffystores/media/12568/mshtrk-khrbaaa-sghyr-b3-mdakhl-thnayy-mn-ay-lok-3-mtr.jpg",
+      amazonUrl: "https://www.amazon.eg/dp/B0CLKQKFL3?tag=ashrafdealseg-21",
       status: "approved"
     }
 
@@ -150,7 +178,7 @@
   window.NOKHBA_EXTRA_PRODUCTS = PRODUCTS;
 
   console.log(
-    "NOKHBA PRODUCTS v2.1:",
+    "NOKHBA PRODUCTS v2.2:",
     PRODUCTS.length,
     "products loaded."
   );
