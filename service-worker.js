@@ -110,16 +110,24 @@ self.addEventListener("fetch", event => {
           if (response.ok) {
             const cache = await caches.open(CACHE_NAME);
 
-            await cache.put(INDEX_URL, response.clone());
+            // احفظ كل صفحة في عنوانها الصحيح حتى لا تستبدل
+            // الصفحات الداخلية نسخة الصفحة الرئيسية.
+            await cache.put(request, response.clone());
           }
 
           return response;
 
         } catch (error) {
 
-          const cached = await caches.match(INDEX_URL);
+          // اعرض الصفحة المطلوبة من التخزين أولاً.
+          const cachedPage = await caches.match(request);
 
-          if (cached) return cached;
+          if (cachedPage) return cachedPage;
+
+          // الصفحة الرئيسية بديل أخير عند تعذر العثور على صفحة أخرى.
+          const cachedIndex = await caches.match(INDEX_URL);
+
+          if (cachedIndex) return cachedIndex;
 
           return new Response(
             `<!DOCTYPE html>
