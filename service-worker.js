@@ -1,14 +1,13 @@
-
 "use strict";
 
 /* =========================================
    NOKHBA | نخبة
    SERVICE WORKER
-   VERSION 5.3
+   VERSION 5.4
    NETWORK FIRST + OFFLINE SUPPORT
    ========================================= */
 
-const CACHE_NAME = "nokhba-v5.3";
+const CACHE_NAME = "nokhba-v5.4";
 
 const APP_FILES = [
   "./",
@@ -16,9 +15,9 @@ const APP_FILES = [
   "./style.css",
   "./hero-nokhba.svg",
 
-  "./app.js?v=20261116-4",
+  "./app.js?v=20261116-5",
   "./products.js",
-  "./products-multi.js?v=20261116-8",
+  "./products-multi.js?v=20261116-9",
 
   "./about.html",
   "./contact.html",
