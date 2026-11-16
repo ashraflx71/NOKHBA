@@ -207,6 +207,20 @@
       image: "https://f.nooncdn.com/p/v1663755669/N44899538A_1.jpg",
       noonUrl: "https://www.noon.com/egypt-ar/uv-protection-car-umbrella-sunshade/N44899538A/p/",
       status: "approved"
+    },
+
+    /* 12. HOHO HKE1.5 STAINLESS STEEL KETTLE — JUMIA EGYPT */
+
+    {
+      id: "nokhba-hoho-hke15-kettle",
+      name: "غلاية HOHO الكهربائية HKE1.5 سعة 1.5 لتر",
+      description: "غلاية كهربائية من الستانلس ستيل بسعة 1.5 لتر وقدرة 1500 واط، مع فصل تلقائي وقاعدة دوارة 360 درجة.",
+      category: "home",
+      brand: "HOHO",
+      store: "jumia",
+      image: "https://assets.kenzz.com/products/129128/004_mo-040.jpg",
+      jumiaUrl: "https://www.jumia.com.eg/hoho-electric-kettle-silver-1.5l-hke1.5-133754470.html",
+      status: "approved"
     }
 
   ];
