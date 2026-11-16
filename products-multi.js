@@ -177,7 +177,7 @@
       image: "https://cdn.almatjar.org/fluffystores/media/12568/mshtrk-khrbaaa-sghyr-b3-mdakhl-thnayy-mn-ay-lok-3-mtr.jpg",
       amazonUrl: "https://www.amazon.eg/dp/B0CLKQKFL3?tag=ashrafdealseg-21",
       status: "approved"
-    }
+    },
 
     /* 10. HAVIT H2008D GAMING HEADSET — NOON EGYPT */
 
