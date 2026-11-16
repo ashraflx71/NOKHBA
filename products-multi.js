@@ -56,11 +56,13 @@
       brand: "Fresh",
       store: "amazon",
 
-      price: 3999,
+      // السعر 3,999 جنيه كان آخر رصد له في 31 أكتوبر 2026؛ أُخفي حتى يعاد التحقق.
+      price: null,
       currency: "EGP",
 
+      // صورة الموديل الرقمي من موقع Fresh الرسمي.
       image:
-        "https://www.ahmedelsallab.com/media/catalog/product/cache/115636a5cb38ddb0354ff4b19da0ffc5/a/p/apfrh000083.jpg",
+        "https://be.fresh.com.eg/media/catalog/product/cache/6fdb9282313a7e48374fe05a5418029a/w/a/water_heater_-_venus_digital.jpg",
 
       amazonUrl:
         "https://www.amazon.eg/dp/B0DJ963QF6?tag=ashrafdealseg-21",
