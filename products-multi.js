@@ -138,7 +138,7 @@
       category: "gaming",
       brand: "AUKEY",
       store: "noon",
-      price: 275,
+      price: 241,
       currency: "EGP",
       image: "https://f.nooncdn.com/p/pzsku/Z6186C380562FA9E66660Z/45/_/1778747996/cc56eceb-e609-498b-92e3-d6dcbf3cde41.jpg",
       noonUrl: "https://www.noon.com/egypt-en/gaming-mouse-pad-large-xl-900-x-400-x-3-mm-thick-extended-mouse-mat-non-slip-spill-resistant-desk-pad-with-special-textured-surface-anti-fray-stitched-edges-for-keyboard-pc/N53411662A/p/",
