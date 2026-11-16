@@ -27,7 +27,10 @@
       brand: "Oraimo",
       store: "amazon",
 
-      price: 949.05,
+      // السعر السابق 949.05 جنيه كان من قائمة Noon وليس من Amazon.
+      // أُزيل حتى لا ننسب سعر متجر إلى متجر آخر دون تحقق.
+      price: null,
+      currency: "EGP",
 
       image:
         "https://cloud-img.oraimo.com/official/2025/10/31/OBs9o513gs.jpg",
