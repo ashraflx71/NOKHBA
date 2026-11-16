@@ -4,7 +4,7 @@
 /* ==================================================
    NOKHBA | نخبة
    MULTI-STORE PRODUCTS DATABASE
-   VERSION 2.3
+   VERSION 2.4
    AMAZON TAG: ashrafdealseg-21
    ================================================== */
 
