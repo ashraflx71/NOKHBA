@@ -4,15 +4,17 @@
 /* ==================================================
    NOKHBA | نخبة
    PREMIUM PRODUCTS DISPLAY ENGINE
-   VERSION 5.7
+   VERSION 5.8
    AMAZON TAG: ashrafdealseg-21
    ================================================== */
 
 (() => {
 
   const CONFIG = {
-    version: "5.7",
-    amazonTag: "ashrafdealseg-21"
+    version: "5.8",
+    amazonTag: String(
+      window.NOKHBA_AFFILIATE_TAG || "ashrafdealseg-21"
+    ).trim()
   };
 
   const $ = id => document.getElementById(id);
@@ -224,8 +226,7 @@
       return false;
     }
 
-    // المنتجات القديمة التي لا تحتوي على status
-    // تبقى معتمدة كما في الإصدارات السابقة.
+    // المحافظة على توافق المنتجات القديمة.
 
     if (!status) {
       return true;
@@ -234,20 +235,73 @@
     return false;
   }
 
-  /* DATABASE LOADING */
+  /* PRODUCT DATABASE */
 
-  function getProducts() {
+  function getProductSources() {
 
-    const sources = [
+    return [
       window.AMAZON_PRODUCTS,
       window.NOKHBA_PRODUCTS,
       window.NOKHBA_EXTRA_PRODUCTS
     ];
+  }
+
+  function getProductScore(product) {
+
+    let score = 0;
+
+    if (
+      product.image ||
+      product.imageUrl ||
+      product.img ||
+      product.thumbnail
+    ) score += 3;
+
+    if (product.url) score += 2;
+
+    if (
+      product.amazonUrl ||
+      product.noonUrl ||
+      product.jumiaUrl
+    ) score += 2;
+
+    if (product.description) score++;
+
+    if (Number(product.price) > 0) score++;
+
+    if (isApproved(product)) score += 3;
+
+    return score;
+  }
+
+  function getProductIdentity(product) {
+
+    if (product.asin) {
+      return "asin:" + String(product.asin)
+        .trim()
+        .toLowerCase();
+    }
+
+    if (product.id) {
+      return "id:" + String(product.id)
+        .trim()
+        .toLowerCase();
+    }
+
+    const name = String(product.name || "")
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, " ");
+
+    return "name:" + name;
+  }
+
+  function getProducts() {
 
     const all = [];
     const usedArrays = new Set();
 
-    sources.forEach(source => {
+    getProductSources().forEach(source => {
 
       if (!Array.isArray(source)) return;
 
@@ -271,47 +325,11 @@
 
     const unique = new Map();
 
-    function productScore(product) {
-
-      let score = 0;
-
-      if (
-        product.image ||
-        product.imageUrl ||
-        product.img ||
-        product.thumbnail
-      ) {
-        score += 3;
-      }
-
-      if (product.url) score += 2;
-
-      if (
-        product.amazonUrl ||
-        product.noonUrl ||
-        product.jumiaUrl
-      ) {
-        score += 2;
-      }
-
-      if (product.description) score++;
-
-      if (Number(product.price) > 0) score++;
-
-      if (isApproved(product)) score += 3;
-
-      return score;
-    }
-
     all.forEach(product => {
 
-      const identity = String(
-        product.asin ||
-        product.id ||
-        product.name
-      )
-        .trim()
-        .toLowerCase();
+      const identity = getProductIdentity(product);
+
+      if (!identity || identity === "name:") return;
 
       if (!unique.has(identity)) {
 
@@ -322,12 +340,35 @@
 
       const existing = unique.get(identity);
 
-      if (
-        productScore(product) >
-        productScore(existing)
-      ) {
-        unique.set(identity, product);
-      }
+      const existingScore = getProductScore(existing);
+      const newScore = getProductScore(product);
+
+      const merged = newScore > existingScore
+        ? { ...existing, ...product }
+        : { ...product, ...existing };
+
+      // الاحتفاظ بروابط المتاجر المختلفة.
+
+      [
+        "amazonUrl",
+        "amazonLink",
+        "amazonURL",
+        "noonUrl",
+        "noonLink",
+        "noonURL",
+        "jumiaUrl",
+        "jumiaLink",
+        "jumiaURL"
+      ].forEach(field => {
+
+        if (!merged[field]) {
+          merged[field] =
+            existing[field] || product[field] || "";
+        }
+
+      });
+
+      unique.set(identity, merged);
 
     });
 
@@ -397,19 +438,15 @@
         return;
       }
 
-      const container = target.closest(".product-image-container");
+      console.warn(
+        "NOKHBA: Product image unavailable:",
+        target.alt
+      );
 
-      if (container) {
+      const card = target.closest(".product-card");
 
-        console.warn(
-          "NOKHBA: Product image unavailable:",
-          target.alt
-        );
-
-        const notice = document.createElement("div");
-        notice.className = "product-image-fallback";
-        notice.textContent = "تعذر تحميل الصورة من مصدرها حاليًا";
-        container.replaceChildren(notice);
+      if (card) {
+        card.remove();
       }
 
       updateVisibleCount();
@@ -478,24 +515,28 @@
 
   function getAvailableStores(product) {
 
-    const stores = [];
-
-    ["amazon", "noon", "jumia"].forEach(store => {
-
-      if (getDirectLink(product, store)) {
-        stores.push(store);
-      }
-
-    });
-
-    return stores;
+    return ["amazon", "noon", "jumia"].filter(
+      store => Boolean(getDirectLink(product, store))
+    );
   }
 
   /* PRICE FORMATTING */
 
   function formatPrice(product) {
 
-    const price = Number(product.price);
+    const rawPrice = product.price;
+
+    if (
+      rawPrice === null ||
+      rawPrice === undefined ||
+      String(rawPrice).trim() === ""
+    ) {
+      return "";
+    }
+
+    const price = Number(
+      String(rawPrice).replace(/,/g, "")
+    );
 
     if (
       !Number.isFinite(price) ||
@@ -653,7 +694,8 @@
         product.search,
         product.brand,
         product.category,
-        product.store
+        product.store,
+        product.seller
 
       ]
         .filter(Boolean)
