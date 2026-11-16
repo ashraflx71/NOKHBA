@@ -4,30 +4,41 @@
 /* =========================================
    NOKHBA | نخبة
    SERVICE WORKER
-   VERSION 5.1
+   VERSION 5.3
    NETWORK FIRST + OFFLINE SUPPORT
    ========================================= */
 
-const CACHE_NAME = "nokhba-v5.2";
+const CACHE_NAME = "nokhba-v5.3";
 
 const APP_FILES = [
   "./",
   "./index.html",
   "./style.css",
   "./hero-nokhba.svg",
-  "./app.js",
+
+  "./app.js?v=20261116-4",
   "./products.js",
-  "./products-multi.js",
+  "./products-multi.js?v=20261116-8",
+
   "./about.html",
   "./contact.html",
   "./privacy.html",
   "./disclosure.html",
+
   "./manifest.json",
   "./icon-192.png",
   "./icon-512.png"
 ];
 
-const INDEX_URL = new URL("./index.html", self.registration.scope);
+const INDEX_URL = new URL(
+  "./index.html",
+  self.registration.scope
+);
+
+const HOME_URL = new URL(
+  "./",
+  self.registration.scope
+);
 
 /* =========================================
    INSTALL
@@ -40,18 +51,30 @@ self.addEventListener("install", event => {
 
       await Promise.allSettled(
         APP_FILES.map(async file => {
-          const url = new URL(file, self.registration.scope);
+          const url = new URL(
+            file,
+            self.registration.scope
+          );
 
           try {
             const response = await fetch(url, {
               cache: "reload"
             });
 
-            if (response.ok && response.type === "basic") {
-              await cache.put(url, response);
+            if (
+              response.ok &&
+              response.type === "basic"
+            ) {
+              await cache.put(
+                url.href,
+                response
+              );
             }
           } catch (error) {
-            console.warn("NOKHBA install cache:", file);
+            console.warn(
+              "NOKHBA cache install:",
+              file
+            );
           }
         })
       );
@@ -89,57 +112,85 @@ self.addEventListener("activate", event => {
    ========================================= */
 
 self.addEventListener("fetch", event => {
-
   const request = event.request;
 
-  if (request.method !== "GET") return;
+  if (request.method !== "GET") {
+    return;
+  }
 
   const url = new URL(request.url);
 
-  if (url.origin !== self.location.origin) return;
+  if (url.origin !== self.location.origin) {
+    return;
+  }
 
-  /* NAVIGATION */
+  /* =====================================
+     NAVIGATION: NETWORK FIRST
+     ===================================== */
 
   if (request.mode === "navigate") {
-
     event.respondWith(
       (async () => {
+        const cache = await caches.open(CACHE_NAME);
 
         try {
           const response = await fetch(request);
 
           if (response.ok) {
-            const cache = await caches.open(CACHE_NAME);
-
-            // احفظ كل صفحة في عنوانها الصحيح حتى لا تستبدل
-            // الصفحات الداخلية نسخة الصفحة الرئيسية.
-            await cache.put(request, response.clone());
+            await cache.put(
+              request,
+              response.clone()
+            );
           }
 
           return response;
 
         } catch (error) {
+          const cachedPage = await cache.match(
+            request
+          );
 
-          // اعرض الصفحة المطلوبة من التخزين أولاً.
-          const cachedPage = await caches.match(request);
+          if (cachedPage) {
+            return cachedPage;
+          }
 
-          if (cachedPage) return cachedPage;
+          const cachedIndex = await cache.match(
+            INDEX_URL.href
+          );
 
-          // الصفحة الرئيسية بديل أخير عند تعذر العثور على صفحة أخرى.
-          const cachedIndex = await caches.match(INDEX_URL);
+          if (cachedIndex) {
+            return cachedIndex;
+          }
 
-          if (cachedIndex) return cachedIndex;
+          const cachedHome = await cache.match(
+            HOME_URL.href
+          );
+
+          if (cachedHome) {
+            return cachedHome;
+          }
 
           return new Response(
             `<!DOCTYPE html>
             <html lang="ar" dir="rtl">
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>NOKHBA | نخبة</title>
-            <body style="background:#15191e;color:#d6b36a;text-align:center;padding:50px;font-family:Arial">
-            <h2>نخبة | NOKHBA</h2>
-            <p>أنت غير متصل بالإنترنت حالياً.</p>
-            <p>يرجى الاتصال بالإنترنت والمحاولة مرة أخرى.</p>
+            <head>
+              <meta charset="UTF-8">
+              <meta name="viewport"
+                    content="width=device-width, initial-scale=1">
+              <meta name="theme-color" content="#15191e">
+              <title>نخبة | NOKHBA</title>
+            </head>
+            <body style="
+              background:#15191e;
+              color:#d6b36a;
+              text-align:center;
+              padding:50px 20px;
+              font-family:Arial,sans-serif;
+              line-height:2;
+            ">
+              <h2>نخبة | NOKHBA</h2>
+              <p>أنت غير متصل بالإنترنت حالياً.</p>
+              <p>يرجى الاتصال بالإنترنت والمحاولة مرة أخرى.</p>
             </body>
             </html>`,
             {
@@ -150,44 +201,47 @@ self.addEventListener("fetch", event => {
             }
           );
         }
-
       })()
     );
 
     return;
   }
 
-  /* STATIC FILES: NETWORK FIRST */
+  /* =====================================
+     STATIC FILES: NETWORK FIRST
+     ===================================== */
 
   event.respondWith(
     (async () => {
-
       const cache = await caches.open(CACHE_NAME);
 
       try {
-
         const response = await fetch(request);
 
-        if (response.ok && response.type === "basic") {
-          await cache.put(request, response.clone());
+        if (
+          response.ok &&
+          response.type === "basic"
+        ) {
+          await cache.put(
+            request,
+            response.clone()
+          );
         }
 
         return response;
 
       } catch (error) {
-
         const cached = await cache.match(request);
 
-        if (cached) return cached;
+        if (cached) {
+          return cached;
+        }
 
         return new Response("", {
           status: 503,
           statusText: "Offline"
         });
-
       }
-
     })()
   );
-
 });
