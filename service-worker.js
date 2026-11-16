@@ -4,11 +4,11 @@
 /* =========================================
    NOKHBA | نخبة
    SERVICE WORKER
-   VERSION 4.8
+   VERSION 4.9
    NETWORK FIRST + OFFLINE SUPPORT
    ========================================= */
 
-const CACHE_NAME = "nokhba-v4.8";
+const CACHE_NAME = "nokhba-v4.9";
 
 const APP_FILES = [
   "./",
