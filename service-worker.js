@@ -8,7 +8,7 @@
    NETWORK FIRST + OFFLINE SUPPORT
    ========================================= */
 
-const CACHE_NAME = "nokhba-v4.2";
+const CACHE_NAME = "nokhba-v4.3";
 
 const APP_FILES = [
   "./",
