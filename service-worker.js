@@ -15,7 +15,12 @@ const APP_FILES = [
   "./index.html",
   "./style.css",
   "./app.js",
+  "./products.js",
   "./products-multi.js",
+  "./about.html",
+  "./contact.html",
+  "./privacy.html",
+  "./disclosure.html",
   "./manifest.json",
   "./icon-192.png",
   "./icon-512.png"
