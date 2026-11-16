@@ -4,7 +4,7 @@
 /* =========================================
    NOKHBA | نخبة
    SERVICE WORKER
-   VERSION 4.2
+   VERSION 4.3
    NETWORK FIRST + OFFLINE SUPPORT
    ========================================= */
 
