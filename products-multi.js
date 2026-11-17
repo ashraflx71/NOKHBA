@@ -420,6 +420,52 @@
       noonUrl: "https://www.noon.com/egypt-en/tire-shine-460ml/ZB14E7E8952685728CFEFZ/p/",
       status: "approved"
     }
+
+    /* 24. ANKER 30W DUAL-PORT CAR CHARGER */
+    {
+      id: "nokhba-anker-car-charger-30w-dual-port",
+      name: "شاحن سيارة Anker USB-C بقدرة 30W ومنفذين",
+      description: "شاحن سيارة بمنفذ USB-C PD بقدرة تصل إلى 30W ومنفذ USB-A، مع تقنيات حماية متعددة. السعر المسجل 369 جنيهًا وقت المراجعة في 17 نوفمبر 2026، والتقييم 4.6/5 من 1,323 تقييمًا، والترتيب الأول في شواحن السيارات على نون. البائع الظاهر: المصرية الألمانية بتقييم 4.7/5 ونسبة إيجابية 88%. راجع توافقه مع هاتفك والكابل قبل الشراء.",
+      category: "cars",
+      brand: "Anker",
+      store: "noon",
+      price: 369,
+      currency: "EGP",
+      image: "https://f.nooncdn.com/p/pzsku/Z84C21181F746914CAC02Z/45/1759222978/c4064ed8-7728-41b1-8f7d-b94939f56922.jpg?width=1200",
+      noonUrl: "https://www.noon.com/egypt-en/usb-c-car-charger-30w-2-port-type-c-car-adapter-iphone-17-16-15-14-series-samsung-galaxy-s26-s25-s24-series-ipad-pro-airpods-huawei-and-more-black/N70081961V/p/",
+      status: "approved"
+    },
+
+    /* 25. ANKER 40W POWERDRIVE III DUO */
+    {
+      id: "nokhba-anker-powerdrive-iii-duo-40w",
+      name: "شاحن سيارة Anker PowerDrive III Duo بقدرة 40W",
+      description: "شاحن بمنفذين USB-C وتقنية PowerIQ 3.0 بقدرة إجمالية تصل إلى 40W. السعر المسجل 499 جنيهًا وقت المراجعة في 17 نوفمبر 2026، والتقييم 4.5/5 من نحو 1,290 تقييمًا. يظهر البيع عبر نون، والصفحة لا تعرض ضمانًا لهذا العرض. اختيار مناسب لمن يريد منفذين USB-C، مع ضرورة التأكد من دعم جهازك لقدرات الشحن المناسبة.",
+      category: "cars",
+      brand: "Anker",
+      store: "noon",
+      price: 499,
+      currency: "EGP",
+      image: "https://f.nooncdn.com/p/pzsku/Z63628A0F4EA8C0F0F9DBZ/45/1759222820/400b5e5c-2adb-4cc5-9db8-3f2ceef19992.jpg?width=1200",
+      noonUrl: "https://www.noon.com/egypt-en/usb-c-car-charger-40w-2-port-poweriq-3-0-type-c-adapter-iphone-16-car-charger-powerdrive-iii-duo-with-power-delivery-for-iphone-17-16-15-samsung-huawei-xiaomi-redmi-vivo-oppo-and-more-multicolour/N53426388A/p/",
+      status: "approved"
+    },
+
+    /* 26. UGREEN 30W DUAL-PORT CAR CHARGER */
+    {
+      id: "nokhba-ugreen-car-charger-30w-dual-port",
+      name: "شاحن سيارة UGREEN بمنفذين وقدرة 30W",
+      description: "شاحن بمنفذ USB-C PD بقدرة تصل إلى 30W ومنفذ USB-A QC بقدرة تصل إلى 22.5W، ويدعم مقابس سيارات 12–24V. السعر المسجل 449 جنيهًا وقت المراجعة في 17 نوفمبر 2026، والتقييم 4.7/5 من 104 تقييمات. البائع الظاهر نون، مع ضمان سنتين من الموزع Blooms وفق تفاصيل العرض. راجع توافق بروتوكول الشحن مع جهازك.",
+      category: "cars",
+      brand: "UGREEN",
+      store: "noon",
+      price: 449,
+      currency: "EGP",
+      image: "https://f.nooncdn.com/p/pzsku/Z4A95F2C13787E692AC41Z/45/1761032880/234bfded-b7c4-4b55-a42c-088958c91690.jpg?width=1200",
+      noonUrl: "https://www.noon.com/egypt-en/ugreen-2-port-fast-car-charger-30w-black/N70133734V/p/",
+      status: "approved"
+    }
+
   ];
 
   /* DATABASE REGISTRATION */
