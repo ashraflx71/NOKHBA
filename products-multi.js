@@ -231,8 +231,7 @@
       jumiaUrl:
         "https://www.jumia.com.eg/hoho-electric-kettle-silver-1.5l-hke1.5-133754470.html",
       status: "approved"
-    }
-
+    },
 
     /* 13. GAMESIR TEGENARIA LITE CONTROLLER */
 
@@ -250,6 +249,25 @@
         "https://f.nooncdn.com/p/pzsku/ZE216025A95B536CE9F83Z/45/_/1777376089/ba15830a-9161-421c-9b55-984839abf2a2.jpg",
       noonUrl:
         "https://www.noon.com/egypt-en/tegenaria-lite-wired-controller-for-pc-wired-1000hz-polling-rate-hall-effect-joysticks-and-2-remappable-buttons-dual-vibration-turbo-pc-gaming-controller-for-steam-android-ios-switch/N70185578V/p/?o=da45009cf0b20fab",
+      status: "approved"
+    },
+
+    /* 14. T-DAGGER TGK313 BORA KEYBOARD */
+
+    {
+      id: "nokhba-t-dagger-tgk313-bora-blue",
+      name: "كيبورد T-DAGGER TGK313 BORA الميكانيكي",
+      description:
+        "لوحة مفاتيح ألعاب ميكانيكية سلكية بمفاتيح زرقاء وإضاءة LED بألوان قوس قزح، مع تخطيط عربي وإنجليزي. السعر المسجل 725 جنيهًا وقت المراجعة. البائع Planet Gate E-Marketing. لا يوجد ضمان ظاهر لهذا العرض، وتشير مراجعات الصفحة إلى أن كابل USB ثابت وغير قابل للفصل.",
+      category: "gaming",
+      brand: "T-DAGGER",
+      store: "noon",
+      price: 725,
+      currency: "EGP",
+      image:
+        "https://f.nooncdn.com/p/pzsku/ZB1A285F7DFC5C7104C1FZ/45/_/1677407933/c42581d1-0f04-4962-bc78-f3bcab7efbec.jpg?width=940",
+      noonUrl:
+        "https://www.noon.com/egypt-ar/tgk313-bora-gaming-mechanical-keyboard-with-led-lighting-rainbow-blue-switch-image-may-vary/ZB1A285F7DFC5C7104C1FZ/p/?o=zb1a285f7dfc5c7104c1fz-1",
       status: "approved"
     }
 
