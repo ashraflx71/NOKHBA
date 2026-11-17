@@ -446,7 +446,7 @@
       store: "noon",
       price: 499,
       currency: "EGP",
-      image: "https://f.nooncdn.com/p/pzsku/Z63628A0F4EA8C0F0F9DBZ/45/1759222820/400b5e5c-2adb-4cc5-9db8-3f2ceef19992.jpg?width=1200",
+      image: "https://f.nooncdn.com/p/pzsku/Z63628A0F4EA8C0F0F9DBZ/45/1759222820/400b5e6c-2adb-4cc5-9db8-3f2ceef19992.jpg?width=1200",
       noonUrl: "https://www.noon.com/egypt-en/usb-c-car-charger-40w-2-port-poweriq-3-0-type-c-adapter-iphone-16-car-charger-powerdrive-iii-duo-with-power-delivery-for-iphone-17-16-15-samsung-huawei-xiaomi-redmi-vivo-oppo-and-more-multicolour/N53426388A/p/",
       status: "approved"
     },
