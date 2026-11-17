@@ -419,7 +419,7 @@
       image: "https://f.nooncdn.com/p/pzsku/ZB14E7E8952685728CFEFZ/45/_/1670331002/65f591fb-f34b-4a0e-a1a0-bdfd009b9367.jpg",
       noonUrl: "https://www.noon.com/egypt-en/tire-shine-460ml/ZB14E7E8952685728CFEFZ/p/",
       status: "approved"
-    }
+    },
 
     /* 24. ANKER 30W DUAL-PORT CAR CHARGER */
     {
@@ -463,6 +463,22 @@
       currency: "EGP",
       image: "https://f.nooncdn.com/p/pzsku/Z4A95F2C13787E692AC41Z/45/1761032880/234bfded-b7c4-4b55-a42c-088958c91690.jpg?width=1200",
       noonUrl: "https://www.noon.com/egypt-en/ugreen-2-port-fast-car-charger-30w-black/N70133734V/p/",
+      status: "approved"
+    }
+
+,
+    /* 27. 70MAI DASH CAM A200 */
+    {
+      id: "nokhba-70mai-dash-cam-a200",
+      name: "كاميرا السيارة 70mai Dash Cam A200 أمامية وخلفية",
+      description: "كاميرا داش كام مزدوجة القناة بدقة 1080P HDR، شاشة IPS مقاس 2 بوصة، اتصال Wi-Fi وزاوية رؤية 130 درجة، مع مراقبة الوقوف 24 ساعة (قد يتطلب ذلك تجهيزات طاقة إضافية). السعر لم يُثبت لأن نتائج نون المفهرسة وصفحة المنتج تعرض أسعارًا مختلفة؛ يُرجى مراجعة السعر والعرض المختار قبل الشراء.",
+      category: "cars",
+      brand: "70mai",
+      store: "noon",
+      price: null,
+      currency: "EGP",
+      image: "https://f.nooncdn.com/p/pzsku/Z76998311742CAC3D3920Z/45/_/1776073457/6d91332d-864d-42ac-8018-2970bcb662f5.jpg",
+      noonUrl: "https://www.noon.com/egypt-en/dash-cam-a200-dual-channel-record-1080p-hdr-2-ips-screen-24h-parking-monitor-70mai-car-dvr-a200-wifi-app-130-fov/N70134115V/p/",
       status: "approved"
     }
 
