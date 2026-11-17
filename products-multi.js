@@ -269,7 +269,7 @@
       noonUrl:
         "https://www.noon.com/egypt-ar/tgk313-bora-gaming-mechanical-keyboard-with-led-lighting-rainbow-blue-switch-image-may-vary/ZB1A285F7DFC5C7104C1FZ/p/?o=zb1a285f7dfc5c7104c1fz-1",
       status: "approved"
-    }
+    },
 
 
     /* 15. IONIC INTERIOR DETAILER */
@@ -308,7 +308,7 @@
       noonUrl:
         "https://www.noon.com/egypt-en/40-60/ZA3340828306959CB002AZ/p/?o=aefdd4f3819e36cb",
       status: "approved"
-    }
+    },
 
     /* 17. GENERIC HEAVY-DUTY TOW ROPE 4M / 7 TON */
 
@@ -327,7 +327,7 @@
       noonUrl:
         "https://www.noon.com/egypt-en/heavy-duty-tow-rope-4m-7-ton-steel-cable-with-hooks-for-emergency-towing/Z0F13CA856FF4AC5F9AB4Z/p/",
       status: "approved"
-    }
+    },
 
     /* 18. TOTALENERGIES QUARTZ 7000 10W-40 5L */
 
