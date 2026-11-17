@@ -391,7 +391,21 @@
       noonUrl: "https://www.noon.com/egypt-ar/fluidmatic-dct-mv/Z529CF87C6990A0BC3B9FZ/p/",
       status: "approved"
     }
-
+,
+    /* 22. MALDINI MD-40 RUST REMOVER */
+    {
+      id: "nokhba-maldini-md40-rust-remover",
+      name: "بخاخ Maldini MD-40 لإزالة الصدأ والتشحيم متعدد الاستخدامات 400 مل",
+      description: "بخاخ يساعد على فك الأجزاء المعدنية الصدئة، والتشحيم، وتقليل الصرير، وإزاحة الرطوبة وترك طبقة حماية ضد التآكل. السعر المسجل 105 جنيهات وقت المراجعة في 17 نوفمبر 2026، والتقييم 4.0/5 من 21 تقييمًا. يباع عبر نون؛ تقييم البائع 4.1 ونسبة إيجابية 82%. لا يظهر ضمان، مع إتاحة الإرجاع. يُستخدم وفق تعليمات العبوة، ويُتجنب رشه على الأسطح الحساسة أو الأجزاء التي تتطلب شحمًا متخصصًا.",
+      category: "cars",
+      brand: "Maldini",
+      store: "noon",
+      price: 105,
+      currency: "EGP",
+      image: "https://f.nooncdn.com/p/pzsku/Z5128C9B885CAF766FC11Z/45/1757935576/1fc00731-298c-499b-beda-0953ba8277b2.jpg",
+      noonUrl: "https://www.noon.com/egypt-en/maldini-md-40-rust-remover-400-ml/Z5128C9B885CAF766FC11Z/p/?o=f94cd63de9474acb",
+      status: "approved"
+    }
   ];
 
   /* DATABASE REGISTRATION */
