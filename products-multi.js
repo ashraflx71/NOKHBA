@@ -405,6 +405,20 @@
       image: "https://f.nooncdn.com/p/pzsku/Z5128C9B885CAF766FC11Z/45/1757935576/1fc00731-298c-499b-beda-0953ba8277b2.jpg",
       noonUrl: "https://www.noon.com/egypt-en/maldini-md-40-rust-remover-400-ml/Z5128C9B885CAF766FC11Z/p/?o=f94cd63de9474acb",
       status: "approved"
+    },
+    /* 23. IONIC TIRE SHINE 460ML */
+    {
+      id: "nokhba-ionic-tire-shine-460ml",
+      name: "ملمع إطارات السيارة IONIC Tire Shine – 460 مل",
+      description: "ملمع إطارات سائل قابل للرش، يساعد على استعادة المظهر اللامع للإطارات، ويكوّن طبقة للمساعدة في الحد من البهتان والتشقق الناتج عن التعرض للشمس. تذكر صفحة المنتج أنه يجف بملمس غير دهني وغير زلق. السعر المسجل 120 جنيهًا وقت المراجعة في 17 نوفمبر 2026، وتقييم المنتج 4.2/5 من 90 تقييمًا. البائع IONIC بتقييم 4.1/5 ونسبة إيجابية 85%، مع إتاحة الإرجاع. يُستخدم على الجدار الجانبي للإطار فقط، مع تجنب سطح المداس والفرامل.",
+      category: "cars",
+      brand: "IONIC",
+      store: "noon",
+      price: 120,
+      currency: "EGP",
+      image: "https://f.nooncdn.com/p/pzsku/ZB14E7E8952685728CFEFZ/45/_/1670331002/65f591fb-f34b-4a0e-a1a0-bdfd009b9367.jpg",
+      noonUrl: "https://www.noon.com/egypt-en/tire-shine-460ml/ZB14E7E8952685728CFEFZ/p/",
+      status: "approved"
     }
   ];
 
