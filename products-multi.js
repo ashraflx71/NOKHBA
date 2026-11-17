@@ -464,9 +464,8 @@
       image: "https://f.nooncdn.com/p/pzsku/Z4A95F2C13787E692AC41Z/45/1761032880/234bfded-b7c4-4b55-a42c-088958c91690.jpg?width=1200",
       noonUrl: "https://www.noon.com/egypt-en/ugreen-2-port-fast-car-charger-30w-black/N70133734V/p/",
       status: "approved"
-    }
+    },
 
-,
     /* 27. 70MAI DASH CAM A200 */
     {
       id: "nokhba-70mai-dash-cam-a200",
