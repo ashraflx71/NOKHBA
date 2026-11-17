@@ -3,7 +3,7 @@
 /* ==================================================
    NOKHBA | نخبة
    MULTI-STORE PRODUCTS DATABASE
-   VERSION 2.8
+   VERSION 2.9
    AMAZON TAG: ashrafdealseg-21
    ================================================== */
 
@@ -346,7 +346,52 @@
       noonUrl:
         "https://www.noon.com/egypt-en/quartz-7000-s-10w-40-synthetic-technology-5-liters-4-liters-1-liter-free/Z217ADAAFD1B98DD1ED05Z/p/",
       status: "approved"
+    },
+/* 19. TOTALENERGIES FLUIDMATIC AT 42 - DEXRON III */
+    {
+      id: "nokhba-total-fluidmatic-at42",
+      name: "زيت ناقل الحركة TotalEnergies FLUIDMATIC AT 42",
+      description: "سائل ناقل حركة أوتوماتيكي لبعض التطبيقات التي تتطلب GM DEXRON III، ومناسب أيضًا لتطبيقات Allison C4 وفق مواصفات الشركة. السعر المسجل 399 جنيهًا وقت المراجعة في 17 نوفمبر 2026، والتقييم 4.7/5 من 53 تقييمًا. يباع من متجر Total Energies Marketing Egypt الرسمي على نون. لا تستخدمه إلا إذا طلب كتالوج السيارة مواصفة متوافقة مثل Dexron III.",
+      category: "cars",
+      brand: "TotalEnergies",
+      store: "noon",
+      price: 399,
+      currency: "EGP",
+      image: "https://f.nooncdn.com/p/pzsku/ZF8F0B01D9927C1F70F99Z/45/1767808512/c4b9834c-71e9-4079-b218-61de818455c0.jpg",
+      noonUrl: "https://www.noon.com/egypt-en/fluidmatic-at-42/ZF8F0B01D9927C1F70F99Z/p/",
+      status: "approved"
+    },
+
+    /* 20. TOTALENERGIES FLUIDMATIC LV MV - DEXRON VI */
+    {
+      id: "nokhba-total-fluidmatic-lvmv",
+      name: "زيت ناقل الحركة TotalEnergies FLUIDMATIC LV MV Dexron VI",
+      description: "سائل ATF اصطناعي منخفض اللزوجة لناقلات حركة أوتوماتيكية حديثة تتطلب مواصفات مثل GM Dexron VI. تذكر صفحة المنتج توافقات متعددة منها بعض مواصفات Hyundai SP-IV وToyota WS وHonda DW-1 وZF Lifeguardfluid 6/8/9. السعر المسجل 639 جنيهًا وقت المراجعة في 17 نوفمبر 2026، والتقييم 4.3/5 من 12 تقييمًا. يباع من متجر Total Energies Marketing Egypt الرسمي على نون. يجب مطابقة رقم المواصفة المطلوب في كتالوج السيارة قبل الشراء.",
+      category: "cars",
+      brand: "TotalEnergies",
+      store: "noon",
+      price: 639,
+      currency: "EGP",
+      image: "https://f.nooncdn.com/p/pzsku/Z88840DF204B9BC50D5EAZ/45/_/1730499691/7b1ee3be-9bd6-4366-b316-d12f3b28fb3d.jpg",
+      noonUrl: "https://www.noon.com/egypt-en/fluidmatic-lv-mv-dexron-vi/Z88840DF204B9BC50D5EAZ/p/",
+      status: "approved"
+    },
+
+    /* 21. TOTALENERGIES FLUIDMATIC DCT MV - WET DCT */
+    {
+      id: "nokhba-total-fluidmatic-dctmv",
+      name: "زيت ناقل الحركة TotalEnergies FLUIDMATIC DCT MV للقابض الرطب",
+      description: "سائل مخصص لتطبيقات ناقل الحركة مزدوج القابض ذي القابض الرطب Wet DCT، وتذكر الشركة توافقه مع تطبيقات لدى Volkswagen وBMW وMercedes وPorsche وMitsubishi وRenault وVolvo وPeugeot وFord. السعر المسجل 599 جنيهًا وقت المراجعة في 17 نوفمبر 2026، والتقييم 5.0/5 من 5 تقييمات. يباع من Total Energies Marketing Egypt على نون، والصفحة توضح عدم وجود ضمان. لا يناسب نواقل CVT أو ATF التقليدية لمجرد أنه زيت فتيس؛ يجب مطابقة نوع DCT والمواصفة المطلوبة.",
+      category: "cars",
+      brand: "TotalEnergies",
+      store: "noon",
+      price: 599,
+      currency: "EGP",
+      image: "https://f.nooncdn.com/p/pzsku/Z529CF87C6990A0BC3B9FZ/45/_/1730500872/9c83994c-3c0c-4c80-bd15-0d4415a70f52.jpg",
+      noonUrl: "https://www.noon.com/egypt-ar/fluidmatic-dct-mv/Z529CF87C6990A0BC3B9FZ/p/",
+      status: "approved"
     }
+
   ];
 
   /* DATABASE REGISTRATION */
