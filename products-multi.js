@@ -496,6 +496,22 @@
       noonUrl: "https://www.noon.com/egypt-ar/70mai-a810-lite-dash-cam-4k-front-1080p-rear-night-vision-supercapacitor-64gb-sd-card-included-gps-3-18-ips-display-24h-parking-mode-optional/N70349760V/p/",
       status: "approved"
     }
+,
+
+    /* 29. PIONEER TS-G1310F 13CM 2-WAY CAR SPEAKERS */
+    {
+      id: "nokhba-pioneer-ts-g1310f",
+      name: "سماعتان Pioneer TS-G1310F للسيارة مقاس 13 سم",
+      description: "زوج سماعات سيارة ثنائية الاتجاه مقاس 13 سم (5.25 بوصة)، بقدرة قصوى معلنة 230 واط وقدرة اسمية 35 واط RMS ومقاومة 4 أوم. السعر المعروض في نتائج نون بتاريخ 17 نوفمبر 2026 هو 1,814 جنيهًا بدلًا من 1,950 جنيهًا. تظهر صفحة المنتج تقييم العلامة التجارية 3.9/5، بينما تعرض قائمة نون تقييمًا للمنتج 5.0/5 من تقييم واحد فقط؛ لذلك لا نعتبره دليلًا قويًا على الجودة. تحقق من مقاس السماعة وعمق التركيب وتوافقها مع سيارتك قبل الشراء.",
+      category: "cars",
+      brand: "Pioneer",
+      store: "noon",
+      price: 1814,
+      currency: "EGP",
+      image: "https://f.nooncdn.com/p/pzsku/Z2EB2FA78DE4364336DC6Z/45/_/1692964052/68e8dadc-47e3-4d79-a3e5-fc63324a5721.jpg",
+      noonUrl: "https://www.noon.com/egypt-en/pioneer-ts-g1310f-13cm-230w-2-way-car-speaker/Z2EB2FA78DE4364336DC6Z/p/",
+      status: "approved"
+    }
 
   ];
 
