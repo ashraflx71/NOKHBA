@@ -3,7 +3,7 @@
 /* ==================================================
    NOKHBA | نخبة
    MULTI-STORE PRODUCTS DATABASE
-   VERSION 2.6
+   VERSION 2.7
    AMAZON TAG: ashrafdealseg-21
    ================================================== */
 
@@ -309,6 +309,25 @@
         "https://www.noon.com/egypt-en/40-60/ZA3340828306959CB002AZ/p/?o=aefdd4f3819e36cb",
       status: "approved"
     }
+
+    /* 17. GENERIC HEAVY-DUTY TOW ROPE 4M / 7 TON */
+
+    {
+      id: "nokhba-heavy-duty-tow-rope-4m-7ton",
+      name: "واير سحب فولاذي للسيارة 4 متر بخطافات أمان",
+      description:
+        "كابل سحب فولاذي بطول 4 أمتار مع خطافات معدنية، والحمولة القصوى المعلنة في صفحة العرض 7 أطنان. السعر المسجل 334 جنيهًا وقت المراجعة في 17 نوفمبر 2026. البائع SHARK EG؛ تقييم البائع 4.6/5 ونسبة إيجابية 86%، وهذه بيانات للبائع وليست تقييمًا للمنتج. لا يظهر تقييم مستقل للمنتج. يجب التأكد من سلامة الخطافات ومطابقة نقاط الجر في السيارة، وعدم تجاوز الحمولة المعتمدة من الشركة المصنعة.",
+      category: "cars",
+      brand: "Generic",
+      store: "noon",
+      price: 334,
+      currency: "EGP",
+      image:
+        "https://f.nooncdn.com/p/pzsku/Z0F13CA856FF4AC5F9AB4Z/45/1767188588/258b480f-d6cb-4f12-8605-8385f4c4bc36.jpg",
+      noonUrl:
+        "https://www.noon.com/egypt-en/heavy-duty-tow-rope-4m-7-ton-steel-cable-with-hooks-for-emergency-towing/Z0F13CA856FF4AC5F9AB4Z/p/",
+      status: "approved"
+    }
   ];
 
   /* DATABASE REGISTRATION */
@@ -316,7 +335,7 @@
   window.NOKHBA_EXTRA_PRODUCTS = PRODUCTS;
 
   console.log(
-    "NOKHBA PRODUCTS v2.6:",
+    "NOKHBA PRODUCTS v2.7:",
     PRODUCTS.length,
     "products loaded."
   );
