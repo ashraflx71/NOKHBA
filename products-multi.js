@@ -233,6 +233,26 @@
       status: "approved"
     }
 
+
+    /* 13. GAMESIR TEGENARIA LITE CONTROLLER */
+
+    {
+      id: "nokhba-gamesir-tegenaria-lite",
+      name: "يد تحكم GameSir Tegenaria Lite السلكية للألعاب",
+      description:
+        "يد تحكم سلكية بمستشعرات Hall Effect ومعدل استقصاء 1000Hz وزرين خلفيين قابلين لإعادة البرمجة واهتزاز مزدوج. السعر المسجل 799 جنيهًا وقت المراجعة. يباع بواسطة Hardware Market؛ لا يوجد ضمان ظاهر لهذا العرض، لذا يُرجى مراجعة شروط الإرجاع قبل الشراء.",
+      category: "gaming",
+      brand: "GameSir",
+      store: "noon",
+      price: 799,
+      currency: "EGP",
+      image:
+        "https://f.nooncdn.com/p/pzsku/ZE216025A95B536CE9F83Z/45/_/1777376089/ba15830a-9161-421c-9b55-984839abf2a2.jpg",
+      noonUrl:
+        "https://www.noon.com/egypt-en/tegenaria-lite-wired-controller-for-pc-wired-1000hz-polling-rate-hall-effect-joysticks-and-2-remappable-buttons-dual-vibration-turbo-pc-gaming-controller-for-steam-android-ios-switch/N70185578V/p/?o=da45009cf0b20fab",
+      status: "approved"
+    }
+
   ];
 
   /* DATABASE REGISTRATION */
