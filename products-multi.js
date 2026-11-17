@@ -481,6 +481,22 @@
       status: "approved"
     }
 
+,
+    /* 28. 70MAI A810 LITE 4K DUAL-CHANNEL */
+    {
+      id: "nokhba-70mai-a810-lite",
+      name: "كاميرا السيارة 70mai A810 Lite أمامية 4K وخلفية 1080P",
+      description: "كاميرا داش كام ثنائية القناة؛ تصوير أمامي 4K HDR وخلفي 1080P، شاشة IPS مقاس 3.18 بوصة، GPS مدمج، Wi-Fi 6، ومكثف فائق مناسب لدرجات الحرارة المرتفعة. السعر المسجل 11,098 جنيهًا وقت المراجعة في 17 نوفمبر 2026، والتقييم 4.6/5 من 26 تقييمًا. البائع الظاهر «سمارت» ولا تتوفر له تقييمات كافية، والصفحة تذكر عدم وجود ضمان مع إتاحة الإرجاع المجاني. المخزون الظاهر وحدتان؛ تحقق من البائع والسعر والمخزون قبل الشراء، وقد تتغير هذه البيانات.",
+      category: "cars",
+      brand: "70mai",
+      store: "noon",
+      price: 11098,
+      currency: "EGP",
+      image: "https://70mai.store/cdn/shop/files/img_p6_a810lite_2x_4c9f0191-2fa2-4c3e-b3b0-e5557c0def9f.png?v=1783650289&width=1000",
+      noonUrl: "https://www.noon.com/egypt-ar/70mai-a810-lite-dash-cam-4k-front-1080p-rear-night-vision-supercapacitor-64gb-sd-card-included-gps-3-18-ips-display-24h-parking-mode-optional/N70349760V/p/",
+      status: "approved"
+    }
+
   ];
 
   /* DATABASE REGISTRATION */
