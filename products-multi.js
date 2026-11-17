@@ -3,7 +3,7 @@
 /* ==================================================
    NOKHBA | نخبة
    MULTI-STORE PRODUCTS DATABASE
-   VERSION 2.5
+   VERSION 2.6
    AMAZON TAG: ashrafdealseg-21
    ================================================== */
 
@@ -271,6 +271,44 @@
       status: "approved"
     }
 
+
+    /* 15. IONIC INTERIOR DETAILER */
+
+    {
+      id: "nokhba-ionic-interior-detailer",
+      name: "منظف IONIC للعناية بالأسطح الداخلية للسيارة",
+      description:
+        "منظف داخلي 460 مل بتركيبة متعادلة الحموضة لتنظيف الجلد والبلاستيك والفينيل والمطاط والزجاج وشاشات السيارة. السعر المسجل 135 جنيهًا وقت المراجعة في 17 نوفمبر 2026، والتقييم 4.3/5 من 99 تقييمًا. البائع IONIC؛ الصفحة توضح عدم وجود ضمان، مع إتاحة الإرجاع.",
+      category: "cars",
+      brand: "IONIC",
+      store: "noon",
+      price: 135,
+      currency: "EGP",
+      image:
+        "https://f.nooncdn.com/p/pzsku/Z1BD8F3555E9712A7CA78Z/45/_/1670415088/85b31c43-3eda-4ed3-ad45-17461127c2f7.jpg?width=1200",
+      noonUrl:
+        "https://www.noon.com/egypt-en/interior-detailer-cleaner/Z1BD8F3555E9712A7CA78Z/p/",
+      status: "approved"
+    },
+
+    /* 16. IONIC PREMIUM MICROFIBER DRYING TOWEL */
+
+    {
+      id: "nokhba-ionic-premium-microfiber-drying-towel",
+      name: "فوطة IONIC الاحترافية لتجفيف السيارة بالمايكروفايبر",
+      description:
+        "فوطة تجفيف بتقنية Twisted Loop ومقاس 40 × 60 سم، مصممة لامتصاص الماء وتقليل آثار التجفيف والخدوش. السعر المسجل 266 جنيهًا وقت المراجعة في 17 نوفمبر 2026، والتقييم 4.4/5 من 65 تقييمًا في نتائج نون. البائع IONIC؛ الصفحة توضح عدم وجود ضمان.",
+      category: "cars",
+      brand: "IONIC",
+      store: "noon",
+      price: 266,
+      currency: "EGP",
+      image:
+        "https://static.wixstatic.com/media/f8bc45_bbd1af5fd12a4424a1e64a99a3c3cb2b~mv2.jpg/v1/fit/w_500%2Ch_500%2Cq_90/file.jpg",
+      noonUrl:
+        "https://www.noon.com/egypt-en/40-60/ZA3340828306959CB002AZ/p/?o=aefdd4f3819e36cb",
+      status: "approved"
+    }
   ];
 
   /* DATABASE REGISTRATION */
@@ -278,7 +316,7 @@
   window.NOKHBA_EXTRA_PRODUCTS = PRODUCTS;
 
   console.log(
-    "NOKHBA PRODUCTS v2.5:",
+    "NOKHBA PRODUCTS v2.6:",
     PRODUCTS.length,
     "products loaded."
   );
