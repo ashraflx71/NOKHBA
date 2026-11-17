@@ -3,7 +3,7 @@
 /* ==================================================
    NOKHBA | نخبة
    MULTI-STORE PRODUCTS DATABASE
-   VERSION 2.7
+   VERSION 2.8
    AMAZON TAG: ashrafdealseg-21
    ================================================== */
 
@@ -328,6 +328,25 @@
         "https://www.noon.com/egypt-en/heavy-duty-tow-rope-4m-7-ton-steel-cable-with-hooks-for-emergency-towing/Z0F13CA856FF4AC5F9AB4Z/p/",
       status: "approved"
     }
+
+    /* 18. TOTALENERGIES QUARTZ 7000 10W-40 5L */
+
+    {
+      id: "nokhba-totalenergies-quartz-7000-10w40-5l",
+      name: "زيت محرك TotalEnergies Quartz 7000 10W-40 – عبوة 5 لتر",
+      description:
+        "زيت محرك بتقنية Synthetic Technology لمحركات البنزين والديزل وفق مواصفات ACEA A3/B4 وAPI SN/CF، مع اعتمادات مذكورة من Peugeot وCitroen وVolkswagen وRenault وغيرها. السعر المسجل 1,199 جنيهًا وقت المراجعة في 17 نوفمبر 2026. تقييم المنتج 4.6/5 من 2,929 تقييمًا. يباع بواسطة Total Egypt على نون؛ تقييم البائع 4.3 ونسبة إيجابية 88%. لا تختَر الزيت اعتمادًا على اللزوجة وحدها؛ طابق مواصفات واعتمادات الزيت مع كتالوج سيارتك.",
+      category: "cars",
+      brand: "TotalEnergies",
+      store: "noon",
+      price: 1199,
+      currency: "EGP",
+      image:
+        "https://f.nooncdn.com/p/pzsku/Z217ADAAFD1B98DD1ED05Z/45/_/1730475624/4c40a7c6-d7f9-4c80-b041-ffbf642cf1ab.jpg",
+      noonUrl:
+        "https://www.noon.com/egypt-en/quartz-7000-s-10w-40-synthetic-technology-5-liters-4-liters-1-liter-free/Z217ADAAFD1B98DD1ED05Z/p/",
+      status: "approved"
+    }
   ];
 
   /* DATABASE REGISTRATION */
@@ -335,7 +354,7 @@
   window.NOKHBA_EXTRA_PRODUCTS = PRODUCTS;
 
   console.log(
-    "NOKHBA PRODUCTS v2.7:",
+    "NOKHBA PRODUCTS v2.8:",
     PRODUCTS.length,
     "products loaded."
   );
