@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#15191e">
+  <title>إدارة نخبة | NOKHBA AI</title>
+  <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./">نخبة <span>NOKHBA AI</span></a>
+    <div class="secure"><i></i> لوحة إدارة خاصة</div>
+  </header>
+  <main class="wrap">
+    <section class="welcome">
+      <p class="eyebrow">مركز القيادة الذكي</p>
+      <h1>مرحباً بك في إدارة نخبة</h1>
+      <p>مساحة خاصة لمراقبة المنتجات ومهام الذكاء الاصطناعي وجودة الموقع.</p>
+    </section>
+    <section class="notice" id="connectionNotice">
+      <strong>مرحلة التأسيس</strong>
+      <p>هذه واجهة الإدارة الأولية. لن تظهر بيانات حقيقية أو تعمل المهام الآلية حتى إعداد Cloudflare Access وWorker وقاعدة D1.</p>
+    </section>
+    <section class="stats" aria-label="مؤشرات النظام">
+      <article class="stat"><span>حالة الخادم</span><b id="serverStatus">لم يتم الربط</b><small>Cloudflare Worker</small></article>
+      <article class="stat"><span>قاعدة المنتجات</span><b id="productCount">—</b><small>Cloudflare D1</small></article>
+      <article class="stat"><span>مهام الذكاء الاصطناعي</span><b id="taskCount">—</b><small>تحتاج إلى إعداد</small></article>
+    </section>
+    <section class="panel">
+      <div class="panel-head"><div><p class="eyebrow">مساعد الإدارة</p><h2>أدوات نخبة الذكية</h2></div><span class="tag">قيد التجهيز</span></div>
+      <div class="tools">
+        <article><b>🔎 اكتشاف المنتجات</b><p>استيراد مرشحين من مصادر مسموح بها، ثم وضعهم في قائمة المراجعة.</p></article>
+        <article><b>📊 فحص الأسعار والعروض</b><p>تسجيل السعر ووقت التحقق ومصدر المعلومة، دون عرض خصم غير مثبت.</p></article>
+        <article><b>✍️ كتابة وصف موثوق</b><p>صياغة وصف من بيانات المنتج المؤكدة فقط، مع مراجعة بشرية قبل النشر.</p></article>
+        <article><b>🧰 مساعد البرمجة</b><p>مراجعة الأكواد والأخطاء واقتراح تغييرات دون تعديل الموقع الحي تلقائياً.</p></article>
+      </div>
+    </section>
+    <section class="panel">
+      <div class="panel-head"><div><p class="eyebrow">آخر الفحوصات</p><h2>حالة الربط</h2></div><button id="refreshBtn" type="button">إعادة الفحص</button></div>
+      <pre id="diagnostics" aria-live="polite">لم يتم الاتصال بالخادم بعد.</pre>
+    </section>
+    <footer>نخبة NOKHBA · الثقة قبل كل شيء · لا يتم نشر أي منتج آلياً دون اعتمادك.</footer>
+  </main>
+  <script src="./admin.js" defer></script>
+</body>
+</html>
