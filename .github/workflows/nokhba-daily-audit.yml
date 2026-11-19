@@ -38,6 +38,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: nokhba-daily-audit
-          path: |\n            nokhba-audit-report.txt\n            nokhba-review-queue.json
+          path: |
+            nokhba-audit-report.txt
+            nokhba-review-queue.json
           if-no-files-found: ignore
           retention-days: 7
