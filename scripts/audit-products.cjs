@@ -132,6 +132,41 @@ for (const p of approved) {
   }
 }
 
+const reviewQueue = approved.map(p => {
+  const rawPrice = p.price;
+  const price = rawPrice === null || rawPrice === undefined || rawPrice === ""
+    ? null
+    : Number(String(rawPrice).replace(/,/g, ""));
+  const checkedAt = p.priceCheckedAt ? Date.parse(p.priceCheckedAt) : NaN;
+  const reasons = [];
+  if (price === null || !Number.isFinite(price) || price <= 0) {
+    reasons.push("missing_price");
+  } else if (!Number.isFinite(checkedAt) || now - checkedAt > 86400000 || checkedAt > now + 86400000) {
+    reasons.push("price_verification_needed");
+  }
+  return {
+    id: p.id || "",
+    name: p.name || "",
+    store: p.store || "",
+    productUrl: p.amazonUrl || p.noonUrl || p.jumiaUrl || p.url || "",
+    imageUrl: p.image || p.imageUrl || p.img || p.thumbnail || "",
+    listedPrice: Number.isFinite(price) && price > 0 ? price : null,
+    currency: p.currency || "EGP",
+    priceCheckedAt: p.priceCheckedAt || null,
+    reviewReasons: reasons
+  };
+}).filter(item => item.reviewReasons.length > 0);
+
+fs.writeFileSync(
+  path.join(root, "nokhba-review-queue.json"),
+  JSON.stringify({
+    generatedAt: new Date(now).toISOString(),
+    note: "Review queue only. No live price was fetched and no product data was changed.",
+    items: reviewQueue
+  }, null, 2) + "\\n",
+  "utf8"
+);
+
 console.log("NOKHBA DAILY AUDIT");
 console.log("Total records:", products.length);
 console.log("Approved records:", approved.length);
