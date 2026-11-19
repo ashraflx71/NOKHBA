@@ -120,7 +120,7 @@ export default {
             "المتجر: " + (store || "غير محدد"),
             "القسم: " + (category || "غير محدد"),
             "المعلومات المتاحة: " + facts
-          ].join("\\n");
+          ].join("\n");
           const result = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
             messages: [
               { role: "system", content: "التزم بالأمانة ولا تضف أي حقيقة غير واردة في المدخلات." },
