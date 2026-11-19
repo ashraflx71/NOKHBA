@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+<title id="title">NOKHBA | نخبة</title>
+<desc id="desc">بانر نخبة بالأسود والذهبي، اختيارات ذكية تستحق اهتمامك، الثقة قبل كل شيء.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#101419"/><stop offset=".55" stop-color="#20252b"/><stop offset="1" stop-color="#090c10"/></linearGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0bd"/><stop offset=".42" stop-color="#d6b36a"/><stop offset="1" stop-color="#9a7136"/></linearGradient>
+  <radialGradient id="glow"><stop offset="0" stop-color="#d6b36a" stop-opacity=".2"/><stop offset="1" stop-color="#d6b36a" stop-opacity="0"/></radialGradient>
+  <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" fill="none" stroke="#d6b36a" stroke-opacity=".08" stroke-width="1"/></pattern>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="18"/></filter>
+</defs>
+<rect width="1200" height="700" rx="38" fill="url(#bg)"/>
+<rect width="1200" height="700" rx="38" fill="url(#grid)"/>
+<circle cx="930" cy="340" r="360" fill="url(#glow)"/>
+<circle cx="930" cy="340" r="225" fill="none" stroke="url(#gold)" stroke-opacity=".22" stroke-width="2"/>
+<circle cx="930" cy="340" r="190" fill="none" stroke="#d6b36a" stroke-opacity=".16" stroke-width="1" stroke-dasharray="5 12"/>
+<path d="M790 125L930 48l140 77v160l-140 80-140-80z" fill="none" stroke="url(#gold)" stroke-opacity=".45" stroke-width="3"/>
+<path d="M850 170l80-46 80 46v92l-80 46-80-46z" fill="#d6b36a" fill-opacity=".06" stroke="url(#gold)" stroke-width="2"/>
+<path d="M930 166l18 36 40 6-29 28 7 40-36-19-36 19 7-40-29-28 40-6z" fill="url(#gold)" opacity=".9"/>
+<circle cx="930" cy="340" r="8" fill="#fff0bd"/>
+<path d="M72 86h1056" stroke="url(#gold)" stroke-opacity=".5" stroke-width="2"/>
+<path d="M72 614h1056" stroke="url(#gold)" stroke-opacity=".5" stroke-width="2"/>
+<path d="M72 86l24 0m1008 0h24M72 614h24m1008 0h24" stroke="#fff0bd" stroke-width="5"/>
+<g fill="#d6b36a" opacity=".65"><circle cx="170" cy="190" r="3"/><circle cx="230" cy="530" r="4"/><circle cx="680" cy="145" r="3"/><circle cx="735" cy="550" r="3"/><circle cx="1080" cy="500" r="4"/></g>
+<text x="650" y="285" fill="#fff0bd" font-family="Tahoma,Arial,sans-serif" font-size="88" font-weight="700" text-anchor="end">نخبة</text>
+<text x="650" y="355" fill="url(#gold)" font-family="Arial,sans-serif" font-size="42" font-weight="700" letter-spacing="9" text-anchor="end">NOKHBA</text>
+<text x="650" y="430" fill="#f4f0e6" font-family="Tahoma,Arial,sans-serif" font-size="34" text-anchor="end">اختيارات ذكية تستحق اهتمامك</text>
+<text x="650" y="492" fill="#d6b36a" font-family="Tahoma,Arial,sans-serif" font-size="27" text-anchor="end">الثقة قبل كل شيء • الشفافية • الاختيار الواعي</text>
+<rect x="430" y="535" width="220" height="4" rx="2" fill="url(#gold)"/>
+<text x="650" y="580" fill="#b9b6ae" font-family="Tahoma,Arial,sans-serif" font-size="19" text-anchor="end">دليلك لاكتشاف منتجات مميزة من متاجر متعددة</text>
+</svg>
