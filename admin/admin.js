@@ -26,6 +26,35 @@
       $("refreshBtn").disabled = false;
     }
   }
+  $("draftForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const button = $("draftBtn");
+    const output = $("draftResult");
+    button.disabled = true;
+    output.textContent = "جارٍ إعداد المسودة...";
+    try {
+      const response = await fetch("/api/ai/draft", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        credentials: "same-origin",
+        body: JSON.stringify({
+          product: {
+            name: $("draftName").value,
+            store: $("draftStore").value,
+            category: $("draftCategory").value,
+            facts: $("draftFacts").value
+          }
+        })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || ("HTTP " + response.status));
+      output.textContent = "مسودة للمراجعة فقط — لا يتم النشر تلقائياً.\\n\\n" + data.draft;
+    } catch (error) {
+      output.textContent = "تعذر إنشاء المسودة. تأكد من إعداد Cloudflare Access وD1 وربط Workers AI.\\nالتفاصيل: " + error.message;
+    } finally {
+      button.disabled = false;
+    }
+  });
   $("refreshBtn").addEventListener("click", checkConnection);
   checkConnection();
 })();
