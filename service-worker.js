@@ -7,7 +7,7 @@
    NETWORK FIRST + OFFLINE SUPPORT
    ========================================= */
 
-const CACHE_NAME = "nokhba-v5.8";
+const CACHE_NAME = "nokhba-v5.9";
 
 const APP_FILES = [
   "./",
@@ -16,6 +16,7 @@ const APP_FILES = [
   "./hero-nokhba.svg",
 
   "./app.js?v=20261116-5",
+  "./ai-studio.js?v=20261119-1",
   "./products.js",
   "./products-multi.js?v=20261117-7",
 
