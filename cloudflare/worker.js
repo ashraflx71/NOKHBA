@@ -89,8 +89,60 @@ export default {
           products: products ? products.count : 0,
           tasks: tasks ? tasks.count : 0,
           admin: claims.email || claims.sub || "authenticated",
-          ai: "not_configured"
+          ai: env.AI ? "ready" : "not_configured"
         });
+      }
+
+      if (request.method === "POST" && url.pathname === "/api/ai/draft") {
+        if (!env.AI || typeof env.AI.run !== "function") {
+          return json({ error: "AI_NOT_CONFIGURED" }, 503);
+        }
+        const body = await request.json().catch(() => null);
+        const product = body && body.product && typeof body.product === "object" ? body.product : {};
+        const name = String(product.name || "").trim().slice(0, 180);
+        const store = String(product.store || "").trim().slice(0, 60);
+        const category = String(product.category || "").trim().slice(0, 100);
+        const facts = String(product.facts || "").trim().slice(0, 3500);
+        if (!name || !facts) return json({ error: "PRODUCT_NAME_AND_FACTS_REQUIRED" }, 400);
+
+        const input = { name, store, category, facts };
+        const insert = await env.DB.prepare(
+          "INSERT INTO ai_tasks (task_type, status, input_json) VALUES ('description_draft', 'running', ?)"
+        ).bind(JSON.stringify(input)).run();
+        const taskId = insert.meta.last_row_id;
+        try {
+          const prompt = [
+            "أنت محرر مساعد لموقع تسوق مصري اسمه نخبة. اكتب مسودة وصف عربية واضحة وأمينة لهذا المنتج.",
+            "استخدم المعلومات المؤكدة التي أدخلها المستخدم فقط. لا تخترع مواصفات أو ضماناً أو تقييماً أو سعراً أو مخزوناً أو خصماً.",
+            "إذا كانت معلومة غير موجودة فلا تذكرها. لا تستخدم عبارات مبالغاً فيها ولا تدّعِ أنك تحققت من المنتج.",
+            "أخرج الوصف والمسؤولية التحريرية فقط، مع نقاط موجزة عند الحاجة. هذه مسودة للمراجعة البشرية وليست للنشر التلقائي.",
+            "اسم المنتج: " + name,
+            "المتجر: " + (store || "غير محدد"),
+            "القسم: " + (category || "غير محدد"),
+            "المعلومات المتاحة: " + facts
+          ].join("\\n");
+          const result = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+            messages: [
+              { role: "system", content: "التزم بالأمانة ولا تضف أي حقيقة غير واردة في المدخلات." },
+              { role: "user", content: prompt }
+            ],
+            max_tokens: 550
+          });
+          const draft = String(result && (result.response || result.output_text || "")).trim();
+          if (!draft) throw new Error("EMPTY_AI_RESPONSE");
+          await env.DB.prepare(
+            "UPDATE ai_tasks SET status = 'completed', output_json = ?, completed_at = CURRENT_TIMESTAMP WHERE id = ?"
+          ).bind(JSON.stringify({ draft }), taskId).run();
+          await env.DB.prepare(
+            "INSERT INTO audit_logs (actor, action, target_type, target_id, details_json) VALUES (?, ?, ?, ?, ?)"
+          ).bind(String(claims.email || claims.sub || "admin"), "ai_draft_created", "ai_task", String(taskId), JSON.stringify({ task_type: "description_draft" })).run();
+          return json({ task_id: taskId, status: "draft_ready", draft, publishable: false });
+        } catch (error) {
+          await env.DB.prepare(
+            "UPDATE ai_tasks SET status = 'failed', error_message = ?, completed_at = CURRENT_TIMESTAMP WHERE id = ?"
+          ).bind(String(error && error.message ? error.message : "AI_FAILED").slice(0, 500), taskId).run();
+          return json({ error: "AI_DRAFT_FAILED" }, 502);
+        }
       }
 
       if (request.method === "GET" && url.pathname === "/api/products") {
