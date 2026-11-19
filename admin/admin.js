@@ -48,9 +48,9 @@
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || ("HTTP " + response.status));
-      output.textContent = "مسودة للمراجعة فقط — لا يتم النشر تلقائياً.\\n\\n" + data.draft;
+      output.textContent = "مسودة للمراجعة فقط — لا يتم النشر تلقائياً.\n\n" + data.draft;
     } catch (error) {
-      output.textContent = "تعذر إنشاء المسودة. تأكد من إعداد Cloudflare Access وD1 وربط Workers AI.\\nالتفاصيل: " + error.message;
+      output.textContent = "تعذر إنشاء المسودة. تأكد من إعداد Cloudflare Access وD1 وربط Workers AI.\nالتفاصيل: " + error.message;
     } finally {
       button.disabled = false;
     }
