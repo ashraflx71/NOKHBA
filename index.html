@@ -73,6 +73,8 @@
 
       <a href="#featured">المنتجات</a>
 
+      <a href="#ai-studio">استوديو الذكاء الاصطناعي</a>
+
       <a href="#about">عن نخبة</a>
 
     </nav>
@@ -389,6 +391,53 @@
 
   </section>
 
+  <!-- NOKHBA AI STUDIO -->
+  <section class="ai-studio-section" id="ai-studio">
+    <div class="container">
+      <div class="section-heading">
+        <span class="section-label">أدوات ذكية مجانية ضمن الحصة المتاحة</span>
+        <h2>استوديو نخبة للذكاء الاصطناعي</h2>
+        <p>مساعد عربي لكتابة أفكار المحتوى وأوصاف المنتجات والإعلانات. لا يغيّر بيانات المنتجات أو أسعارها.</p>
+      </div>
+
+      <div class="ai-studio-panel">
+        <div class="ai-studio-intro">
+          <span class="ai-studio-mark" aria-hidden="true">✦</span>
+          <div>
+            <h3>مساعد نخبة الذكي</h3>
+            <p>اكتب ما تحتاجه بالعربية، وسيساعدك المساعد في صياغته.</p>
+          </div>
+        </div>
+
+        <div class="ai-quick-prompts" aria-label="أمثلة جاهزة">
+          <button type="button" class="ai-prompt-chip" data-prompt="اكتب إعلانًا قصيرًا وجذابًا لموقع نخبة يركز على الثقة والشفافية والاختيار الواعي.">إعلان لنخبة</button>
+          <button type="button" class="ai-prompt-chip" data-prompt="اكتب وصفًا تسويقيًا واضحًا لمنتج إلكتروني، دون اختراع مواصفات أو ادعاءات غير مؤكدة.">وصف منتج</button>
+          <button type="button" class="ai-prompt-chip" data-prompt="اقترح 5 أفكار لمقاطع TikTok قصيرة عن التكنولوجيا والابتكار والطبيعة، مع افتتاحية جذابة لكل فكرة.">أفكار TikTok</button>
+        </div>
+
+        <form id="nokhbaAiForm" class="ai-chat-form">
+          <label for="nokhbaAiPrompt">ما الذي تريد أن يساعدك فيه؟</label>
+          <textarea id="nokhbaAiPrompt" rows="4" maxlength="1800" placeholder="مثال: اكتب منشورًا قصيرًا للتعريف بنخبة..." required></textarea>
+          <div class="ai-form-footer">
+            <span id="nokhbaAiCount">0 / 1800</span>
+            <button type="submit" id="nokhbaAiSubmit">ابدأ المساعدة <span aria-hidden="true">←</span></button>
+          </div>
+        </form>
+
+        <div id="nokhbaAiStatus" class="ai-status" role="status" aria-live="polite">الخدمة تعمل عند اتصال الإنترنت وتوفر حصة مجانية يومية.</div>
+        <div id="nokhbaAiResult" class="ai-result" hidden>
+          <div class="ai-result-heading">
+            <h3>النتيجة</h3>
+            <button type="button" id="nokhbaAiCopy" class="ai-copy-button">نسخ النص</button>
+          </div>
+          <div id="nokhbaAiAnswer" class="ai-answer" dir="auto"></div>
+        </div>
+
+        <p class="ai-privacy-note">لا ترسل كلمات مرور أو بيانات شخصية أو معلومات حساسة. قد تتوقف الخدمة عند نفاد الحصة المجانية اليومية. راجع المعلومات قبل نشرها.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- عن نخبة -->
 
   <section class="about-section" id="about">
@@ -500,6 +549,8 @@
 <script src="products-multi.js?v=20261117-7" defer></script>
 
 <script src="app.js?v=20261116-5" defer></script>
+
+<script src="ai-studio.js?v=20261119-1" defer></script>
 
 <!-- SERVICE WORKER -->
 
