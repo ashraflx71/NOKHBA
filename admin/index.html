@@ -36,6 +36,22 @@
         <article><b>✍️ كتابة وصف موثوق</b><p>صياغة وصف من بيانات المنتج المؤكدة فقط، مع مراجعة بشرية قبل النشر.</p></article>
         <article><b>🧰 مساعد البرمجة</b><p>مراجعة الأكواد والأخطاء واقتراح تغييرات دون تعديل الموقع الحي تلقائياً.</p></article>
       </div>
+      <div class="ai-draft">
+        <h3>إنشاء مسودة وصف منتج بالذكاء الاصطناعي</h3>
+        <p>أدخل بيانات مؤكدة فقط. سيُنشئ المساعد مسودة للمراجعة ولن ينشرها على الموقع.</p>
+        <form id="draftForm">
+          <label for="draftName">اسم المنتج</label>
+          <input id="draftName" maxlength="180" required placeholder="مثال: سماعة Sony WH-CH520">
+          <label for="draftStore">المتجر</label>
+          <input id="draftStore" maxlength="60" placeholder="Amazon أو Noon أو Jumia">
+          <label for="draftCategory">القسم</label>
+          <input id="draftCategory" maxlength="100" placeholder="إلكترونيات">
+          <label for="draftFacts">المعلومات المؤكدة عن المنتج</label>
+          <textarea id="draftFacts" maxlength="3500" required rows="5" placeholder="اكتب المواصفات الظاهرة في صفحة المنتج كما هي، دون تخمين..."></textarea>
+          <button id="draftBtn" type="submit">إنشاء المسودة</button>
+        </form>
+        <pre id="draftResult" aria-live="polite">ستظهر المسودة هنا بعد اكتمال الإعداد والاتصال.</pre>
+      </div>
     </section>
     <section class="panel">
       <div class="panel-head"><div><p class="eyebrow">آخر الفحوصات</p><h2>حالة الربط</h2></div><button id="refreshBtn" type="button">إعادة الفحص</button></div>
