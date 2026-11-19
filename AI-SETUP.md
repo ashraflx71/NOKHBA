@@ -18,10 +18,10 @@ This work is isolated on branch `ai-admin-foundation`. It does not change the pr
 
 ## Required Cloudflare setup before testing
 1. Create a Cloudflare Access self-hosted application protecting the admin hostname paths `/admin*` and `/api/*`. Permit only the owner's verified email identity.
-2. In the Pages project's **Preview and Production** environments, add Variables: `ACCESS_TEAM_DOMAIN` (for example `https://your-team.cloudflareaccess.com`) and `ACCESS_AUD` (the Access application's AUD tag).
-3. Create a NEW D1 database. Apply `cloudflare/schema.sql` to that new database only, then bind it to the Pages project with variable name `DB` in both Preview and Production.
-4. Confirm the Workers AI binding named `AI` exists in both Preview and Production. Redeploy after changing bindings.
-5. Test on the branch's preview URL first. Do not connect production traffic or merge to `main` until Access, D1, and AI are verified.
+2. For the **Preview environment only**, add Variables: `ACCESS_TEAM_DOMAIN` (for example `https://your-team.cloudflareaccess.com`) and `ACCESS_AUD` (the Access application's AUD tag). Protect the preview hostname with Access before testing.
+3. Create a NEW, separate D1 database for testing. Apply `cloudflare/schema.sql` to that new database only, then bind it to the Pages project's **Preview environment** with variable name `DB`. Do not bind a database to Production yet.
+4. Confirm the Workers AI binding named `AI` exists in the **Preview environment**. Redeploy the preview after changing bindings. AI model calls may incur usage charges; test sparingly.
+5. Test on the branch's preview URL first. Do not change Production bindings, connect production traffic, or merge to `main` until Access, D1, and AI are verified and the owner approves.
 6. Never commit API keys or put secrets in browser JavaScript. The current Workers AI binding does not require a manually pasted API key.
 
 ## Free-first operating policy
