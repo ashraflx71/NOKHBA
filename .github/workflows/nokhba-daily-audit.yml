@@ -1,0 +1,41 @@
+name: NOKHBA Daily Automation Audit
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  daily-product-audit:
+    name: Review product data
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository files
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check product database syntax
+        run: |
+          node --check products.js
+          node --check products-multi.js
+
+      - name: Audit product records
+        run: |
+          set -o pipefail
+          node scripts/audit-products.cjs | tee nokhba-audit-report.txt
+
+      - name: Save audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nokhba-daily-audit
+          path: nokhba-audit-report.txt
+          if-no-files-found: ignore
+          retention-days: 7
