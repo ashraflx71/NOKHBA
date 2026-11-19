@@ -485,6 +485,34 @@
 
         <p class="ai-privacy-note">لا ترسل كلمات مرور أو بيانات شخصية أو معلومات حساسة. قد تتوقف الخدمة عند نفاد الحصة المجانية اليومية. راجع المعلومات قبل نشرها.</p>
       </div>
+
+      <div class="ai-review-panel" id="nokhba-product-review">
+        <div class="ai-review-heading">
+          <span class="ai-studio-mark" aria-hidden="true">✓</span>
+          <div><h3>مراجع منتجات نخبة الذكي</h3><p>أداة إدارية لمراجعة بيانات المنتج قبل اتخاذ قرار النشر.</p></div>
+        </div>
+        <form id="nokhbaReviewForm" class="ai-review-form">
+          <label for="nokhbaAdminPassword">كلمة مرور الإدارة</label>
+          <input id="nokhbaAdminPassword" type="password" autocomplete="current-password" maxlength="200" required placeholder="أدخل كلمة المرور الإدارية">
+          <label for="nokhbaReviewName">اسم المنتج</label>
+          <input id="nokhbaReviewName" type="text" maxlength="250" required placeholder="اسم المنتج كما يظهر في المتجر">
+          <label for="nokhbaReviewDescription">وصف المنتج والمواصفات المتاحة</label>
+          <textarea id="nokhbaReviewDescription" rows="4" maxlength="2500" required placeholder="انسخ الوصف والمواصفات كما وردت في صفحة المتجر"></textarea>
+          <label for="nokhbaReviewPrice">السعر (اختياري)</label>
+          <input id="nokhbaReviewPrice" type="text" maxlength="100" placeholder="مثال: 1,499 جنيه مصري">
+          <label for="nokhbaReviewImage">رابط صورة المنتج (اختياري)</label>
+          <input id="nokhbaReviewImage" type="url" maxlength="1000" placeholder="https://...">
+          <label for="nokhbaReviewUrl">رابط صفحة المنتج في المتجر (اختياري)</label>
+          <input id="nokhbaReviewUrl" type="url" maxlength="1000" placeholder="https://...">
+          <button type="submit" id="nokhbaReviewSubmit">ابدأ مراجعة المنتج</button>
+        </form>
+        <div id="nokhbaReviewStatus" class="ai-status" role="status" aria-live="polite">هذه الأداة لا تنشر المنتجات ولا تتحقق تلقائيًا من السعر أو التوافر.</div>
+        <div id="nokhbaReviewResult" class="ai-result" hidden>
+          <div class="ai-result-heading"><h3>تقرير المراجعة</h3><button type="button" id="nokhbaReviewCopy" class="ai-copy-button">نسخ التقرير</button></div>
+          <div id="nokhbaReviewAnswer" class="ai-answer" dir="auto"></div>
+        </div>
+        <p class="ai-privacy-note">لا تستخدم كلمة مرور حسابك في GitHub أو Amazon. كلمة مرور هذه الأداة تُضبط كسرّ داخل Cloudflare، ولا تُحفظ في الصفحة.</p>
+      </div>
     </div>
   </section>
 
@@ -601,6 +629,8 @@
 <script src="app.js?v=20261116-5" defer></script>
 
 <script src="ai-studio.js?v=20261119-1" defer></script>
+
+<script src="product-reviewer.js?v=20261119-1" defer></script>
 
 <!-- SERVICE WORKER -->
 
