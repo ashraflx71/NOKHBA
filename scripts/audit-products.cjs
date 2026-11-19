@@ -3,8 +3,8 @@
 
 /*
  * NOKHBA daily product data audit.
- * This does not scrape stores or change prices. It checks the published
- * product records for fields and direct-store URL formats before review.
+ * This validates local records only. It does not scrape stores, fetch live
+ * prices, or change products. Live catalog updates require approved store feeds.
  */
 
 const fs = require("node:fs");
@@ -77,9 +77,12 @@ const hostAllowed = (value, store) => {
 };
 
 const issues = [];
-let missingPrice = 0;
+const missingPriceNames = [];
+const unverifiedPriceNames = [];
 let validImages = 0;
 let validLinks = 0;
+let listedPrices = 0;
+const now = Date.now();
 
 for (const p of approved) {
   const label = String(p.name || p.id || "(unnamed product)");
@@ -99,15 +102,33 @@ for (const p of approved) {
   ];
   if (p.url && p.store) candidates.push([String(p.store).toLowerCase(), p.url]);
 
-  const hasValidLink = candidates.some(([store, url]) => hostAllowed(url, store));
-  if (hasValidLink) validLinks++;
-  else issues.push(label + ": no valid direct link for a supported store");
+  if (candidates.some(([store, url]) => hostAllowed(url, store))) {
+    validLinks++;
+  } else {
+    issues.push(label + ": no valid direct link for a supported store");
+  }
 
   if (p.price === null || p.price === undefined || p.price === "") {
-    missingPrice++;
-  } else if (!Number.isFinite(Number(String(p.price).replace(/,/g, ""))) ||
-             Number(String(p.price).replace(/,/g, "")) <= 0) {
-    issues.push(label + ": invalid price value");
+    missingPriceNames.push(label);
+  } else {
+    const price = Number(String(p.price).replace(/,/g, ""));
+    if (!Number.isFinite(price) || price <= 0) {
+      issues.push(label + ": invalid price value");
+    } else {
+      listedPrices++;
+      if (!p.priceCheckedAt) {
+        unverifiedPriceNames.push(label);
+      } else {
+        const checkedAt = Date.parse(p.priceCheckedAt);
+        if (!Number.isFinite(checkedAt)) {
+          issues.push(label + ": invalid priceCheckedAt date");
+        } else if (checkedAt > now + 86400000) {
+          issues.push(label + ": priceCheckedAt date is in the future");
+        } else if (now - checkedAt > 86400000) {
+          unverifiedPriceNames.push(label + " (last check older than 24 hours)");
+        }
+      }
+    }
   }
 }
 
@@ -116,8 +137,20 @@ console.log("Total records:", products.length);
 console.log("Approved records:", approved.length);
 console.log("Records with HTTPS image URLs:", validImages);
 console.log("Records with valid direct store links:", validLinks);
-console.log("Records without a listed price:", missingPrice);
-console.log("Data issues:", issues.length);
+console.log("Records with a listed price:", listedPrices);
+console.log("Records missing a listed price:", missingPriceNames.length);
+console.log("Prices without a structured verification date or older than 24 hours:", unverifiedPriceNames.length);
+
+if (missingPriceNames.length) {
+  console.log("\nPRICE NOT LISTED — do not display an assumed price:");
+  for (const name of missingPriceNames) console.log("- " + name);
+}
+if (unverifiedPriceNames.length) {
+  console.log("\nPRICE NEEDS REVIEW — no recent structured verification recorded:");
+  for (const name of unverifiedPriceNames) console.log("- " + name);
+}
+
+console.log("\nData integrity issues:", issues.length);
 for (const issue of issues) console.log("- " + issue);
 
 if (approved.length === 0) {
@@ -125,7 +158,9 @@ if (approved.length === 0) {
   process.exit(1);
 }
 if (issues.length > 0) {
-  console.error("Audit completed with issues; review the report above.");
+  console.error("Audit failed: resolve the data integrity issues above.");
   process.exit(1);
 }
-console.log("Audit passed. No product records were changed.");
+
+console.log("\nAudit passed. No product records were changed.");
+console.log("Important: this is a local data audit, not a live store price check.");
