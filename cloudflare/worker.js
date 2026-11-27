@@ -21,6 +21,9 @@ async function verifyAccessJwt(token, env) {
       env.ACCESS_AUD.includes("REPLACE_")) {
     throw new Error("ACCESS_NOT_CONFIGURED");
   }
+  if (!env.ADMIN_EMAIL || env.ADMIN_EMAIL.includes("REPLACE_")) {
+    throw new Error("ADMIN_EMAIL_NOT_CONFIGURED");
+  }
 
   const parts = token.split(".");
   if (parts.length !== 3) throw new Error("INVALID_TOKEN");
@@ -56,6 +59,14 @@ async function verifyAccessJwt(token, env) {
   const valid = await crypto.subtle.verify("RSASSA-PKCS1-v1_5", publicKey, signature, signingInput);
   if (!valid) throw new Error("INVALID_SIGNATURE");
 
+  const allowedEmail = String(env.ADMIN_EMAIL).trim().toLowerCase();
+  const authenticatedEmail = typeof claims.email === "string"
+    ? claims.email.trim().toLowerCase()
+    : "";
+  if (!authenticatedEmail || authenticatedEmail !== allowedEmail) {
+    throw new Error("ADMIN_EMAIL_NOT_ALLOWED");
+  }
+
   return claims;
 }
 
@@ -76,7 +87,9 @@ export default {
       claims = await requireAdmin(request, env);
     } catch (error) {
       const message = error && error.message ? error.message : "UNAUTHORIZED";
-      const status = message === "ACCESS_NOT_CONFIGURED" ? 503 : 401;
+      const status = message === "ACCESS_NOT_CONFIGURED" ||
+        message === "ADMIN_EMAIL_NOT_CONFIGURED" ? 503 :
+        message === "ADMIN_EMAIL_NOT_ALLOWED" ? 403 : 401;
       return json({ error: message }, status);
     }
 
