@@ -18,7 +18,7 @@ This work is isolated on branch `ai-admin-foundation`. It does not change the pr
 
 ## Required Cloudflare setup before testing
 1. Create a Cloudflare Access self-hosted application protecting the admin hostname paths `/admin*` and `/api/*`. Permit only the owner's verified email identity.
-2. For the **Preview environment only**, add Variables: `ACCESS_TEAM_DOMAIN` (for example `https://your-team.cloudflareaccess.com`) and `ACCESS_AUD` (the Access application's AUD tag). Protect the preview hostname with Access before testing.
+2. For the **Preview environment only**, add Variables: `ACCESS_TEAM_DOMAIN` (for example `https://your-team.cloudflareaccess.com`), `ACCESS_AUD` (the Access application's AUD tag), and `ADMIN_EMAIL` (the exact verified email address allowed to administer NOKHBA). The Worker independently checks the signed Access JWT email against `ADMIN_EMAIL`; the Access application policy must also allow only this owner identity. Protect the preview hostname with Access before testing.
 3. Create a NEW, separate D1 database for testing. Apply `cloudflare/schema.sql` to that new database only, then bind it to the Pages project's **Preview environment** with variable name `DB`. Do not bind a database to Production yet.
 4. Confirm the Workers AI binding named `AI` exists in the **Preview environment**. Redeploy the preview after changing bindings. AI model calls may incur usage charges; test sparingly.
 5. Test on the branch's preview URL first. Do not change Production bindings, connect production traffic, or merge to `main` until Access, D1, and AI are verified and the owner approves.
